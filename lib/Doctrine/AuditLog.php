@@ -43,7 +43,7 @@ class Doctrine_AuditLog extends Doctrine_Record_Generator
                                                              'type'   => 'integer',
                                                              'length' => 8,
                                                              'options' => array('primary' => true)),
-                                'tableName'        => '%TABLE%_Version',
+                                'tableName'         => false,
                                 'generateFiles'     => false,
                                 'table'             => false,
                                 'pluginTable'       => false,
