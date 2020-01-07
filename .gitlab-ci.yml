@@ -1,0 +1,31 @@
+---
+image: debian
+
+before_script:
+  - LOG=$CI_PROJECT_DIR/logfile
+  - apt-get update >> $LOG
+  - apt-get -y install curl jq unzip ruby httpie git >> $LOG
+  # simple script to block multiple executions of this pipeline at the same time
+  - |
+    printf 'Waiting...'
+    while true; do
+      READY=$(curl -sS --header "PRIVATE-TOKEN: ${GITLAB_API_TOKEN}" "https://gitlab.cgaws.cloud/api/v4/projects/${CI_PROJECT_ID}/pipelines?order_by=id&sort=asc&scope=running" | jq '.[0].id=='"${CI_PIPELINE_ID}")
+      if [ "${READY}" = "true" ]; then
+        printf '\nResuming normal flow\n'
+        break
+      else
+        printf '.'
+        sleep 10
+      fi
+    done
+
+  - TF_URL=$(curl -sL https://releases.hashicorp.com/terraform/index.json | jq -r '.versions[].builds[].url' | egrep 'terraform_[0-9]\.[0-9]{1,2}\.[0-9]{1,2}_linux.*amd64' | sort -V | tail -1)
+  - curl ${TF_URL} > /tmp/tf.zip
+  - (cd /bin && unzip /tmp/tf.zip)
+  - terraform version
+  - gem install terraform_landscape >> $LOG
+
+test:
+  stage: test
+  script:
+    - ls
