@@ -74,6 +74,7 @@ class Doctrine_Lib
      */
     public static function getRecordAsString(Doctrine_Record $record)
     {
+        $r = [];
         $r[] = '<pre>';
         $r[] = 'Component  : ' . $record->getTable()->getComponentName();
         $r[] = 'ID         : ' . Doctrine_Core::dump($record->identifier());
@@ -121,6 +122,7 @@ class Doctrine_Lib
      */
     public static function getConnectionAsString(Doctrine_Connection $connection)
     {
+        $r = [];
         $r[] = '<pre>';
         $r[] = 'Doctrine_Connection object';
         $r[] = 'State               : ' . Doctrine_Lib::getConnectionStateAsString($connection->transaction->getState());
@@ -142,6 +144,7 @@ class Doctrine_Lib
      */
     public static function getTableAsString(Doctrine_Table $table)
     {
+        $r = [];
         $r[] = "<pre>";
         $r[] = "Component   : ".$table->getComponentName();
         $r[] = "Table       : ".$table->getTableName();
@@ -193,6 +196,7 @@ class Doctrine_Lib
      */
     public static function getCollectionAsString(Doctrine_Collection $collection)
     {
+        $r = [];
         $r[] = "<pre>";
         $r[] = get_class($collection);
         $r[] = 'data : ' . Doctrine_Core::dump($collection->getData(), false);

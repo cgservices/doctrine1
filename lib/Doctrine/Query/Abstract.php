@@ -40,49 +40,49 @@ abstract class Doctrine_Query_Abstract
     /**
      * constant for SELECT queries
      */
-    const SELECT = 0;
+    public const SELECT = 0;
 
     /**
      * constant for DELETE queries
      */
-    const DELETE = 1;
+    public const DELETE = 1;
 
     /**
      * constant for UPDATE queries
      */
-    const UPDATE = 2;
+    public const UPDATE = 2;
 
     /**
      * constant for INSERT queries
      */
-    const INSERT = 3;
+    public const INSERT = 3;
 
     /**
      * constant for CREATE queries
      */
-    const CREATE = 4;
+    public const CREATE = 4;
 
     /** @todo document the query states (and the transitions between them). */
     /**
      * A query object is in CLEAN state when it has NO unparsed/unprocessed DQL parts.
      */
-    const STATE_CLEAN  = 1;
+    public const STATE_CLEAN  = 1;
 
     /**
      * A query object is in state DIRTY when it has DQL parts that have not yet been
      * parsed/processed.
      */
-    const STATE_DIRTY  = 2;
+    public const STATE_DIRTY  = 2;
 
     /**
      * A query is in DIRECT state when ... ?
      */
-    const STATE_DIRECT = 3;
+    public const STATE_DIRECT = 3;
 
     /**
      * A query object is on LOCKED state when ... ?
      */
-    const STATE_LOCKED = 4;
+    public const STATE_LOCKED = 4;
 
     /**
      * @var array  Table alias map. Keys are SQL aliases and values DQL aliases.
@@ -1117,8 +1117,8 @@ abstract class Doctrine_Query_Abstract
                 $params = array('component' => $component, 'alias' => $alias);
                 $event = new Doctrine_Event($record, $callback['const'], $this, $params);
 
-                $record->$callback['callback']($event);
-                $table->getRecordListener()->$callback['callback']($event);
+                $record->{$callback['callback']}($event);
+                $table->getRecordListener()->{$callback['callback']}($event);
             }
         }
 
@@ -1366,7 +1366,7 @@ abstract class Doctrine_Query_Abstract
     public function andWhereIn($expr, $params = array(), $not = false)
     {
         // if there's no params, return (else we'll get a WHERE IN (), invalid SQL)
-        if (isset($params) and (count($params) == 0)) {
+        if (isset($params) and ((is_array($params) || $params instanceof \Countable ? count($params) : 0) == 0)) {
             return $this;
         }
 
@@ -1393,7 +1393,7 @@ abstract class Doctrine_Query_Abstract
     public function orWhereIn($expr, $params = array(), $not = false)
     {
         // if there's no params, return (else we'll get a WHERE IN (), invalid SQL)
-        if (isset($params) and (count($params) == 0)) {
+        if (isset($params) and ((is_array($params) || $params instanceof \Countable ? count($params) : 0) == 0)) {
             return $this;
         }
 
@@ -2029,7 +2029,7 @@ abstract class Doctrine_Query_Abstract
      */
     protected function _hasDqlQueryPart($queryPartName)
     {
-        return count($this->_dqlParts[$queryPartName]) > 0;
+        return (is_array($this->_dqlParts[$queryPartName]) || $this->_dqlParts[$queryPartName] instanceof \Countable ? count($this->_dqlParts[$queryPartName]) : 0) > 0;
     }
 
     /**

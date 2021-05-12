@@ -224,7 +224,7 @@ class Doctrine_Cache_Db extends Doctrine_Cache_Driver
         $sql = 'SELECT id FROM ' . $this->_options['tableName'];
         $keys = array();
         $results = $this->getConnection()->execute($sql)->fetchAll(Doctrine_Core::FETCH_NUM);
-        for ($i = 0, $count = count($results); $i < $count; $i++) {
+        for ($i = 0, $count = is_array($results) || $results instanceof \Countable ? count($results) : 0; $i < $count; $i++) {
             $keys[] = $results[$i][0];
         }
         return $keys;

@@ -41,7 +41,7 @@ class Doctrine_Sequence_Db2 extends Doctrine_Sequence
      * @return integer          next id in the given sequence
      * @throws Doctrine_Sequence_Exception
      */
-    public function nextId($seqName, $ondemand = true)
+    public function nextId($seqName, $onDemand = true)
     {
         $sequenceName = $this->conn->quoteIdentifier($this->conn->formatter->getSequenceName($seqName), true);
         $query = 'SELECT NEXTVAL FOR ' . $sequenceName . ' AS VAL FROM SYSIBM.SYSDUMMY1';

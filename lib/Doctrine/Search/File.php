@@ -39,6 +39,7 @@ class Doctrine_Search_File extends Doctrine_Search
      */
     public function __construct(array $options = array())
     {
+        $table = null;
         parent::__construct($options);
 
         if ( ! isset($this->_options['resource'])) {

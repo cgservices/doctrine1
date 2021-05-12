@@ -312,11 +312,13 @@ END;';
         $sql = parent::createTableSql($name, $fields, $options);
 
         if (isset($options['comment']) && ! empty($options['comment'])) {
-     	    $sql[] = $this->_createTableCommentSql($name, $options['comment']);
+     	    $sql = (array) $sql;
+          $sql[] = $this->_createTableCommentSql($name, $options['comment']);
      	}
 
         foreach ($fields as $fieldName => $field) {
             if (isset($field['sequence'])) {
+              $sql = (array) $sql;
               $sql[] = $this->createSequenceSql($field['sequence'], 1);
             }
 
@@ -326,6 +328,7 @@ END;';
             }
 
             if (isset($field['comment']) && ! empty($field['comment'])){
+                $sql = (array) $sql;
                 $sql[] = $this->_createColumnCommentSql($name,$fieldName,$field['comment']); 
             }
         }
@@ -335,6 +338,7 @@ END;';
                 // create nonunique indexes, as they are a part od CREATE TABLE DDL
                 if ( ! isset($definition['type']) || 
                     (isset($definition['type']) && strtolower($definition['type']) != 'unique')) {
+                    $sql = (array) $sql;
                     $sql[] = $this->createIndexSql($name, $indexName, $definition);
                 }
             }

@@ -53,6 +53,8 @@ class sfYamlParser
    */
   public function parse($value)
   {
+    $merge = null;
+    $mbEncoding = null;
     $this->currentLineNb = -1;
     $this->currentLine = '';
     $this->lines = explode("\n", $this->cleanup($value));
@@ -216,7 +218,7 @@ class sfYamlParser
       else
       {
         // 1-liner followed by newline
-        if (2 == count($this->lines) && empty($this->lines[1]))
+        if (2 == (is_array($this->lines) || $this->lines instanceof \Countable ? count($this->lines) : 0) && empty($this->lines[1]))
         {
           $value = sfYamlInline::load($this->lines[0]);
           if (is_array($value))
@@ -369,7 +371,7 @@ class sfYamlParser
    */
   protected function moveToNextLine()
   {
-    if ($this->currentLineNb >= count($this->lines) - 1)
+    if ($this->currentLineNb >= (is_array($this->lines) || $this->lines instanceof \Countable ? count($this->lines) : 0) - 1)
     {
       return false;
     }
@@ -416,7 +418,7 @@ class sfYamlParser
 
     if (preg_match('/^(?P<separator>\||>)(?P<modifiers>\+|\-|\d+|\+\d+|\-\d+|\d+\+|\d+\-)?(?P<comments> +#.*)?$/', $value, $matches))
     {
-      $modifiers = isset($matches['modifiers']) ? $matches['modifiers'] : '';
+      $modifiers = $matches['modifiers'] ?? '';
 
       return $this->parseFoldedScalar($matches['separator'], preg_replace('#\d+#', '', $modifiers), intval(abs($modifiers)));
     }
@@ -465,7 +467,7 @@ class sfYamlParser
     $previousIndent = 0;
 
     $text .= $matches['text'].$separator;
-    while ($this->currentLineNb + 1 < count($this->lines))
+    while ($this->currentLineNb + 1 < (is_array($this->lines) || $this->lines instanceof \Countable ? count($this->lines) : 0))
     {
       $this->moveToNextLine();
 

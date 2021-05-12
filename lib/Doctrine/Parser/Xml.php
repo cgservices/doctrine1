@@ -121,6 +121,7 @@ class Doctrine_Parser_Xml extends Doctrine_Parser
      */
     public function prepareData($simpleXml)
     {
+        $return = [];
         if ($simpleXml instanceof SimpleXMLElement) {
             $children = $simpleXml->children();
             $return = null;

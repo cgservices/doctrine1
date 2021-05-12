@@ -322,6 +322,7 @@ class Doctrine_Export_Pgsql extends Doctrine_Export
      */
     public function createTableSql($name, array $fields, array $options = array())
     {
+        $sql = [];
         if ( ! $name) {
             throw new Doctrine_Export_Exception('no valid table name specified');
         }

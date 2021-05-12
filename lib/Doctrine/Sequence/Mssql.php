@@ -155,6 +155,7 @@ class Doctrine_Sequence_Mssql extends Doctrine_Sequence
      */
     public function currId($seqName)
     {
+        $this->warnings = (array) $this->warnings;
         $this->warnings[] = 'database does not support getting current
             sequence value, the sequence value was incremented';
         return $this->nextId($seqName);

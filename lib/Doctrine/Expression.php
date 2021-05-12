@@ -98,6 +98,7 @@ class Doctrine_Expression
      */
     public function parseExpression($expr)
     {
+        $args = [];
         $pos  = strpos($expr, '(');
         $quoted = (substr($expr, 0, 1) === "'" && substr($expr, -1) === "'");
         if ($pos === false || $quoted) {

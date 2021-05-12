@@ -46,7 +46,7 @@ class Doctrine_Query_Where extends Doctrine_Query_Condition
         $conn  = $this->query->getConnection();
         $terms = $this->_tokenizer->sqlExplode($where);  
 
-        if (count($terms) > 1) {
+        if ((is_array($terms) || $terms instanceof \Countable ? count($terms) : 0) > 1) {
             if (substr($where, 0, 6) == 'EXISTS') {
                 return $this->parseExists($where, true);
             } elseif (preg_match('/^NOT\s+EXISTS\b/i', $where) !== 0) {
@@ -54,11 +54,11 @@ class Doctrine_Query_Where extends Doctrine_Query_Condition
             }
         }
 
-        if (count($terms) < 3) {
+        if ((is_array($terms) || $terms instanceof \Countable ? count($terms) : 0) < 3) {
             $terms = $this->_tokenizer->sqlExplode($where, array('=', '<', '<>', '>', '!='));
         }
 
-        if (count($terms) > 1) {
+        if ((is_array($terms) || $terms instanceof \Countable ? count($terms) : 0) > 1) {
             $leftExpr = array_shift($terms);
             $rightExpr = array_pop($terms);
             $operator = trim(substr($where, strlen($leftExpr), -strlen($rightExpr)));

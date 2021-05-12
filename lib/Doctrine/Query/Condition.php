@@ -45,7 +45,7 @@ abstract class Doctrine_Query_Condition extends Doctrine_Query_Part
         
         $parts = $this->_tokenizer->bracketExplode($str, array(' OR '), '(', ')');
         
-        if (count($parts) > 1) {
+        if ((is_array($parts) || $parts instanceof \Countable ? count($parts) : 0) > 1) {
             $ret = array();
             foreach ($parts as $part) {
                 $part = $this->_tokenizer->bracketTrim($part, '(', ')');
@@ -58,12 +58,12 @@ abstract class Doctrine_Query_Condition extends Doctrine_Query_Part
             // Ticket #1388: We need to make sure we're not splitting a BETWEEN ...  AND ... clause
             $tmp = array();
 
-            for ($i = 0, $l = count($parts); $i < $l; $i++) {
+            for ($i = 0, $l = is_array($parts) || $parts instanceof \Countable ? count($parts) : 0; $i < $l; $i++) {
                 $test = $this->_tokenizer->sqlExplode($parts[$i]);
 
-                if (count($test) == 3 && strtoupper($test[1]) == 'BETWEEN') {
+                if ((is_array($test) || $test instanceof \Countable ? count($test) : 0) == 3 && strtoupper($test[1]) == 'BETWEEN') {
                     $tmp[] = $parts[$i] . ' AND ' . $parts[++$i];
-                } else if (count($test) == 4 && strtoupper($test[1]) == 'NOT' && strtoupper($test[2]) == 'BETWEEN') {
+                } else if ((is_array($test) || $test instanceof \Countable ? count($test) : 0) == 4 && strtoupper($test[1]) == 'NOT' && strtoupper($test[2]) == 'BETWEEN') {
                     $tmp[] = $parts[$i] . ' AND ' . $parts[++$i];
                 } else {
                     $tmp[] = $parts[$i];

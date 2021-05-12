@@ -80,13 +80,14 @@ class Doctrine_Node_NestedSet extends Doctrine_Node implements Doctrine_Node_Int
      */
     public function getPrevSibling()
     {
+        $sibling = null;
         $baseAlias = $this->_tree->getBaseAlias();
         $q = $this->_tree->getBaseQuery();
         $q = $q->addWhere("$baseAlias.rgt = ?", $this->getLeftValue() - 1);
         $q = $this->_tree->returnQueryWithRootId($q, $this->getRootValue());
         $result = $q->execute();
 
-        if (count($result) <= 0) {
+        if ((is_array($result) || $result instanceof \Countable ? count($result) : 0) <= 0) {
             return false;
         }
         
@@ -106,13 +107,14 @@ class Doctrine_Node_NestedSet extends Doctrine_Node implements Doctrine_Node_Int
      */
     public function getNextSibling()
     {
+        $sibling = null;
         $baseAlias = $this->_tree->getBaseAlias();
         $q = $this->_tree->getBaseQuery();
         $q = $q->addWhere("$baseAlias.lft = ?", $this->getRightValue() + 1);
         $q = $this->_tree->returnQueryWithRootId($q, $this->getRootValue());
         $result = $q->execute();
 
-        if (count($result) <= 0) {
+        if ((is_array($result) || $result instanceof \Countable ? count($result) : 0) <= 0) {
             return false;
         }
         
@@ -152,13 +154,14 @@ class Doctrine_Node_NestedSet extends Doctrine_Node implements Doctrine_Node_Int
      */
     public function getFirstChild()
     {
+        $child = null;
         $baseAlias = $this->_tree->getBaseAlias();
         $q = $this->_tree->getBaseQuery();
         $q->addWhere("$baseAlias.lft = ?", $this->getLeftValue() + 1);
         $this->_tree->returnQueryWithRootId($q, $this->getRootValue());
         $result = $q->execute();
 
-        if (count($result) <= 0) {
+        if ((is_array($result) || $result instanceof \Countable ? count($result) : 0) <= 0) {
             return false;
         }
         
@@ -178,13 +181,14 @@ class Doctrine_Node_NestedSet extends Doctrine_Node implements Doctrine_Node_Int
      */
     public function getLastChild()
     {
+        $child = null;
         $baseAlias = $this->_tree->getBaseAlias();
         $q = $this->_tree->getBaseQuery();
         $q->addWhere("$baseAlias.rgt = ?", $this->getRightValue() - 1);
         $this->_tree->returnQueryWithRootId($q, $this->getRootValue());
         $result = $q->execute();
 
-        if (count($result) <= 0) {
+        if ((is_array($result) || $result instanceof \Countable ? count($result) : 0) <= 0) {
             return false;
         }
         
@@ -231,7 +235,7 @@ class Doctrine_Node_NestedSet extends Doctrine_Node implements Doctrine_Node_Int
         $q = $this->_tree->returnQueryWithRootId($q, $this->getRootValue());
         $result = $q->execute();
 
-        if (count($result) <= 0) {
+        if ((is_array($result) || $result instanceof \Countable ? count($result) : 0) <= 0) {
             return false;
         }
 
@@ -245,6 +249,7 @@ class Doctrine_Node_NestedSet extends Doctrine_Node implements Doctrine_Node_Int
      */
     public function getParent()
     {
+        $parent = null;
         $baseAlias = $this->_tree->getBaseAlias();
         $q = $this->_tree->getBaseQuery();
         $q->addWhere("$baseAlias.lft < ? AND $baseAlias.rgt > ?", array($this->getLeftValue(), $this->getRightValue()))
@@ -253,7 +258,7 @@ class Doctrine_Node_NestedSet extends Doctrine_Node implements Doctrine_Node_Int
         $q = $this->_tree->returnQueryWithRootId($q, $this->getRootValue());
         $result = $q->execute();
         
-        if (count($result) <= 0) {
+        if ((is_array($result) || $result instanceof \Countable ? count($result) : 0) <= 0) {
             return false;
         }
                
@@ -284,7 +289,7 @@ class Doctrine_Node_NestedSet extends Doctrine_Node implements Doctrine_Node_Int
         }
         $q = $this->_tree->returnQueryWithRootId($q, $this->getRootValue());
         $ancestors = $q->execute();
-        if (count($ancestors) <= 0) {
+        if ((is_array($ancestors) || $ancestors instanceof \Countable ? count($ancestors) : 0) <= 0) {
             return false;
         }
         return $ancestors;

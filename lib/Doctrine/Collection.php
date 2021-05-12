@@ -181,7 +181,7 @@ class Doctrine_Collection extends Doctrine_Access implements Countable, Iterator
 
         $this->_table = $connection->getTable($this->_table);
 
-        $keyColumn = isset($array['keyColumn']) ? $array['keyColumn'] : null;
+        $keyColumn = $array['keyColumn'] ?? null;
         if ($keyColumn === null) {
             $keyColumn = $this->_table->getBoundQueryPart('indexBy');
         }
@@ -460,7 +460,7 @@ class Doctrine_Collection extends Doctrine_Access implements Countable, Iterator
             $relations = $this->relation['table']->getRelations();
             foreach ($relations as $relation) {
                 if ($this->relation['class'] == $relation['localTable']->getOption('name') && $relation->getLocal() == $this->relation->getForeignFieldName()) {
-                    $record->$relation['alias'] = $this->reference;
+                    $record->{$relation['alias']} = $this->reference;
                     break;
                 }
             }
@@ -762,7 +762,7 @@ class Doctrine_Collection extends Doctrine_Access implements Countable, Iterator
                     $stack[] = $trees[$i];
                 } else {
                     // Add child to parent
-                    $i = count($stack[$l - 1]['__children']);
+                    $i = is_array($stack[$l - 1]['__children']) || $stack[$l - 1]['__children'] instanceof \Countable ? count($stack[$l - 1]['__children']) : 0;
                     $stack[$l - 1]['__children'][$i] = $item;
                     $stack[] = $stack[$l - 1]['__children'][$i];
                 }

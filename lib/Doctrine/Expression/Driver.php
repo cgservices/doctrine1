@@ -337,10 +337,10 @@ class Doctrine_Expression_Driver extends Doctrine_Connection_Module
     private function basicMath($type, array $args)
     {
         $elements = $this->getIdentifiers($args);
-        if (count($elements) < 1) {
+        if ((is_array($elements) || $elements instanceof \Countable ? count($elements) : 0) < 1) {
             return '';
         }
-        if (count($elements) == 1) {
+        if ((is_array($elements) || $elements instanceof \Countable ? count($elements) : 0) == 1) {
             return $elements[0];
         } else {
             return '(' . implode(' ' . $type . ' ', $elements) . ')';
@@ -514,7 +514,7 @@ class Doctrine_Expression_Driver extends Doctrine_Connection_Module
         $values = $this->getIdentifiers($values);
         $column = $this->getIdentifier($column);
 
-        if (count($values) == 0) {
+        if ((is_array($values) || $values instanceof \Countable ? count($values) : 0) == 0) {
             throw new Doctrine_Expression_Exception('Values array for IN operator should not be empty.');
         }
         return $column . ' IN (' . implode(', ', $values) . ')';

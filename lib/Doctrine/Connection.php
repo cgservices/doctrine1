@@ -565,6 +565,7 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
      */
     public function replace(Doctrine_Table $table, array $fields, array $keys)
     {
+        $conditionValues = [];
         if (empty($keys)) {
             throw new Doctrine_Connection_Exception('Not specified which fields are keys');
         }
@@ -923,8 +924,8 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
             $this->getAttribute(Doctrine_Core::ATTR_LISTENER)->postPrepare($event);
 
             return new Doctrine_Connection_Statement($this, $stmt);
-        } catch(Doctrine_Adapter_Exception $e) {
-        } catch(PDOException $e) { }
+        } catch(Doctrine_Adapter_Exception|PDOException $e) {
+        }
 
         $this->rethrowException($e, $this, $statement);
     }
@@ -998,6 +999,7 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
      */
     public function execute($query, array $params = array())
     {
+        $stmt = null;
         $this->connect();
 
         try {
@@ -1019,8 +1021,8 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
 
                 return $stmt;
             }
-        } catch (Doctrine_Adapter_Exception $e) {
-        } catch (PDOException $e) { }
+        } catch (Doctrine_Adapter_Exception|PDOException $e) {
+        }
 
         $this->rethrowException($e, $this, $query);
     }
@@ -1034,6 +1036,7 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
      */
     public function exec($query, array $params = array())
     {
+        $count = null;
         $this->connect();
 
         try {
@@ -1055,8 +1058,8 @@ abstract class Doctrine_Connection extends Doctrine_Configurable implements Coun
 
                 return $count;
             }
-        } catch (Doctrine_Adapter_Exception $e) {
-        } catch (PDOException $e) { }
+        } catch (Doctrine_Adapter_Exception|PDOException $e) {
+        }
 
         $this->rethrowException($e, $this, $query);
     }

@@ -68,6 +68,7 @@ class Doctrine_Sequence extends Doctrine_Connection_Module
      */
     public function currId($seqName)
     {
+        $this->warnings = (array) $this->warnings;
         $this->warnings[] = 'database does not support getting current
             sequence value, the sequence value was incremented';
         return $this->nextId($seqName);

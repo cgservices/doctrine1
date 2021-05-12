@@ -121,13 +121,13 @@ class Doctrine_AuditLog extends Doctrine_Record_Generator
      */
     public function getVersion(Doctrine_Record $record, $version, $hydrationMode = Doctrine_Core::HYDRATE_ARRAY, $asCollection = true)
     {
+        $conditions = $values = [];
         $className = $this->_options['className'];
         $method    = ($asCollection) ? 'execute' : 'fetchOne';
 
         $q = Doctrine_Core::getTable($className)
             ->createQuery();
 
-        $values = array();
         foreach ((array) $this->_options['table']->getIdentifier() as $id) {
             $conditions[] = $className . '.' . $id . ' = ?';
             $values[] = $record->get($id);
@@ -150,6 +150,8 @@ class Doctrine_AuditLog extends Doctrine_Record_Generator
      */
     public function getMaxVersion(Doctrine_Record $record)
     {
+        $conditions = [];
+        $values = [];
         $className = $this->_options['className'];
         $select = 'MAX(' . $className . '.' . $this->_options['version']['name'] . ') max_version';
 
@@ -165,6 +167,6 @@ class Doctrine_AuditLog extends Doctrine_Record_Generator
 
         $result = $q->execute($values, Doctrine_Core::HYDRATE_ARRAY);
 
-        return isset($result[0]['max_version']) ? $result[0]['max_version']:0;
+        return $result[0]['max_version'] ?? 0;
     }
 }
