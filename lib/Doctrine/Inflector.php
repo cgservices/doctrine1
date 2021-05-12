@@ -111,6 +111,8 @@ class Doctrine_Inflector
      */
     public static function unaccent($string)
     {
+        $chars = [];
+        $doubleChars = [];
         if ( ! preg_match('/[\x80-\xff]/', $string) ) {
           return $string;
       }

@@ -20,7 +20,7 @@ require_once dirname(__FILE__).'/sfYaml.php';
  */
 class sfYamlInline
 {
-  const REGEX_QUOTED_STRING = '(?:"([^"\\\\]*(?:\\\\.[^"\\\\]*)*)"|\'([^\']*(?:\'\'[^\']*)*)\')';
+  public const REGEX_QUOTED_STRING = '(?:"([^"\\\\]*(?:\\\\.[^"\\\\]*)*)"|\'([^\']*(?:\'\'[^\']*)*)\')';
 
   /**
    * Convert a YAML string to a PHP array.
@@ -31,6 +31,7 @@ class sfYamlInline
    */
   static public function load($value)
   {
+    $mbEncoding = null;
     $value = trim($value);
 
     if (0 == strlen($value))
@@ -135,7 +136,9 @@ class sfYamlInline
     if (
       (1 == count($keys) && '0' == $keys[0])
       ||
-      (count($keys) > 1 && array_reduce($keys, create_function('$v,$w', 'return (integer) $v + $w;'), 0) == count($keys) * (count($keys) - 1) / 2))
+      (count($keys) > 1 && array_reduce($keys, function ($v, $w) {
+          return (int) $v + $w;
+      }, 0) == count($keys) * (count($keys) - 1) / 2))
     {
       $output = array();
       foreach ($value as $val)

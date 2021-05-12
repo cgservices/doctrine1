@@ -269,7 +269,7 @@ class Doctrine_Export_Mssql extends Doctrine_Export
 
                     if (count($matches) === 6) {
                         // No constraint name provided. Try to make sure it's unique
-                        $defaultName = 'DF__' . $name . '__' . $fieldName . '__' . mt_rand();
+                        $defaultName = 'DF__' . $name . '__' . $fieldName . '__' . random_int(0, mt_getrandmax());
                         $defaultValue = $matches[5];
                     } else {
                         $defaultName = $matches[2];
@@ -406,6 +406,7 @@ class Doctrine_Export_Mssql extends Doctrine_Export
      */
     public function createTableSql($name, array $fields, array $options = array())
     {
+        $sql = [];
         if ( ! $name) {
             throw new Doctrine_Export_Exception('no valid table name specified');
         }

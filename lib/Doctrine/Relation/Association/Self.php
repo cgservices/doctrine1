@@ -40,6 +40,7 @@ class Doctrine_Relation_Association_Self extends Doctrine_Relation_Association
      */
     public function getRelationDql($count, $context = 'record')
     {
+        $dql = null;
         switch ($context) {
             case 'record':
                 $identifierColumnNames = $this->definition['table']->getIdentifierColumnNames();

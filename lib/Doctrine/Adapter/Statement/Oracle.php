@@ -35,48 +35,48 @@
 class Doctrine_Adapter_Statement_Oracle implements Doctrine_Adapter_Statement_Interface
 {
     /**
-     * @var string $queryString         actual query string
+     * @var string         actual query string
      */
     public $queryString;
     
     /**
-     * @var resource $connection        OCI connection handler
+     * @var resource        OCI connection handler
      */
     protected $connection;
     
     /**
-     * @var resource $statement         OCI prepared statement
+     * @var resource         OCI prepared statement
      */
     protected $statement;
     
     /**
-     * @var integer $executeMode        OCI statement execution mode
+     * @var integer        OCI statement execution mode
      */
     protected $executeMode = OCI_COMMIT_ON_SUCCESS;
 
     /**
-     * @var array $bindParams          Array of parameters bounded to a statement
+     * @var array          Array of parameters bounded to a statement
      */
-    protected $bindParams = array();
+    protected $bindParams = [];
 
     /**
-     * @var array $attributes           Array of attributes
+     * @var array           Array of attributes
      */
-    protected $attributes = array();
+    protected $attributes = [];
 
     /**
-     * @var array $ociErrors            Array of errors
+     * @var array            Array of errors
      */
-    protected $ociErrors = array();
+    protected $ociErrors = [];
     
     /**
      * the constructor
-     * 
+     *
      * @param Doctrine_Adapter_Oracle $connection
      * @param string $query  Query string to be executed
      * @param integer $executeMode  OCI execute mode
      */
-    public function __construct( Doctrine_Adapter_Oracle $connection, $query, $executeMode)
+    public function __construct(Doctrine_Adapter_Oracle $connection, $query, $executeMode)
     {
         $this->connection  = $connection->getConnection();
         $this->queryString  = $query;
@@ -102,7 +102,7 @@ class Doctrine_Adapter_Statement_Oracle implements Doctrine_Adapter_Statement_In
     }
 
     /**
-     * Binds a value to a corresponding named or question mark 
+     * Binds a value to a corresponding named or question mark
      * placeholder in the SQL statement that was use to prepare the statement.
      *
      * @param mixed $param          Parameter identifier. For a prepared statement using named placeholders,
@@ -124,17 +124,17 @@ class Doctrine_Adapter_Statement_Oracle implements Doctrine_Adapter_Statement_In
     }
 
     /**
-     * Binds a PHP variable to a corresponding named or question mark placeholder in the 
+     * Binds a PHP variable to a corresponding named or question mark placeholder in the
      * SQL statement that was use to prepare the statement. Unlike Doctrine_Adapter_Statement_Interface->bindValue(),
-     * the variable is bound as a reference and will only be evaluated at the time 
+     * the variable is bound as a reference and will only be evaluated at the time
      * that Doctrine_Adapter_Statement_Interface->execute() is called.
      *
-     * Most parameters are input parameters, that is, parameters that are 
-     * used in a read-only fashion to build up the query. Some drivers support the invocation 
+     * Most parameters are input parameters, that is, parameters that are
+     * used in a read-only fashion to build up the query. Some drivers support the invocation
      * of stored procedures that return data as output parameters, and some also as input/output
      * parameters that both send in data and are updated to receive it.
      *
-     * @param mixed $param          Parameter identifier. For a prepared statement using named placeholders,
+     * @param mixed $column          Parameter identifier. For a prepared statement using named placeholders,
      *                              this will be a parameter name of the form :name. For a prepared statement
      *                              using question mark placeholders, this will be the 1-indexed position of the parameter
      *
@@ -149,9 +149,10 @@ class Doctrine_Adapter_Statement_Oracle implements Doctrine_Adapter_Statement_In
      * @param mixed $driverOptions
      * @return boolean              Returns TRUE on success or FALSE on failure.
      */
-    public function bindParam($column, &$variable, $type = null, $length = null, $driverOptions = array())
+    public function bindParam($column, &$variable, $type = null, $length = null, $driverOptions = [])
     {
-        if ($driverOptions || $length ) {
+        $oci_length = null;
+        if ($driverOptions || $length) {
             throw new Doctrine_Adapter_Exception('Unsupported parameters:$length, $driverOptions');
         }
 
@@ -163,7 +164,7 @@ class Doctrine_Adapter_Statement_Oracle implements Doctrine_Adapter_Statement_In
         switch ($type) {
             case Doctrine_Core::PARAM_STR:
                 $oci_type = SQLT_CHR;
-            break;
+                break;
         }
 
         if (is_integer($column)) {
@@ -174,7 +175,7 @@ class Doctrine_Adapter_Statement_Oracle implements Doctrine_Adapter_Statement_In
         //print "Binding $variable to $variable_name".PHP_EOL;
         $status = @oci_bind_by_name($this->statement, $variable_name, $variable, $oci_length, $oci_type);
         if ($status === false) {
-           $this->handleError();
+            $this->handleError();
         }
         return $status;
     }
@@ -186,12 +187,12 @@ class Doctrine_Adapter_Statement_Oracle implements Doctrine_Adapter_Statement_In
      */
     public function closeCursor()
     {
-        $this->bindParams = array();
+        $this->bindParams = [];
         return oci_free_statement($this->statement);
     }
 
-    /** 
-     * Returns the number of columns in the result set 
+    /**
+     * Returns the number of columns in the result set
      *
      * @return integer              Returns the number of columns in the result set represented
      *                              by the Doctrine_Adapter_Statement_Interface object. If there is no result set,
@@ -199,11 +200,11 @@ class Doctrine_Adapter_Statement_Oracle implements Doctrine_Adapter_Statement_In
      */
     public function columnCount()
     {
-        return oci_num_fields  ( $this->statement );
+        return oci_num_fields($this->statement);
     }
 
     /**
-     * Fetch the SQLSTATE associated with the last operation on the statement handle 
+     * Fetch the SQLSTATE associated with the last operation on the statement handle
      *
      * @see Doctrine_Adapter_Interface::errorCode()
      * @return string       error code string
@@ -229,15 +230,16 @@ class Doctrine_Adapter_Statement_Oracle implements Doctrine_Adapter_Statement_In
     private function getOciError()
     {
         if (is_resource($this->statement)) {
-            $oci_error = oci_error ($this->statement);
+            $oci_error = oci_error($this->statement);
         } else {
-            $oci_error = oci_error ();
+            $oci_error = oci_error();
         }
 
         if ($oci_error) {
             //store the error
+            $this->oci_errors = (array) $this->oci_errors;
             $this->oci_errors[] = $oci_error;
-        } else if (count($this->ociErrors) > 0) {
+        } elseif (count($this->ociErrors) > 0) {
             $oci_error = $this->ociErrors[count($this->ociErrors)-1];
         }
         return $oci_error;
@@ -265,12 +267,12 @@ class Doctrine_Adapter_Statement_Oracle implements Doctrine_Adapter_Statement_In
             }
         }
 
-        $result = @oci_execute($this->statement , $this->executeMode );
+        $result = @oci_execute($this->statement, $this->executeMode);
 
         if ($result === false) {
             $this->handleError();
             return false;
-         }
+        }
         return true;
     }
 
@@ -282,10 +284,10 @@ class Doctrine_Adapter_Statement_Oracle implements Doctrine_Adapter_Statement_In
      *                                      This value must be one of the Doctrine_Core::FETCH_* constants,
      *                                      defaulting to Doctrine_Core::FETCH_BOTH
      *
-     * @param integer $cursorOrientation    For a PDOStatement object representing a scrollable cursor, 
-     *                                      this value determines which row will be returned to the caller. 
+     * @param integer $cursorOrientation    For a PDOStatement object representing a scrollable cursor,
+     *                                      this value determines which row will be returned to the caller.
      *                                      This value must be one of the Doctrine_Core::FETCH_ORI_* constants, defaulting to
-     *                                      Doctrine_Core::FETCH_ORI_NEXT. To request a scrollable cursor for your 
+     *                                      Doctrine_Core::FETCH_ORI_NEXT. To request a scrollable cursor for your
      *                                      Doctrine_Adapter_Statement_Interface object,
      *                                      you must set the Doctrine_Core::ATTR_CURSOR attribute to Doctrine_Core::CURSOR_SCROLL when you
      *                                      prepare the SQL statement with Doctrine_Adapter_Interface->prepare().
@@ -293,10 +295,10 @@ class Doctrine_Adapter_Statement_Oracle implements Doctrine_Adapter_Statement_In
      * @param integer $cursorOffset         For a Doctrine_Adapter_Statement_Interface object representing a scrollable cursor for which the
      *                                      $cursorOrientation parameter is set to Doctrine_Core::FETCH_ORI_ABS, this value specifies
      *                                      the absolute number of the row in the result set that shall be fetched.
-     *                                      
-     *                                      For a Doctrine_Adapter_Statement_Interface object representing a scrollable cursor for 
-     *                                      which the $cursorOrientation parameter is set to Doctrine_Core::FETCH_ORI_REL, this value 
-     *                                      specifies the row to fetch relative to the cursor position before 
+     *
+     *                                      For a Doctrine_Adapter_Statement_Interface object representing a scrollable cursor for
+     *                                      which the $cursorOrientation parameter is set to Doctrine_Core::FETCH_ORI_REL, this value
+     *                                      specifies the row to fetch relative to the cursor position before
      *                                      Doctrine_Adapter_Statement_Interface->fetch() was called.
      *
      * @return mixed
@@ -304,20 +306,20 @@ class Doctrine_Adapter_Statement_Oracle implements Doctrine_Adapter_Statement_In
     public function fetch($fetchStyle = Doctrine_Core::FETCH_BOTH, $cursorOrientation = Doctrine_Core::FETCH_ORI_NEXT, $cursorOffset = null)
     {
         switch ($fetchStyle) {
-            case Doctrine_Core::FETCH_BOTH :
+            case Doctrine_Core::FETCH_BOTH:
                 return oci_fetch_array($this->statement, OCI_BOTH + OCI_RETURN_NULLS + OCI_RETURN_LOBS);
             break;
-            case Doctrine_Core::FETCH_ASSOC :
+            case Doctrine_Core::FETCH_ASSOC:
                 return oci_fetch_array($this->statement, OCI_ASSOC + OCI_RETURN_NULLS + OCI_RETURN_LOBS);
             break;
-            case Doctrine_Core::FETCH_NUM :
+            case Doctrine_Core::FETCH_NUM:
                 return oci_fetch_array($this->statement, OCI_NUM + OCI_RETURN_NULLS + OCI_RETURN_LOBS);
             break;
             case Doctrine_Core::FETCH_OBJ:
                 return oci_fetch_object($this->statement, OCI_NUM + OCI_RETURN_NULLS + OCI_RETURN_LOBS);
             break;
             default:
-                throw new Doctrine_Adapter_Exception("This type of fetch is not supported: ".$fetchStyle); 
+                throw new Doctrine_Adapter_Exception("This type of fetch is not supported: ".$fetchStyle);
 /*
             case Doctrine_Core::FETCH_BOUND:
             case Doctrine_Core::FETCH_CLASS:
@@ -347,17 +349,17 @@ class Doctrine_Adapter_Statement_Oracle implements Doctrine_Adapter_Statement_In
      *                                      This value must be one of the Doctrine_Core::FETCH_* constants,
      *                                      defaulting to Doctrine_Core::FETCH_BOTH
      *
-     * @param integer $columnIndex          Returns the indicated 0-indexed column when the value of $fetchStyle is
+     * @param integer $colnum          Returns the indicated 0-indexed column when the value of $fetchStyle is
      *                                      Doctrine_Core::FETCH_COLUMN. Defaults to 0.
      *
      * @return array
      */
-    public function fetchAll($fetchStyle = Doctrine_Core::FETCH_BOTH, $colnum=0)
+    public function fetchAll($fetchStyle = Doctrine_Core::FETCH_BOTH, $colnum = 0)
     {
         $fetchColumn = false;
         $skip = 0;
         $maxrows = -1;
-        $data = array();
+        $data = [];
         $flags = OCI_FETCHSTATEMENT_BY_ROW + OCI_ASSOC;
 
         $int = $fetchStyle & Doctrine_Core::FETCH_COLUMN;
@@ -365,12 +367,12 @@ class Doctrine_Adapter_Statement_Oracle implements Doctrine_Adapter_Statement_In
         if ($fetchStyle == Doctrine_Core::FETCH_BOTH) {
             $flags = OCI_BOTH;
             $numberOfRows = @oci_fetch_all($this->statement, $data, $skip, $maxrows, OCI_FETCHSTATEMENT_BY_ROW + OCI_ASSOC + OCI_RETURN_LOBS);
-        } else if ($fetchStyle == Doctrine_Core::FETCH_ASSOC) {
+        } elseif ($fetchStyle == Doctrine_Core::FETCH_ASSOC) {
             $numberOfRows = @oci_fetch_all($this->statement, $data, $skip, $maxrows, OCI_FETCHSTATEMENT_BY_ROW + OCI_ASSOC + OCI_RETURN_LOBS);
-        } else if ($fetchStyle == Doctrine_Core::FETCH_NUM) {
+        } elseif ($fetchStyle == Doctrine_Core::FETCH_NUM) {
             $numberOfRows = @oci_fetch_all($this->statement, $data, $skip, $maxrows, OCI_FETCHSTATEMENT_BY_ROW + OCI_NUM + OCI_RETURN_LOBS);
-        } else if ($fetchStyle == Doctrine_Core::FETCH_COLUMN) {
-            while ($row = @oci_fetch_array ($this->statement, OCI_NUM+OCI_RETURN_LOBS)) {
+        } elseif ($fetchStyle == Doctrine_Core::FETCH_COLUMN) {
+            while ($row = @oci_fetch_array($this->statement, OCI_NUM+OCI_RETURN_LOBS)) {
                 $data[] = $row[$colnum];
             }
         } else {
@@ -384,37 +386,38 @@ class Doctrine_Adapter_Statement_Oracle implements Doctrine_Adapter_Statement_In
      * Returns a single column from the next row of a
      * result set or FALSE if there are no more rows.
      *
-     * @param integer $columnIndex          0-indexed number of the column you wish to retrieve from the row. If no 
-     *                                      value is supplied, Doctrine_Adapter_Statement_Interface->fetchColumn() 
+     * @param integer $columnIndex          0-indexed number of the column you wish to retrieve from the row. If no
+     *                                      value is supplied, Doctrine_Adapter_Statement_Interface->fetchColumn()
      *                                      fetches the first column.
      *
      * @return string                       returns a single column in the next row of a result set.
      */
     public function fetchColumn($columnIndex = 0)
     {
-        if ( ! is_integer($columnIndex)) {
-            $this->handleError(array('message'=>"columnIndex parameter should be numeric"));
+        if (! is_integer($columnIndex)) {
+            $this->handleError(['message'=>"columnIndex parameter should be numeric"]);
 
             return false;
         }
         $row = $this->fetch(Doctrine_Core::FETCH_NUM);
-        return isset($row[$columnIndex]) ? $row[$columnIndex] : false;
+        return $row[$columnIndex] ?? false;
     }
 
     /**
      * Fetches the next row and returns it as an object.
      *
-     * Fetches the next row and returns it as an object. This function is an alternative to 
+     * Fetches the next row and returns it as an object. This function is an alternative to
      * Doctrine_Adapter_Statement_Interface->fetch() with Doctrine_Core::FETCH_CLASS or Doctrine_Core::FETCH_OBJ style.
      *
-     * @param string $className             Name of the created class, defaults to stdClass. 
+     * @param string $className             Name of the created class, defaults to stdClass.
      * @param array $args                   Elements of this array are passed to the constructor.
      *
-     * @return mixed                        an instance of the required class with property names that correspond 
+     * @return mixed                        an instance of the required class with property names that correspond
      *                                      to the column names or FALSE in case of an error.
      */
-    public function fetchObject($className = 'stdClass', $args = array())
+    public function fetchObject($className = \stdClass::class, $args = [])
     {
+        $object = null;
         $row = $this->fetch(Doctrine_Core::FETCH_ASSOC);
         if ($row === false) {
             return false;
@@ -422,26 +425,26 @@ class Doctrine_Adapter_Statement_Oracle implements Doctrine_Adapter_Statement_In
 
         $instantiation_code = "\$object = new $className(";
         $firstParam=true;
-        foreach ($args as $index=>$value) {
-            if ( ! $firstParam ) {
-                $instantiation_code = $instantiation_code . ",";
+        foreach ($args as $index => $value) {
+            if (! $firstParam) {
+                $instantiation_code .= ",";
             } else {
                 $firstParam= false;
             }
-            if ( is_string($index)) {
-                $instantiation_code = $instantiation_code . " \$args['$index']";
+            if (is_string($index)) {
+                $instantiation_code .= " \$args['$index']";
             } else {
-                $instantiation_code = $instantiation_code . "\$args[$index]";
+                $instantiation_code .= "\$args[$index]";
             }
         }
 
-        $instantiation_code = $instantiation_code . ");";
+        $instantiation_code .= ");";
 
         eval($instantiation_code);
 
         //initialize instance of $className class
         foreach ($row as $col => $value) {
-             $object->$col = $value;
+            $object->$col = $value;
         }
 
         return $object;
@@ -470,7 +473,7 @@ class Doctrine_Adapter_Statement_Oracle implements Doctrine_Adapter_Statement_In
             $internal_column = $column;
         }
 
-        $data = array();
+        $data = [];
         $data['native_type'] = oci_field_type($this->statement, $internal_column);
         $data['flags'] = "";
         $data['len'] = oci_field_size($this->statement, $internal_column);
@@ -482,10 +485,10 @@ class Doctrine_Adapter_Statement_Oracle implements Doctrine_Adapter_Statement_In
 
     /**
      * Advances to the next rowset in a multi-rowset statement handle
-     * 
-     * Some database servers support stored procedures that return more than one rowset 
-     * (also known as a result set). The nextRowset() method enables you to access the second 
-     * and subsequent rowsets associated with a PDOStatement object. Each rowset can have a 
+     *
+     * Some database servers support stored procedures that return more than one rowset
+     * (also known as a result set). The nextRowset() method enables you to access the second
+     * and subsequent rowsets associated with a PDOStatement object. Each rowset can have a
      * different set of columns from the preceding rowset.
      *
      * @return boolean                      Returns TRUE on success or FALSE on failure.
@@ -496,12 +499,12 @@ class Doctrine_Adapter_Statement_Oracle implements Doctrine_Adapter_Statement_In
     }
 
     /**
-     * rowCount() returns the number of rows affected by the last DELETE, INSERT, or UPDATE statement 
+     * rowCount() returns the number of rows affected by the last DELETE, INSERT, or UPDATE statement
      * executed by the corresponding object.
      *
-     * If the last SQL statement executed by the associated Statement object was a SELECT statement, 
-     * some databases may return the number of rows returned by that statement. However, 
-     * this behaviour is not guaranteed for all databases and should not be 
+     * If the last SQL statement executed by the associated Statement object was a SELECT statement,
+     * some databases may return the number of rows returned by that statement. However,
+     * this behaviour is not guaranteed for all databases and should not be
      * relied on for portable applications.
      *
      * @return integer                      Returns the number of rows.
@@ -521,8 +524,8 @@ class Doctrine_Adapter_Statement_Oracle implements Doctrine_Adapter_Statement_In
     public function setAttribute($attribute, $value)
     {
         switch ($attribute) {
-            case Doctrine_Core::ATTR_ERRMODE;
-            break;
+            case Doctrine_Core::ATTR_ERRMODE:
+                break;
             default:
                 throw new Doctrine_Adapter_Exception("Unsupported Attribute: $attribute");
         }
@@ -530,7 +533,7 @@ class Doctrine_Adapter_Statement_Oracle implements Doctrine_Adapter_Statement_In
     }
 
     /**
-     * Retrieve a statement attribute 
+     * Retrieve a statement attribute
      *
      * @param integer $attribute
      * @see Doctrine_Core::ATTR_* constants
@@ -542,7 +545,7 @@ class Doctrine_Adapter_Statement_Oracle implements Doctrine_Adapter_Statement_In
     }
 
     /**
-     * Set the default fetch mode for this statement 
+     * Set the default fetch mode for this statement
      *
      * @param integer $mode                 The fetch mode must be one of the Doctrine_Core::FETCH_* constants.
      * @return boolean                      Returns 1 on success or FALSE on failure.
@@ -552,9 +555,8 @@ class Doctrine_Adapter_Statement_Oracle implements Doctrine_Adapter_Statement_In
         throw new Doctrine_Adapter_Exception("Unsupported");
     }
 
-    private function handleError($params=array())
+    private function handleError($params = [])
     {
-
         switch ($this->attributes[Doctrine_Core::ATTR_ERRMODE]) {
             case Doctrine_Core::ERRMODE_EXCEPTION:
                 if (isset($params['message'])) {
@@ -563,32 +565,33 @@ class Doctrine_Adapter_Statement_Oracle implements Doctrine_Adapter_Statement_In
                     throw new Doctrine_Adapter_Exception($this->errorInfo());
                 }
 
-            break;
+                break;
             case Doctrine_Core::ERRMODE_WARNING:
             case Doctrine_Core::ERRMODE_SILENT:
-            break;
+                break;
         }
     }
 
     /**
      * Parse actual query from queryString and returns OCI statement handler
-     * @param  string       Query string to parse, if NULL, $this->queryString is used
-     * 
+     * @param  string       Query string to parse, if NULL, $query->queryString is used
+     *
      * @return resource     OCI statement handler
      */
-    private function parseQuery($query=null)
+    private function parseQuery($query = null)
     {
         if (is_null($query)) {
             $query = $this->queryString;
         }
         $bind_index = 1;
         // Replace ? bind-placeholders with :oci_b_var_ variables
-        $query = preg_replace("/(\?)/e", '":oci_b_var_". $bind_index++' , $query);
+        $query = preg_replace_callback('/(\?)/', function ($matches) {
+            return ":oci_b_var_" . $bind_index++;
+        }, $query);
 
         $this->statement =  @oci_parse($this->connection, $query);
 
-        if ( $this->statement == false )
-        {
+        if ($this->statement == false) {
             throw new Doctrine_Adapter_Exception($this->getOciError());
         }
 

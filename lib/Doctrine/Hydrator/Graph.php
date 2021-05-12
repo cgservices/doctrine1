@@ -45,18 +45,19 @@ abstract class Doctrine_Hydrator_Graph extends Doctrine_Hydrator_Abstract
      */
     protected function _getCustomIndexField($alias)
     {
-        return isset($this->_queryComponents[$alias]['map']) ? $this->_queryComponents[$alias]['map'] : null;
+        return $this->_queryComponents[$alias]['map'] ?? null;
     }
 
     public function hydrateResultSet($stmt)
     {
+        $activeRootIdentifier = null;
         // Used variables during hydration
         reset($this->_queryComponents);
         $rootAlias = key($this->_queryComponents);
         $this->_rootAlias = $rootAlias;
         $rootComponentName = $this->_queryComponents[$rootAlias]['table']->getComponentName();
         // if only one component is involved we can make our lives easier
-        $isSimpleQuery = count($this->_queryComponents) <= 1;
+        $isSimpleQuery = (is_array($this->_queryComponents) || $this->_queryComponents instanceof \Countable ? count($this->_queryComponents) : 0) <= 1;
         // Holds the resulting hydrated data structure
         $result = array();
         // Holds array of record instances so we can call hooks on it
@@ -404,8 +405,8 @@ abstract class Doctrine_Hydrator_Graph extends Doctrine_Hydrator_Abstract
         foreach ($subclasses as $subclass) {
             $table = Doctrine_Core::getTable($subclass);
             $inheritanceMap = $table->getOption('inheritanceMap');
-            if (count($inheritanceMap) > 1) {
-                $needMatches = count($inheritanceMap);
+            if ((is_array($inheritanceMap) || $inheritanceMap instanceof \Countable ? count($inheritanceMap) : 0) > 1) {
+                $needMatches = is_array($inheritanceMap) || $inheritanceMap instanceof \Countable ? count($inheritanceMap) : 0;
                 foreach ($inheritanceMap as $key => $value) {
                     $key = $this->_tables[$component]->getFieldName($key);
                     if ( isset($data[$key]) && $data[$key] == $value) {
@@ -416,7 +417,8 @@ abstract class Doctrine_Hydrator_Graph extends Doctrine_Hydrator_Abstract
                     $matchedComponents[] = $table->getComponentName();
                 }
             } else {
-                list($key, $value) = each($inheritanceMap);
+                $key = key($inheritanceMap);
+                $value = $inheritanceMap[$key];
                 $key = $this->_tables[$component]->getFieldName($key);
                 if ( ! isset($data[$key]) || $data[$key] != $value) {
                     continue;

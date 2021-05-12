@@ -123,7 +123,7 @@ class Doctrine_Search_Query
 
         $ret = array();
 
-        if (count($terms) > 1) {
+        if ((is_array($terms) || $terms instanceof \Countable ? count($terms) : 0) > 1) {
             $leavesOnly = true;
 
             foreach ($terms as $k => $term) {
@@ -144,7 +144,7 @@ class Doctrine_Search_Query
         } else {
             $terms = $this->_tokenizer->sqlExplode($clause, ' ', '(', ')');
             
-            if (count($terms) === 1 && ! $recursive) {
+            if ((is_array($terms) || $terms instanceof \Countable ? count($terms) : 0) === 1 && ! $recursive) {
                 $return = $this->parseTerm($clause);
             } else {
                 foreach ($terms as $k => $term) {
@@ -185,7 +185,7 @@ class Doctrine_Search_Query
         } else {
             $terms = $this->_tokenizer->quoteExplode($term);
             
-            return (count($terms) > 1);
+            return ((is_array($terms) || $terms instanceof \Countable ? count($terms) : 0) > 1);
         }
     }
 

@@ -69,7 +69,8 @@ class Doctrine_Adapter_Statement_Mock implements Doctrine_Adapter_Statement_Inte
      * @return boolean              Returns TRUE on success or FALSE on failure
      */
     public function bindColumn($column, $param, $type = null)
-    { }
+    {
+    }
 
     /**
      * bindValue
@@ -87,7 +88,8 @@ class Doctrine_Adapter_Statement_Mock implements Doctrine_Adapter_Statement_Inte
      * @return boolean              Returns TRUE on success or FALSE on failure.
      */
     public function bindValue($param, $value, $type = null)
-    { }
+    {
+    }
 
     /**
      * bindParam
@@ -102,7 +104,7 @@ class Doctrine_Adapter_Statement_Mock implements Doctrine_Adapter_Statement_Inte
      * of stored procedures that return data as output parameters, and some also as input/output
      * parameters that both send in data and are updated to receive it.
      *
-     * @param mixed $param          Parameter identifier. For a prepared statement using named placeholders,
+     * @param mixed $column          Parameter identifier. For a prepared statement using named placeholders,
      *                              this will be a parameter name of the form :name. For a prepared statement
      *                              using question mark placeholders, this will be the 1-indexed position of the parameter
      *
@@ -117,9 +119,8 @@ class Doctrine_Adapter_Statement_Mock implements Doctrine_Adapter_Statement_Inte
      * @param mixed $driverOptions
      * @return boolean              Returns TRUE on success or FALSE on failure.
      */
-    public function bindParam($column, &$variable, $type = null, $length = null, $driverOptions = array())
+    public function bindParam($column, &$variable, $type = null, $length = null, $driverOptions = [])
     {
-
     }
 
     /**
@@ -158,7 +159,7 @@ class Doctrine_Adapter_Statement_Mock implements Doctrine_Adapter_Statement_Inte
      */
     public function errorCode()
     {
-        return array();
+        return [];
     }
 
     /**
@@ -171,7 +172,7 @@ class Doctrine_Adapter_Statement_Mock implements Doctrine_Adapter_Statement_Inte
      */
     public function errorInfo()
     {
-        return array();
+        return [];
     }
 
     /**
@@ -201,11 +202,12 @@ class Doctrine_Adapter_Statement_Mock implements Doctrine_Adapter_Statement_Inte
      *
      * @return mixed
      */
-    public function fetch($fetchStyle = Doctrine_Core::FETCH_BOTH,
-                          $cursorOrientation = Doctrine_Core::FETCH_ORI_NEXT,
-                          $cursorOffset = null)
-    {
-        return array();
+    public function fetch(
+        $fetchStyle = Doctrine_Core::FETCH_BOTH,
+        $cursorOrientation = Doctrine_Core::FETCH_ORI_NEXT,
+        $cursorOffset = null
+    ) {
+        return [];
     }
 
     /**
@@ -213,18 +215,18 @@ class Doctrine_Adapter_Statement_Mock implements Doctrine_Adapter_Statement_Inte
      *
      * Returns an array containing all of the result set rows
      *
-     * @param integer $fetchStyle           Controls how the next row will be returned to the caller.
+     * @param integer $fetchMode           Controls how the next row will be returned to the caller.
      *                                      This value must be one of the Doctrine_Core::FETCH_* constants,
      *                                      defaulting to Doctrine_Core::FETCH_BOTH
      *
-     * @param integer $columnIndex          Returns the indicated 0-indexed column when the value of $fetchStyle is
+     * @param integer $columnIndex          Returns the indicated 0-indexed column when the value of $fetchMode is
      *                                      Doctrine_Core::FETCH_COLUMN. Defaults to 0.
      *
      * @return array
      */
     public function fetchAll($fetchMode = Doctrine_Core::FETCH_BOTH)
     {
-        return array();
+        return [];
     }
 
     /**
@@ -282,7 +284,7 @@ class Doctrine_Adapter_Statement_Mock implements Doctrine_Adapter_Statement_Inte
      * @return mixed                        an instance of the required class with property names that correspond
      *                                      to the column names or FALSE in case of an error.
      */
-    public function fetchObject($className = 'stdClass', $args = array())
+    public function fetchObject($className = \stdClass::class, $args = [])
     {
         return new $className();
     }
@@ -340,7 +342,8 @@ class Doctrine_Adapter_Statement_Mock implements Doctrine_Adapter_Statement_Inte
      *          pdo_type                    The type of this column as represented by the PDO::PARAM_* constants.
      */
     public function getColumnMeta($column)
-    { }
+    {
+    }
 
     /**
      * getAttribute
@@ -352,7 +355,8 @@ class Doctrine_Adapter_Statement_Mock implements Doctrine_Adapter_Statement_Inte
      * @return mixed                        the attribute value
      */
     public function getAttribute($attribute)
-    { }
+    {
+    }
 
     /**
      * setAttribute
@@ -364,7 +368,8 @@ class Doctrine_Adapter_Statement_Mock implements Doctrine_Adapter_Statement_Inte
      * @return boolean                      Returns TRUE on success or FALSE on failure.
      */
     public function setAttribute($attribute, $value)
-    { }
+    {
+    }
 
     /**
      * setFetchMode
@@ -375,5 +380,6 @@ class Doctrine_Adapter_Statement_Mock implements Doctrine_Adapter_Statement_Inte
      * @return boolean                      Returns 1 on success or FALSE on failure.
      */
     public function setFetchMode($mode, $arg1 = null, $arg2 = null)
-    { }
+    {
+    }
 }

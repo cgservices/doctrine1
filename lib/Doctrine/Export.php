@@ -232,6 +232,7 @@ class Doctrine_Export extends Doctrine_Connection_Module
      */
     public function createTableSql($name, array $fields, array $options = array())
     {
+        $sql = [];
         if ( ! $name) {
             throw new Doctrine_Export_Exception('no valid table name specified');
         }
@@ -670,6 +671,7 @@ class Doctrine_Export extends Doctrine_Connection_Module
      */
     public function getFieldDeclarationList(array $fields)
     {
+        $queryFields = [];
         foreach ($fields as $fieldName => $field) {
             $query = $this->getDeclaration($fieldName, $field);
 

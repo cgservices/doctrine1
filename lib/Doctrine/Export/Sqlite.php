@@ -188,6 +188,7 @@ class Doctrine_Export_Sqlite extends Doctrine_Export
      */
     public function createTableSql($name, array $fields, array $options = array())
     {
+        $query = [];
         if ( ! $name) {
             throw new Doctrine_Export_Exception('no valid table name specified');
         }
@@ -285,6 +286,7 @@ class Doctrine_Export_Sqlite extends Doctrine_Export
      */
     public function createSequence($seqName, $start = 1, array $options = array())
     {
+        $db = null;
         $sequenceName   = $this->conn->quoteIdentifier($this->conn->formatter->getSequenceName($seqName), true);
         $seqcolName     = $this->conn->quoteIdentifier($this->conn->getAttribute(Doctrine_Core::ATTR_SEQCOL_NAME), true);
         $query          = 'CREATE TABLE ' . $sequenceName . ' (' . $seqcolName . ' INTEGER PRIMARY KEY DEFAULT 0 NOT NULL)';

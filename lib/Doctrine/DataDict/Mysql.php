@@ -174,7 +174,7 @@ class Doctrine_DataDict_Mysql extends Doctrine_DataDict
                 }
 
                 $length = ($field['length'] <= $this->conn->varchar_max_length) ? $field['length'] : false;
-                $fixed  = (isset($field['fixed'])) ? $field['fixed'] : false;
+                $fixed  = $field['fixed'] ?? false;
 
                 return $fixed ? ($length ? 'CHAR(' . $length . ')' : 'CHAR(255)')
                     : ($length ? 'VARCHAR(' . $length . ')' : 'TEXT');
@@ -346,7 +346,7 @@ class Doctrine_DataDict_Mysql extends Doctrine_DataDict
                         $value = str_replace('\'\'', '\'', $value);
                         $length = max($length, strlen($value));
                     }
-                    if ($length == '1' && count($matches[1]) == 2) {
+                    if ($length == '1' && (is_array($matches[1]) || $matches[1] instanceof \Countable ? count($matches[1]) : 0) == 2) {
                         $type[] = 'boolean';
                         if (preg_match('/^(is|has)/', $field['name'])) {
                             $type = array_reverse($type);
@@ -420,7 +420,7 @@ class Doctrine_DataDict_Mysql extends Doctrine_DataDict
             break;
             default:
                 $type[] = $field['type'];
-                $length = isset($field['length']) ? $field['length']:null;
+                $length = $field['length'] ?? null;
         }
 
         $length = ((int) $length == 0) ? null : (int) $length;

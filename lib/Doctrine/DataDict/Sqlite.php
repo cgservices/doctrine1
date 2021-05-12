@@ -142,8 +142,8 @@ class Doctrine_DataDict_Sqlite extends Doctrine_DataDict
             throw new Doctrine_DataDict_Exception('Missing "type" from field definition');
         }
 
-        $length = (isset($field['length'])) ? $field['length'] : null;
-        $unsigned = (isset($field['unsigned'])) ? $field['unsigned'] : null;
+        $length = $field['length'] ?? null;
+        $unsigned = $field['unsigned'] ?? null;
         $fixed = null;
         $type = array();
 
@@ -251,7 +251,7 @@ class Doctrine_DataDict_Sqlite extends Doctrine_DataDict
                 break;
             default:
                 $type[] = $field['type'];
-                $length = isset($field['length']) ? $field['length']:null;
+                $length = $field['length'] ?? null;
         }
 
         return array('type'     => $type,

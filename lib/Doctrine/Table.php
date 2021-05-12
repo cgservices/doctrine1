@@ -444,8 +444,8 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
 
                     $definition = array('type' => (isset($identifierOptions['type']) && $identifierOptions['type']) ? $identifierOptions['type']:'integer',
                                         'length' => (isset($identifierOptions['length']) && $identifierOptions['length']) ? $identifierOptions['length']:8,
-                                        'autoincrement' => isset($identifierOptions['autoincrement']) ? $identifierOptions['autoincrement']:true,
-                                        'primary' => isset($identifierOptions['primary']) ? $identifierOptions['primary']:true);
+                                        'autoincrement' => $identifierOptions['autoincrement'] ?? true,
+                                        'primary' => $identifierOptions['primary'] ?? true);
 
                     unset($identifierOptions['name'], $identifierOptions['type'], $identifierOptions['length']);
                     foreach ($identifierOptions as $key => $value) {
@@ -606,8 +606,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      */
     public function getMethodOwner($method)
     {
-        return (isset($this->_invokedMethods[$method])) ?
-                      $this->_invokedMethods[$method] : false;
+        return $this->_invokedMethods[$method] ?? false;
     }
 
     /**
@@ -649,6 +648,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      */
     public function getExportableFormat($parseForeignKeys = true)
     {
+        $options = [];
         $columns = array();
         $primary = array();
 
@@ -672,8 +672,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
             }
         }
 
-        $options['foreignKeys'] = isset($this->_options['foreignKeys']) ?
-                $this->_options['foreignKeys'] : array();
+        $options['foreignKeys'] = $this->_options['foreignKeys'] ?? array();
 
         if ($parseForeignKeys && $this->getAttribute(Doctrine_Core::ATTR_EXPORT) & Doctrine_Core::EXPORT_CONSTRAINTS) {
 
@@ -1593,7 +1592,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
 
         // Check for possible cross-access
         if ( ! is_array($name) && strpos($name, '/') !== false) {
-            list($ns, $m) = explode('/', $name);
+            [$ns, $m] = explode('/', $name);
         }
 
         // Define query to be used
@@ -1811,6 +1810,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      */
     public function getRecord()
     {
+        $id = [];
         if ( ! empty($this->_data)) {
             $identifierFieldNames = $this->getIdentifier();
 
@@ -1999,7 +1999,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
 
         $columnName = $this->getColumnName($fieldName);
 
-        return isset($this->_columns[$columnName]['values'][$index]) ? $this->_columns[$columnName]['values'][$index] : false;
+        return $this->_columns[$columnName]['values'][$index] ?? false;
     }
 
     /**
@@ -2122,7 +2122,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
 
         foreach ($this->_uniques as $unique)
         {
-            list($fields, $options) = $unique;
+            [$fields, $options] = $unique;
             $validator->args = $options;
             $validator->field = $fields;
             $values = array();
@@ -2369,7 +2369,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
     {
         if (isset($this->_options['treeImpl'])) {
             if ( ! $this->_tree) {
-                $options = isset($this->_options['treeOptions']) ? $this->_options['treeOptions'] : array();
+                $options = $this->_options['treeOptions'] ?? array();
                 $this->_tree = Doctrine_Tree::factory($this,
                     $this->_options['treeImpl'],
                     $options
@@ -2804,6 +2804,7 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
      */
     public function __call($method, $arguments)
     {
+        $by = null;
         $lcMethod = strtolower($method);
 
         if (substr($lcMethod, 0, 6) == 'findby') {
@@ -2821,10 +2822,10 @@ class Doctrine_Table extends Doctrine_Configurable implements Countable
 
             $fieldName = $this->_resolveFindByFieldName($by);
             $count = count(explode('Or', $by)) + (count(explode('And', $by)) - 1);
-            if (count($arguments) > $count)
+            if ((is_array($arguments) || $arguments instanceof \Countable ? count($arguments) : 0) > $count)
             {
                 $hydrationMode = end($arguments);
-                unset($arguments[count($arguments) - 1]);
+                unset($arguments[(is_array($arguments) || $arguments instanceof \Countable ? count($arguments) : 0) - 1]);
             } else {
                 $hydrationMode = null;
             }

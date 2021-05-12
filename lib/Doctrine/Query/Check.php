@@ -93,7 +93,7 @@ class Doctrine_Query_Check
     {
         $parts = $this->_tokenizer->sqlExplode($dql, ' AND ');
 
-        if (count($parts) > 1) {
+        if ((is_array($parts) || $parts instanceof \Countable ? count($parts) : 0) > 1) {
             $ret = array();
             foreach ($parts as $part) {
                 $ret[] = $this->parseSingle($part);
@@ -102,7 +102,7 @@ class Doctrine_Query_Check
             $r = implode(' AND ', $ret);
         } else {
             $parts = $this->_tokenizer->quoteExplode($dql, ' OR ');
-            if (count($parts) > 1) {
+            if ((is_array($parts) || $parts instanceof \Countable ? count($parts) : 0) > 1) {
                 $ret = array();
                 foreach ($parts as $part) {
                     $ret[] = $this->parseClause($part);
@@ -140,6 +140,7 @@ class Doctrine_Query_Check
 
     public function parseFunction($dql) 
     {
+        $func = null;
         if (($pos = strpos($dql, '(')) !== false) {
             $func  = substr($dql, 0, $pos);
             $value = substr($dql, ($pos + 1), -1);

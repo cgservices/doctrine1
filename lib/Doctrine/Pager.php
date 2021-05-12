@@ -465,7 +465,7 @@ class Doctrine_Pager
      */
     public function getCountQuery()
     {
-        return ($this->_countQuery !== null) ? $this->_countQuery : $this->_query;
+        return $this->_countQuery ?? $this->_query;
     }
 
     /**
@@ -502,7 +502,7 @@ class Doctrine_Pager
      */
     public function getCountQueryParams($defaultParams = array())
     {
-        return ($this->_countQueryParams !== null) ? $this->_countQueryParams : $defaultParams;
+        return $this->_countQueryParams ?? $defaultParams;
     }
 
     /**

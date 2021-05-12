@@ -34,6 +34,8 @@ class Doctrine_Relation_Nest extends Doctrine_Relation_Association
 {
     public function fetchRelatedFor(Doctrine_Record $record)
     {
+        $condition = [];
+        $joinCondition = [];
         $id = $record->getIncremented();
 
         if (empty($id) || ! $this->definition['table']->getAttribute(Doctrine_Core::ATTR_LOAD_REFERENCES)) {

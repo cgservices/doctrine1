@@ -142,6 +142,8 @@ class Doctrine_Connection_Mssql extends Doctrine_Connection_Common
      */
     public function modifyLimitQuery($query, $limit = false, $offset = false, $isManip = false, $isSubQuery = false)
     {
+        $sorts = [];
+        $aliases = [];
         if ($limit > 0) {
             $count = intval($limit);
             $offset = intval($offset);
@@ -170,7 +172,7 @@ class Doctrine_Connection_Mssql extends Doctrine_Connection_Common
 
                     $field_array = explode(',', $fields_string);
                     $field_array = array_shift($field_array);
-                    $aux2 = spliti(' as ', $field_array);
+                    $aux2 = preg_split('# as #mi', $field_array);
                     $aux2 = explode('.', end($aux2));
 
                     $aliases[$i] = trim(end($aux2));
@@ -189,7 +191,7 @@ class Doctrine_Connection_Mssql extends Doctrine_Connection_Common
             $fields_string = substr($query, strlen($selectReplace), strpos($query, ' FROM ') - strlen($selectReplace));
             $field_array = explode(',', $fields_string);
             $field_array = array_shift($field_array);
-            $aux2 = spliti(' as ', $field_array);
+            $aux2 = preg_split('# as #mi', $field_array);
             $aux2 = explode('.', end($aux2));
             $key_field = trim(end($aux2));
 

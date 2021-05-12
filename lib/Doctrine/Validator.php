@@ -141,7 +141,7 @@ class Doctrine_Validator extends Doctrine_Locator_Injectable
      */
     public function hasErrors()
     {
-        return (count($this->stack) > 0);
+        return ((is_array($this->stack) || $this->stack instanceof \Countable ? count($this->stack) : 0) > 0);
     }
 
     /**

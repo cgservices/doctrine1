@@ -56,6 +56,7 @@ class Doctrine_Relation_Association extends Doctrine_Relation
      */
     public function getRelationDql($count, $context = 'record')
     {
+        $dql = null;
         $table = $this->definition['refTable'];
         $component = $this->definition['refTable']->getComponentName();
         

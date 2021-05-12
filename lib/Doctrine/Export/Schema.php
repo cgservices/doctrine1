@@ -91,7 +91,7 @@ class Doctrine_Export_Schema
                 
                 // If type is the only property of the column then lets abbreviate the syntax
                 // columns: { name: string(255) }
-                if (count($data['columns'][$name]) === 1 && isset($data['columns'][$name]['type'])) {
+                if ((is_array($data['columns'][$name]) || $data['columns'][$name] instanceof \Countable ? count($data['columns'][$name]) : 0) === 1 && isset($data['columns'][$name]['type'])) {
                     $type = $data['columns'][$name]['type'];
                     unset($data['columns'][$name]);
                     $data['columns'][$name] = $type;

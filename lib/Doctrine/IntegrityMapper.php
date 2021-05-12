@@ -87,6 +87,7 @@ class Doctrine_IntegrityMapper
      */
     public function buildIntegrityRelationQuery(Doctrine_Record $record)
     {
+        $components = [];
         $q = $record->getTable()->createQuery();
         
         $aliases = array();

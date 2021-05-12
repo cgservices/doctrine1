@@ -32,9 +32,9 @@
  */
 class Doctrine_Search extends Doctrine_Record_Generator
 {
-    const INDEX_FILES = 0;
+    public const INDEX_FILES = 0;
 
-    const INDEX_TABLES = 1;
+    public const INDEX_TABLES = 1;
 
     protected $_options = array('generateFiles'    => false,
                                 'analyzer'         => 'Doctrine_Search_Analyzer_Standard',
@@ -161,7 +161,7 @@ class Doctrine_Search extends Doctrine_Record_Generator
         } else {
             foreach ($fields as $field) {
 
-                $value = isset($data[$field]) ? $data[$field] : null;
+                $value = $data[$field] ?? null;
 
                 $terms = $this->analyze($value, $encoding);
 
@@ -229,7 +229,7 @@ class Doctrine_Search extends Doctrine_Record_Generator
         $fields    = $this->_options['fields'];
         $conn      = $this->_options['table']->getConnection();
         
-        for ($i = 0; $i < count($fields); $i++) {
+        for ($i = 0; $i < (is_array($fields) || $fields instanceof \Countable ? count($fields) : 0); $i++) {
             $fields[$i] = $table->getColumnName($fields[$i], $fields[$i]);
         }
 
@@ -246,7 +246,7 @@ class Doctrine_Search extends Doctrine_Record_Generator
         {
             $sql = 'DELETE FROM ' . $conn->quoteIdentifier($this->_table->getTableName());
 
-            if (count($id) == 1) {
+            if ((is_array($id) || $id instanceof \Countable ? count($id) : 0) == 1) {
                 $placeholders = str_repeat('?, ', count($ids));
                 $placeholders = substr($placeholders, 0, strlen($placeholders) - 2);
                 $sql .= ' WHERE ' . $conn->quoteIdentifier($table->getIdentifier()) . ' IN (' . substr($placeholders, 0) . ')';

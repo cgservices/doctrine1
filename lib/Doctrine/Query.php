@@ -882,7 +882,7 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
     public function processPendingSubqueries()
     {
         foreach ($this->_pendingSubqueries as $value) {
-            list($dql, $alias) = $value;
+            [$dql, $alias] = $value;
 
             $subquery = $this->createSubquery();
 
@@ -914,7 +914,7 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
     {
         // iterate trhough all aggregates
         foreach ($this->_pendingAggregates as $aggregate) {
-            list ($expression, $components, $alias) = $aggregate;
+            [$expression, $components, $alias] = $aggregate;
 
             $tableAliases = array();
 
@@ -987,6 +987,7 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
      */
     protected function _buildSqlQueryBase()
     {
+        $q = null;
         switch ($this->_type) {
             case self::DELETE:
                 $q = 'DELETE FROM ';
@@ -1025,7 +1026,7 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
 
                     // apply inheritance to WHERE part
                     if ( ! empty($where)) {
-                        if (count($this->_sqlParts['where']) > 0) {
+                        if ((is_array($this->_sqlParts['where']) || $this->_sqlParts['where'] instanceof \Countable ? count($this->_sqlParts['where']) : 0) > 0) {
                             $this->_sqlParts['where'][] = 'AND';
                         }
 
@@ -1246,7 +1247,7 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
 
         // apply inheritance to WHERE part
         if ( ! empty($string)) {
-            if (count($this->_sqlParts['where']) > 0) {
+            if ((is_array($this->_sqlParts['where']) || $this->_sqlParts['where'] instanceof \Countable ? count($this->_sqlParts['where']) : 0) > 0) {
                 $this->_sqlParts['where'][] = 'AND';
             }
 
@@ -1292,7 +1293,7 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
             //            (which will lead to a return of 0 items)
             $limitSubquerySql = $this->_conn->quoteIdentifier($field)
                               . (( ! empty($subquery)) ? ' IN (' . $subquery . ')' : ' IS NULL')
-                              . ((count($this->_sqlParts['where']) > 0) ? ' AND ' : '');
+                              . (((is_array($this->_sqlParts['where']) || $this->_sqlParts['where'] instanceof \Countable ? count($this->_sqlParts['where']) : 0) > 0) ? ' AND ' : '');
 
             $modifyLimit = false;
         }
@@ -1405,7 +1406,9 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
                 foreach ($e as $f) {
                     if ($f == 0 || $f % 2 == 0) {
                         $partOriginal = str_replace(',', '', trim($f));
-                        $callback = create_function('$e', 'return trim($e, \'[]`"\');');
+                        $callback = function ($e) {
+                            return trim($e, '[]`"');
+                        };
                         $part = trim(implode('.', array_map($callback, explode('.', $partOriginal))));
 
                         if (strpos($part, '.') === false) {
@@ -1452,7 +1455,7 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
 
         // Add having fields that got stripped out of select
         preg_match_all('/`[a-z0-9_]+`\.`[a-z0-9_]+`/i', implode(' ', $having), $matches, PREG_PATTERN_ORDER);
-        if (count($matches[0]) > 0) {
+        if ((is_array($matches[0]) || $matches[0] instanceof \Countable ? count($matches[0]) : 0) > 0) {
             $subquery .= ', ' . implode(', ', array_unique($matches[0]));
         }
 
@@ -1584,7 +1587,7 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
             if (strpos($part, '.') === false) {
                 continue;
             }
-            list($tableAlias, $columnName) = explode('.', $part);
+            [$tableAlias, $columnName] = explode('.', $part);
             if ($tableAlias != $mainTableAlias) {
                 return true;
             }
@@ -2071,7 +2074,7 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
                 }
                 // Add having fields that got stripped out of select
                 preg_match_all('/`[a-z0-9_]+`\.`[a-z0-9_]+`/i', $having, $matches, PREG_PATTERN_ORDER);
-                if (count($matches[0]) > 0) {
+                if ((is_array($matches[0]) || $matches[0] instanceof \Countable ? count($matches[0]) : 0) > 0) {
                     $selectFields .= ', ' . implode(', ', array_unique($matches[0]));
                 }
             }
@@ -2131,8 +2134,8 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
             $results = $this->getConnection()->fetchAll($q, $params);
         }
 
-        if (count($results) > 1) {
-            $count = count($results);
+        if ((is_array($results) || $results instanceof \Countable ? count($results) : 0) > 1) {
+            $count = is_array($results) || $results instanceof \Countable ? count($results) : 0;
         } else {
             if (isset($results[0])) {
                 $results[0] = array_change_key_case($results[0], CASE_LOWER);
