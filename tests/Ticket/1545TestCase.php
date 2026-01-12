@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_1545_TestCase extends Doctrine_UnitTestCase 
+545TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
@@ -55,12 +55,13 @@ class Doctrine_Ticket_1545_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_1545_Foo extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('a', 'string');
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->unshiftFilter(new Ticket_1545_FooFilter());
     }

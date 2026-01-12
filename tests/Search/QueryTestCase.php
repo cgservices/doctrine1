@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Search_Query_TestCase extends Doctrine_UnitTestCase
+class Search_QueryTestCase extends Doctrine_UnitTestCase
 {
     public function prepareTables()
     {

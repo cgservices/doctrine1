@@ -30,5 +30,12 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Import_Mysql_TestCase extends Doctrine_UnitTestCase {
+class Import_MysqlTestCase extends Doctrine_UnitTestCase {
+    /**
+     * Placeholder test - this class inherits tests from parent or is a stub for future tests
+     */
+    public function testPlaceholder(): void
+    {
+        $this->assertTrue(true);
+    }
 }

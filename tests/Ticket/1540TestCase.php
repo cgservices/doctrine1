@@ -30,7 +30,7 @@
  * @since       1.0.2
  * @version     $Revision$
  */
-class Doctrine_Ticket_1540_TestCase extends Doctrine_UnitTestCase 
+540TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
@@ -57,12 +57,13 @@ class Doctrine_Ticket_1540_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_1540_TableName extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('id', 'integer', 4, array('primary' => true, 'autoincrement' => true));
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         
     }

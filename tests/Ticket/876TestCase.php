@@ -12,7 +12,7 @@
  *
  */
 
-class Doctrine_Ticket_876_TestCase extends Doctrine_UnitTestCase
+76TestCase extends Doctrine_UnitTestCase
 {
     public function prepareTables()
     {
@@ -86,7 +86,7 @@ class Doctrine_Ticket_876_TestCase extends Doctrine_UnitTestCase
 
 class Person extends Doctrine_Record
 {
-  public function setTableDefinition()
+  public function setTableDefinition(): void
   {
     $this->setTableName('person');
     $this->hasColumn('id', 'integer', 11, array('primary' => true, 'autoincrement' => true));
@@ -94,7 +94,8 @@ class Person extends Doctrine_Record
     $this->hasColumn('sf_guard_user_id', 'integer', 4);
   }
 
-  public function setUp()
+  public function setUp(): void
+
   {
     parent::setUp();
     $this->hasMany('Profile as Profiles', array('local' => 'id',
@@ -107,7 +108,7 @@ class Person extends Doctrine_Record
 
 class Profile extends Doctrine_Record
 {
-  public function setTableDefinition()
+  public function setTableDefinition(): void
   {
     $this->setTableName('profile');
     $this->hasColumn('id', 'integer', 11, array('primary' => true, 'autoincrement' => true));
@@ -115,7 +116,8 @@ class Profile extends Doctrine_Record
     $this->hasColumn('person_id', 'integer', 11);
   }
 
-  public function setUp()
+  public function setUp(): void
+
   {
     parent::setUp();
     $this->hasOne('Person', array('local' => 'person_id',
@@ -125,14 +127,15 @@ class Profile extends Doctrine_Record
 
 class sfGuardUser extends Doctrine_Record
 {
-  public function setTableDefinition()
+  public function setTableDefinition(): void
   {
     $this->setTableName('sf_guard_user');
     $this->hasColumn('id', 'integer', 4, array('primary' => true, 'autoincrement' => true));
     $this->hasColumn('name', 'string', 128, array('notnull' => true, 'unique' => true));
   }
 
-  public function setUp()
+  public function setUp(): void
+
   {
     parent::setUp();
     $this->hasOne('Person', array('local' => 'id',

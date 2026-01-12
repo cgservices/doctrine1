@@ -1,6 +1,6 @@
 <?php
 
-class Doctrine_Validator_ForeignKeys_TestCase extends Doctrine_UnitTestCase 
+class Validator_ForeignKeysTestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     { 
@@ -59,7 +59,7 @@ class Doctrine_Validator_ForeignKeys_TestCase extends Doctrine_UnitTestCase
 
 class TestPerson extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('id', 'integer', null, array('primary' => true, 'notnull' => true, 'autoincrement' => true));
         $this->hasColumn('first_name', 'string');
@@ -67,7 +67,8 @@ class TestPerson extends Doctrine_Record
         $this->hasColumn('favorite_color_id', 'integer');
     }
     
-    public function setUp()
+    public function setUp(): void
+    
     {
         $this->hasMany('TestAddress as Addresses', array('local' => 'id', 'foreign' => 'person_id'));
     }
@@ -75,7 +76,7 @@ class TestPerson extends Doctrine_Record
 
 class TestAddress extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('id', 'integer', null, array('primary' => true, 'notnull'=> true, 'autoincrement' => true));
         $this->hasColumn('person_id', 'integer', null, array('notnull' => true));
@@ -85,7 +86,8 @@ class TestAddress extends Doctrine_Record
         $this->hasColumn('zip', 'string');
     }
     
-    public function setUp()
+    public function setUp(): void
+    
     {
         $this->hasOne('TestPerson as Person', array('local' => 'person_id', 'foreign' => 'id'));
     }

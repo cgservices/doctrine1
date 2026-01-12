@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Db_TestCase extends Doctrine_UnitTestCase
+class DBTestCase extends Doctrine_UnitTestCase
 {
 
     public function prepareData() 
@@ -39,18 +39,33 @@ class Doctrine_Db_TestCase extends Doctrine_UnitTestCase
     public function prepareTables() 
     { }
 
-    public function init() 
-    { }
-    
-    public function testInitialize() 
+    public function setUp(): void
     {
-        $this->conn = Doctrine_Manager::getInstance()->openConnection(array('sqlite::memory:'));
+        $this->conn = Doctrine_Manager::getInstance()->openConnection(array('sqlite::memory:'), 'db_test_' . uniqid());
         $this->conn->exec('CREATE TABLE entity (id INTEGER, name TEXT)');
-
         $this->conn->exec("INSERT INTO entity (id, name) VALUES (1, 'zYne')");
         $this->conn->exec("INSERT INTO entity (id, name) VALUES (2, 'John')");
-        
-        
+    }
+
+    public function tearDown(): void
+    {
+        if ($this->conn) {
+            Doctrine_Manager::getInstance()->closeConnection($this->conn);
+        }
+    }
+
+    /**
+     * Helper method to set up listener chain for tests that need it
+     */
+    protected function setupListenerChain(): void
+    {
+        $this->conn->setListener(new Doctrine_EventListener());
+        $this->conn->addListener(new Doctrine_Connection_TestLogger());
+        $this->conn->addListener(new Doctrine_Connection_TestLogger());
+    }
+
+    public function testInitialize()
+    {
         $this->assertEqual($this->conn->getAttribute(Doctrine_Core::ATTR_DRIVER_NAME), 'sqlite');
     }
 
@@ -162,6 +177,10 @@ class Doctrine_Db_TestCase extends Doctrine_UnitTestCase
 
     public function testListeningPrepareEventsWithListenerChain() 
     {
+        // Set up listener chain for this test
+        $this->conn->setListener(new Doctrine_EventListener());
+        $this->conn->addListener(new Doctrine_Connection_TestLogger());
+        $this->conn->addListener(new Doctrine_Connection_TestLogger());
 
         $stmt = $this->conn->prepare('INSERT INTO entity (id) VALUES(?)');
         $listener = $this->conn->getListener()->get(0);
@@ -183,6 +202,7 @@ class Doctrine_Db_TestCase extends Doctrine_UnitTestCase
 
     public function testListeningErrorHandlingMethodsOnExec()
     {
+        $this->setupListenerChain();
         $this->conn->setAttribute(Doctrine_Core::ATTR_THROW_EXCEPTIONS, false);
         $listener = $this->conn->getListener()->get(0);
         $this->conn->exec('DELETE FROM unknown');
@@ -195,6 +215,7 @@ class Doctrine_Db_TestCase extends Doctrine_UnitTestCase
 
     public function testListeningErrorHandlingMethodsOnQuery()
     {
+        $this->setupListenerChain();
         $this->conn->setAttribute(Doctrine_Core::ATTR_THROW_EXCEPTIONS, false);
         $listener = $this->conn->getListener()->get(0);
         $this->conn->execute('DELETE FROM unknown');
@@ -207,6 +228,7 @@ class Doctrine_Db_TestCase extends Doctrine_UnitTestCase
 
     public function testListeningErrorHandlingMethodsOnPrepare()
     {
+        $this->setupListenerChain();
         $this->conn->setAttribute(Doctrine_Core::ATTR_THROW_EXCEPTIONS, false);
         $listener = $this->conn->getListener()->get(0);
 
@@ -220,6 +242,7 @@ class Doctrine_Db_TestCase extends Doctrine_UnitTestCase
 
     public function testListeningErrorHandlingMethodsOnStatementExecute()
     {
+        $this->setupListenerChain();
         $this->conn->setAttribute(Doctrine_Core::ATTR_THROW_EXCEPTIONS, false);
         $listener = $this->conn->getListener()->get(0);
 
@@ -237,6 +260,7 @@ class Doctrine_Db_TestCase extends Doctrine_UnitTestCase
 
     public function testListeningExecEventsWithListenerChain()
     {
+        $this->setupListenerChain();
         $this->conn->exec('DELETE FROM entity');
         $listener = $this->conn->getListener()->get(0);
         $listener2 = $this->conn->getListener()->get(1);
@@ -249,6 +273,7 @@ class Doctrine_Db_TestCase extends Doctrine_UnitTestCase
 
     public function testListeningTransactionEventsWithListenerChain() 
     {
+        $this->setupListenerChain();
         $this->conn->beginTransaction();
         $listener = $this->conn->getListener()->get(0);
         $listener2 = $this->conn->getListener()->get(1);

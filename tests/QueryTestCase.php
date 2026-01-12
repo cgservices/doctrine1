@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Query_TestCase extends Doctrine_UnitTestCase 
+class QueryTestCase extends Doctrine_UnitTestCase 
 {
     
     public function testWhereInSupportInDql()
@@ -160,13 +160,13 @@ class Doctrine_Query_TestCase extends Doctrine_UnitTestCase
         $data = $query->execute();
         $query2 = $query->copy();
         
-        $this->assertTrue($sql, $query2->getSqlQuery());
-        
+        $this->assertEqual($sql, $query2->getSqlQuery());
+
         $query2->limit(0);
         $query2->offset(0);
         $query2->select('COUNT(u.id) as nb');
         
-        $this->assertTrue($query2->getSqlQuery(), 'SELECT COUNT(e.id) AS e__0 FROM entity e WHERE (e.type = 0)');
+        $this->assertEqual($query2->getSqlQuery(), 'SELECT COUNT(e.id) AS e__0 FROM entity e WHERE (e.type = 0)');
     }
     
     public function testNullAggregateIsSet()

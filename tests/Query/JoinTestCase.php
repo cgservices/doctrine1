@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Query_Join_TestCase extends Doctrine_UnitTestCase
+class Query_JoinTestCase extends Doctrine_UnitTestCase
 {
     public function prepareTables()
     {
@@ -41,10 +41,7 @@ class Doctrine_Query_Join_TestCase extends Doctrine_UnitTestCase
     }
     public function prepareData()
     {
-    }
-
-    public function testInitData()
-    {
+        // Initialize test data - previously in testInitData
         $c = new Record_Country();
 
         $c->name = 'Some country';
@@ -55,13 +52,20 @@ class Doctrine_Query_Join_TestCase extends Doctrine_UnitTestCase
 
         $c->City[0]->District->name = 'District 1';
         $c->City[2]->District->name = 'District 2';
-        
-        $this->assertTrue(gettype($c->City[0]->District), 'object');
-        $this->assertTrue(gettype($c->City[0]->District->name), 'string');
 
         $c->save();
 
         $this->connection->clear();
+    }
+
+    public function testInitData()
+    {
+        // Data initialization moved to prepareData()
+        // Verify data exists and relationships work
+        $c = Doctrine_Query::create()->from('Record_Country')->fetchOne();
+        $this->assertTrue($c !== false, 'Country should exist');
+        $this->assertEqual(gettype($c->City[0]->District), 'object');
+        $this->assertEqual(gettype($c->City[0]->District->name), 'string');
     }
 
     public function testQuerySupportsCustomJoins()

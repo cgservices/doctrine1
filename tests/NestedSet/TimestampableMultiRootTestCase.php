@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_NestedSet_TimestampableMultiRoot_TestCase extends Doctrine_UnitTestCase
+class NestedSet_TimestampableMultiRootTestCase extends Doctrine_UnitTestCase
 {
     public function prepareTables()
     {

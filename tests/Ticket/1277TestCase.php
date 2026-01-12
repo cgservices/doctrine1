@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_1277_TestCase extends Doctrine_UnitTestCase 
+277TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
@@ -201,7 +201,7 @@ class Doctrine_Ticket_1277_TestCase extends Doctrine_UnitTestCase
 //      #2  User2       some@email
 class T1277_User extends Doctrine_Record
 {
-    public function setTableDefinition ()
+    public function setTableDefinition(): void
     {
         $this->setTableName("t1277_users");
 

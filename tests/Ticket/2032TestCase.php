@@ -29,7 +29,7 @@
  * @since       1.1 
  * @version     $Revision$ 
  */ 
-class Doctrine_Ticket_2032_TestCase extends Doctrine_UnitTestCase 
+032TestCase extends Doctrine_UnitTestCase 
 { 
     /** 
      * Tests non-spaced orderby parameters 

@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_DataDict_Mssql_TestCase extends Doctrine_UnitTestCase 
+class DataDict_MssqlTestCase extends Doctrine_UnitTestCase 
 {
     public function testGetPortableDeclarationSupportsNativeBitType() 
     {

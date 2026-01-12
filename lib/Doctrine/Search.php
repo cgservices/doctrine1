@@ -301,7 +301,7 @@ class Doctrine_Search extends Doctrine_Record_Generator
      * 
      * @return void
      */
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
     	if ( ! isset($this->_options['table'])) {
     	    throw new Doctrine_Record_Exception("Unknown option 'table'.");
@@ -313,7 +313,7 @@ class Doctrine_Search extends Doctrine_Record_Generator
 
         $autoLoad = (bool) ($this->_options['generateFiles']);
         if (class_exists($className, $autoLoad)) {
-            return false;
+            throw new Doctrine_Record_Exception("Class '$className' already exists.");
         }
 
         // move any columns currently in the primary key to the end

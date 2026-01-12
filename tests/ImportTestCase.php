@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Import_TestCase extends Doctrine_UnitTestCase 
+class ImportTestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables() 
     { }

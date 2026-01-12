@@ -30,13 +30,11 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Query_AggregateValue_TestCase extends Doctrine_UnitTestCase 
+class Query_AggregateValueTestCase extends Doctrine_UnitTestCase 
 {
     public function prepareData() 
     { 
-    }
-    public function testInitData() 
-    {
+        // Initialize test data - previously was in testInitData
         $users = new Doctrine_Collection('User');
         
         $users[0]->name = 'John';
@@ -52,6 +50,14 @@ class Doctrine_Query_AggregateValue_TestCase extends Doctrine_UnitTestCase
         $users[3]->Phonenumber[0]->phonenumber = '123 123';
 
         $users->save();
+    }
+
+    public function testInitData()
+    {
+        // Data initialization moved to prepareData()
+        // Keep this test for backward compatibility - just verify data exists
+        $count = Doctrine_Query::create()->from('User')->count();
+        $this->assertTrue($count >= 4, 'Test data should be initialized');
     }
 
     public function testRecordSupportsValueMapping()

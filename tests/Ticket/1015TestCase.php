@@ -29,7 +29,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_1015_TestCase extends Doctrine_UnitTestCase {
+015TestCase extends Doctrine_UnitTestCase {
 
     public function prepareTables() {
         $this->tables = array();
@@ -84,14 +84,15 @@ class Doctrine_Ticket_1015_TestCase extends Doctrine_UnitTestCase {
 
 class T1015_Person extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->setTableName('person');
         $this->hasColumn('id', 'integer', 15, array('autoincrement' => true, 'unsigned' => true, 'primary' => true, 'notnull' => true));
         $this->hasColumn('name', 'string', 50);
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         parent :: setUp();
         $this->hasOne('T1015_Points', array('local' => 'id', 'foreign' => 'person_id'));
@@ -100,14 +101,15 @@ class T1015_Person extends Doctrine_Record
 
 class T1015_Points extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->setTableName('points');
         $this->hasColumn('person_id', 'integer', 15, array('primary' => true, 'notnull' => true));
         $this->hasColumn('total', 'integer', 3);
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         parent :: setUp();
         $this->hasOne('T1015_Person', array('local' => 'person_id', 'foreign' => 'id'));

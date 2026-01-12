@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_1131_TestCase extends Doctrine_UnitTestCase
+131TestCase extends Doctrine_UnitTestCase
 {
     public function prepareTables()
     {
@@ -107,7 +107,10 @@ class Doctrine_Ticket_1131_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_1131_User extends Doctrine_Record
 {
-    public function setTableDefinition()
+    protected $role_one;
+    protected $role_two;
+
+    public function setTableDefinition(): void
     {
         $this->hasColumn('group_id', 'integer', 20, array(
             'notnull' => false, 'default' => null
@@ -118,7 +121,8 @@ class Ticket_1131_User extends Doctrine_Record
         $this->hasColumn('name', 'string', 255);
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasOne('Ticket_1131_Group as Group', array(
             'local' => 'group_id',
@@ -133,6 +137,9 @@ class Ticket_1131_User extends Doctrine_Record
 
 class Ticket_1131_UserWithOverloading extends Ticket_1131_User
 {
+    protected $role_one;
+    protected $role_two;
+
     public function getRole()
     {
         return $this->Group->Role;
@@ -140,13 +147,16 @@ class Ticket_1131_UserWithOverloading extends Ticket_1131_User
     
     public function getRoleId()
     {
+    protected $role_one;
+    protected $role_two;
+
         return $this->Group->role_id;
     }
 }
 
 class Ticket_1131_Group extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('role_id', 'integer', 20, array(
             'notnull' => false, 'default' => null
@@ -154,7 +164,8 @@ class Ticket_1131_Group extends Doctrine_Record
         $this->hasColumn('name', 'string', 255);
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasOne('Ticket_1131_Role as Role', array(
             'local' => 'role_id',
@@ -169,12 +180,16 @@ class Ticket_1131_Group extends Doctrine_Record
 
 class Ticket_1131_Role extends Doctrine_Record
 {
-    public function setTableDefinition()
+    protected $role_one;
+    protected $role_two;
+
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string', 255);
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasMany('Ticket_1131_User as Users', array(
             'local' => 'id',

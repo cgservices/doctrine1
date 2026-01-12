@@ -29,7 +29,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_1745_TestCase extends Doctrine_UnitTestCase {
+745TestCase extends Doctrine_UnitTestCase {
 
     public function prepareTables() {
         $this->tables = array('locality');
@@ -79,7 +79,7 @@ class Doctrine_Ticket_1745_TestCase extends Doctrine_UnitTestCase {
 
 class Locality extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
       $this->setTableName('locality');
       $this->hasColumn('id', 'integer', 4, array('type' => 'integer', 'primary' => true, 'autoincrement' => true, 'length' => '4'));
@@ -87,7 +87,8 @@ class Locality extends Doctrine_Record
       $this->hasColumn('city', 'string', 120, array('type' => 'string', 'notnull' => true, 'length' => '120'));
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
       $searchable0 = new Doctrine_Template_Searchable(array('fields' => array(0 => 'city')));
       $this->actAs($searchable0);

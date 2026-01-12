@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_DC236_TestCase extends Doctrine_UnitTestCase 
+class DC236TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
@@ -69,7 +69,7 @@ class Doctrine_Ticket_DC236_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_DC236_File extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string', 255, array(
              'type' => 'string',
@@ -77,7 +77,8 @@ class Ticket_DC236_File extends Doctrine_Record
              ));
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $nestedset0 = new Doctrine_Template_NestedSet();
         $this->actAs($nestedset0);

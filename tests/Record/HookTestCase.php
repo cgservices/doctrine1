@@ -30,11 +30,18 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Record_Hook_TestCase extends Doctrine_UnitTestCase 
+class Record_HookTestCase extends Doctrine_UnitTestCase 
 {
     public function prepareData()
-    { }
-    public function prepareTables() 
+    {
+        // Create test record for update/delete tests
+        $r = new RecordHookTest();
+        $r->name = 'record';
+        $r->save();
+        // Clear the event log so tests start clean
+        $r->clearEvents();
+    }
+    public function prepareTables()
     { 
         $this->tables = array('RecordHookTest', 'SoftDeleteTest');
 
@@ -45,7 +52,7 @@ class Doctrine_Record_Hook_TestCase extends Doctrine_UnitTestCase
     {
         $r = new RecordHookTest();
         
-        $r->name = 'record';
+        $r->name = 'new record';
         $r->save();
 
         $this->assertEqual($r->pop(), 'postSave');
@@ -54,6 +61,9 @@ class Doctrine_Record_Hook_TestCase extends Doctrine_UnitTestCase
         $this->assertEqual($r->pop(), 'preSave');
     }
 
+    /**
+     * @depends testInsertHooksGetInvoked
+     */
     public function testUpdateHooksGetInvoked()
     {
         $records = Doctrine_Query::create()->from('RecordHookTest t')->where("t.name = 'record'")->execute();
@@ -68,10 +78,21 @@ class Doctrine_Record_Hook_TestCase extends Doctrine_UnitTestCase
         $this->assertEqual($r->pop(), 'preSave');
     }
 
+    /**
+     * @depends testUpdateHooksGetInvoked
+     */
     public function testDeleteHooksGetInvoked()
     {
         $records = Doctrine_Query::create()->from('RecordHookTest t')->where("t.name = 'record 2'")->execute();
-        $r = $records[0];
+
+        if (count($records) === 0) {
+            // Create the record if it doesn't exist
+            $r = new RecordHookTest();
+            $r->name = 'record 2';
+            $r->save();
+        } else {
+            $r = $records[0];
+        }
 
         $r->delete();
 

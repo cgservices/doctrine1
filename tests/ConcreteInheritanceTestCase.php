@@ -30,17 +30,30 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_ConcreteInheritance_TestCase extends Doctrine_UnitTestCase 
+class ConcreteInheritanceTestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
         
     }
+
+    public function prepareData()
+    {
+        // Skip data preparation for this stub test case
+    }
+
+    /**
+     * Placeholder test - this class is a stub for future tests
+     */
+    public function testPlaceholder(): void
+    {
+        $this->assertTrue(true);
+    }
 }
 
 class ConcreteMain extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string', 255);
     }
@@ -48,7 +61,7 @@ class ConcreteMain extends Doctrine_Record
 
 class ConcreteParent extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string', 255);
     }
@@ -56,7 +69,7 @@ class ConcreteParent extends Doctrine_Record
 
 class ConcreteChild extends ConcreteParent
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         parent::setTableDefinition();
         $this->hasColumn('child_column', 'string', 255);

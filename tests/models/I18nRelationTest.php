@@ -1,12 +1,12 @@
 <?php
 class I18nRelationTest extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('title', 'string', 200);
-        $this->hasColumn('author_id', 'integer', 4);
+        $this->hasColumn('author_id', 'integer', 8);
     }
-    public function setUp()
+    public function setUp(): void
     {
         $this->hasOne('I18nAuthorTest', array('local' => 'author_id',
                                     'foreign' => 'id'));
@@ -16,11 +16,11 @@ class I18nRelationTest extends Doctrine_Record
 
 class I18nAuthorTest extends Doctrine_Record 
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
-        $this->hasColumn('id', 'integer', 4, array('primary' => true, 'autoincrement' => true));
+        $this->hasColumn('id', 'integer', 8, array('primary' => true, 'autoincrement' => true));
     }
-    public function setUp()
+    public function setUp(): void
     {
         $this->hasMany('I18nRelationTest', array('local' => 'id',
                                     'foreign' => 'author_id'));

@@ -31,7 +31,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Query_SelectExpression_TestCase extends Doctrine_UnitTestCase 
+class Query_SelectExpressionTestCase extends Doctrine_UnitTestCase 
 {
     public function prepareData() 
     { }

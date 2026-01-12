@@ -11,7 +11,7 @@
  * @version     $Revision$
  */
 
-class Doctrine_Ticket_Njero_TestCase extends Doctrine_UnitTestCase
+class NjeroTestCase extends Doctrine_UnitTestCase
 {
     public function prepareData() { }
     

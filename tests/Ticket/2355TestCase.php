@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_2355_TestCase extends Doctrine_UnitTestCase 
+355TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
@@ -117,7 +117,7 @@ END;
 
 class News extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('title', 'string', 255, array(
              'type' => 'string',
@@ -130,7 +130,7 @@ class News extends Doctrine_Record
 
 class Episode extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('season', 'integer', 1, array(
              'type' => 'integer',
@@ -166,7 +166,8 @@ class Episode extends Doctrine_Record
              ));
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasMany('Writer as Writers', array(
              'refClass' => 'WriterEpisode',
@@ -190,7 +191,7 @@ class Episode extends Doctrine_Record
 
 class Writer extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string', 150, array(
              'type' => 'string',
@@ -201,7 +202,8 @@ class Writer extends Doctrine_Record
              ));
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasMany('Episode', array(
              'refClass' => 'WriterEpisode',
@@ -216,7 +218,7 @@ class Writer extends Doctrine_Record
 
 class WriterEpisode extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('episode_id', 'integer', null, array(
              'type' => 'integer',
@@ -228,7 +230,8 @@ class WriterEpisode extends Doctrine_Record
              ));
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasOne('Writer', array(
              'local' => 'writer_id',
@@ -244,7 +247,7 @@ class WriterEpisode extends Doctrine_Record
 
 class Director extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string', 150, array(
              'type' => 'string',
@@ -255,7 +258,8 @@ class Director extends Doctrine_Record
              ));
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasMany('Episode', array(
              'refClass' => 'DirectorEpisode',
@@ -270,7 +274,7 @@ class Director extends Doctrine_Record
 
 class DirectorEpisode extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('episode_id', 'integer', null, array(
              'type' => 'integer',
@@ -282,7 +286,8 @@ class DirectorEpisode extends Doctrine_Record
              ));
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasOne('Director', array(
              'local' => 'director_id',

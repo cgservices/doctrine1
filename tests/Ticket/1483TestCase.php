@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_1483_TestCase extends Doctrine_UnitTestCase 
+483TestCase extends Doctrine_UnitTestCase 
 {
     public function testTest()
     {
@@ -71,12 +71,13 @@ class Doctrine_Ticket_1483_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_1483_User extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('username', 'string', 255);
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasMany('Ticket_1483_Group as Groups', array('local'    => 'user_id',
                                                             'foreign'  => 'group_id',
@@ -86,12 +87,13 @@ class Ticket_1483_User extends Doctrine_Record
 
 class Ticket_1483_Group extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string', 255);
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasMany('Ticket_1483_User as Users', array('local'    => 'group_id',
                                                           'foreign'  => 'user_id',
@@ -102,7 +104,7 @@ class Ticket_1483_Group extends Doctrine_Record
 
 class Ticket_1483_UserGroup extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('user_id', 'integer');
         $this->hasColumn('group_id', 'integer');

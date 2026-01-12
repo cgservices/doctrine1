@@ -116,7 +116,7 @@ class Doctrine_Validator_Driver
         return $this->args;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         $className = get_class($this);
         if (strpos($className, 'Doctrine_Validator_') === 0) { 

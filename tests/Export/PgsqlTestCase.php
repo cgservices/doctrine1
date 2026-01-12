@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Export_Pgsql_TestCase extends Doctrine_UnitTestCase 
+class Export_PgsqlTestCase extends Doctrine_UnitTestCase 
 {
     public function testCreateDatabaseExecutesSql() 
     {

@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Parser_TestCase extends Doctrine_UnitTestCase 
+class ParserTestCase extends Doctrine_UnitTestCase 
 {
     public function testGetParserInstance()
     {

@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_1133_TestCase extends Doctrine_UnitTestCase 
+133TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
@@ -76,13 +76,14 @@ class Doctrine_Ticket_1133_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_1133_Foo extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string', 255);
         $this->hasColumn('bar_id', 'integer');
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasOne('Ticket_1133_Bar as Bar', array('local' => 'bar_id', 'foreign' => 'id'));
     }
@@ -90,7 +91,7 @@ class Ticket_1133_Foo extends Doctrine_Record
 
 class Ticket_1133_Bar extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string', 255);
     }

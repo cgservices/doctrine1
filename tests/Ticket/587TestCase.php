@@ -12,7 +12,7 @@
  * @version     $Revision$
  */
 
-class Doctrine_Ticket_587_TestCase extends Doctrine_UnitTestCase
+87TestCase extends Doctrine_UnitTestCase
 {
     public function prepareTables()
     {

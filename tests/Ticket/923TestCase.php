@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_923_TestCase extends Doctrine_UnitTestCase {
+23TestCase extends Doctrine_UnitTestCase {
 
     public function prepareData()
     {
@@ -86,7 +86,7 @@ class Doctrine_Ticket_923_TestCase extends Doctrine_UnitTestCase {
 
 class T923_Diagnostic extends Doctrine_Record
 {
-  public function setTableDefinition()
+  public function setTableDefinition(): void
   {
       $this->setTableName('diagnostics');
       $this->hasColumn('id_type', 'integer', 4);
@@ -96,7 +96,8 @@ class T923_Diagnostic extends Doctrine_Record
       $this->hasColumn('diag_timestamp', 'timestamp', null);
   }
 
-  public function setUp()
+  public function setUp(): void
+
   {
   }
 }

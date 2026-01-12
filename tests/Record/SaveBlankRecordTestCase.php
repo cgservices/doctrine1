@@ -30,12 +30,13 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Record_SaveBlankRecord_TestCase extends Doctrine_UnitTestCase
+class Record_SaveBlankRecordTestCase extends Doctrine_UnitTestCase
 {
     public function prepareTables()
     {
-        $this->tables[] = 'MyUserGroup';
+        $this->tables[] = 'MyGroup';
         $this->tables[] = 'MyUser';
+        $this->tables[] = 'MyUserGroup';
 
         parent::prepareTables();
     }

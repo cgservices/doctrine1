@@ -54,12 +54,18 @@ class Doctrine_UnitTestCase extends UnitTestCase
     protected $transaction;
     protected $_name;
 
+    // Additional properties to avoid dynamic property creation (PHP 8.4)
+    protected $query;
+    protected $exc;
+    protected $import;
+    protected $sequence;
+    protected $expression;
 
     protected $init = false;
 
-    public function getName()
+    public function getTestName(): string
     {
-        return $this->_name;
+        return $this->_name ?? get_class($this);
     }
 
     public function init() 
@@ -78,7 +84,7 @@ class Doctrine_UnitTestCase extends UnitTestCase
                               'album',
                               'song',
                               'element',
-                              'error',
+                              'testError',
                               'description',
                               'address',
                               'account',
@@ -93,32 +99,78 @@ class Doctrine_UnitTestCase extends UnitTestCase
         $class = get_class($this);
         $e     = explode('_', $class);
 
+        // Determine the module and driver from class name
+        // Supports multiple formats:
+        // - Old: Doctrine_Connection_Mssql_TestCase
+        // - New with underscore: Connection_MssqlTestCase
+        // - New without underscore: ExportTestCase, DBTestCase
+        $module = null;
+        $driver = null;
 
         if ( ! $this->driverName) {
             $this->driverName = 'main';
-    
-            switch($e[1]) {
-                case 'Export':
-                case 'Import':
-                case 'Transaction':
-                case 'DataDict':
-                case 'Sequence':
+
+            $knownModules = ['Export', 'Import', 'Transaction', 'DataDict', 'Sequence', 'Expression', 'Connection', 'Query', 'Hydrate', 'Record', 'Relation', 'Cache', 'Validator', 'NestedSet', 'Table', 'Search', 'Migration', 'EventListener', 'Collection', 'Db', 'DB'];
+            $knownDrivers = ['Mysql', 'Mssql', 'Oracle', 'Pgsql', 'Sqlite'];
+
+            // Check if first element is a module name (new naming convention with underscore)
+            // e.g., Connection_MssqlTestCase, Export_MysqlTestCase
+            if (in_array($e[0], $knownModules)) {
+                $module = $e[0];
+                // Check if second part contains a driver name
+                if (isset($e[1])) {
+                    foreach ($knownDrivers as $drv) {
+                        if (strpos($e[1], $drv) === 0) {
+                            $driver = $drv;
+                            $this->driverName = $drv;
+                            break;
+                        }
+                    }
+                }
+                // Set default driver for certain modules
+                if (!$driver && in_array($module, ['Export', 'Import', 'Transaction', 'DataDict', 'Sequence', 'Expression'])) {
                     $this->driverName = 'Sqlite';
-                break;
+                }
             }
-            
-            $module = $e[1];
-    
-            if (count($e) > 3) {
-                $driver = $e[2];
-                switch($e[2]) {
-                    case 'Mysql':
-                    case 'Mssql':
-                    case 'Oracle':
-                    case 'Pgsql':
-                    case 'Sqlite':
-                        $this->driverName = $e[2];
+            // Handle classes without underscores like ExportTestCase, DBTestCase
+            elseif (count($e) === 1 && strpos($e[0], 'TestCase') !== false) {
+                $baseName = str_replace('TestCase', '', $e[0]);
+                foreach ($knownModules as $mod) {
+                    if (strcasecmp($baseName, $mod) === 0) {
+                        $module = $mod;
+                        // Set default driver for certain modules
+                        if (in_array($mod, ['Export', 'Import', 'Transaction', 'DataDict', 'Sequence', 'Expression'])) {
+                            $this->driverName = 'Sqlite';
+                        }
+                        break;
+                    }
+                }
+            }
+            // Old naming convention: Doctrine_Module_Driver_TestCase
+            elseif ($e[0] === 'Doctrine' && isset($e[1])) {
+                switch($e[1]) {
+                    case 'Export':
+                    case 'Import':
+                    case 'Transaction':
+                    case 'DataDict':
+                    case 'Sequence':
+                        $this->driverName = 'Sqlite';
                     break;
+                }
+
+                $module = $e[1];
+
+                if (count($e) > 3) {
+                    $driver = $e[2];
+                    switch($e[2]) {
+                        case 'Mysql':
+                        case 'Mssql':
+                        case 'Oracle':
+                        case 'Pgsql':
+                        case 'Sqlite':
+                            $this->driverName = $e[2];
+                        break;
+                    }
                 }
             }
         }
@@ -133,10 +185,27 @@ class Doctrine_UnitTestCase extends UnitTestCase
 
             $this->manager->setAttribute(Doctrine_Core::ATTR_LISTENER, $this->listener);
 
+            // Ensure exc is set for non-main drivers (needed for connection error tests)
+            if ($this->driverName !== 'main') {
+                $exc = 'Doctrine_Connection_' . ucwords($this->driverName) . '_Exception';
+                if (class_exists($exc)) {
+                    $this->exc = new $exc();
+                }
+            }
+
         } catch(Doctrine_Manager_Exception $e) {
             if ($this->driverName == 'main') {
-                $this->dbh = new PDO('sqlite::memory:');
-                $this->dbh->sqliteCreateFunction('trim', 'trim', 1);
+                // Use the connection set up in bootstrap.php (MySQL or SQLite)
+                // The main connection should already be created in bootstrap.php
+                // This fallback is only for edge cases
+                if (getenv('DOCTRINE_TEST_DSN')) {
+                    // MySQL connection should have been set up in bootstrap
+                    throw new Exception('Main connection should have been created in bootstrap.php. DSN: ' . getenv('DOCTRINE_TEST_DSN'));
+                } else {
+                    // Fallback to SQLite if no DSN configured
+                    $this->dbh = new PDO('sqlite::memory:');
+                    $this->dbh->sqliteCreateFunction('trim', 'trim', 1);
+                }
             } else {
                 $this->dbh = $this->adapter = new Doctrine_Adapter_Mock($this->driverName);
             }
@@ -186,17 +255,36 @@ class Doctrine_UnitTestCase extends UnitTestCase
         }
     }
     public function prepareTables() {
+        // For MySQL, disable foreign key checks for the entire table setup process
+        $isMysql = (defined('DOCTRINE_TEST_DRIVER') && DOCTRINE_TEST_DRIVER === 'mysql')
+            || $this->connection->getDriverName() === 'Mysql';
+
+        if ($isMysql) {
+            $this->conn->exec('SET FOREIGN_KEY_CHECKS = 0');
+        }
+
+        // Evict all tables from registry to reset constraint tracking
+        $this->connection->evictTables();
+
+        // Drop only the tables we're about to recreate
         foreach($this->tables as $name) {
             $name = ucwords($name);
-            $table = $this->connection->getTable($name);
-            $query = 'DROP TABLE ' . $table->getTableName();
+            $tableName = Doctrine_Inflector::tableize($name);
+            $query = 'DROP TABLE IF EXISTS ' . $this->connection->quoteIdentifier($tableName);
             try {
                 $this->conn->exec($query);
             } catch(Doctrine_Connection_Exception $e) {
-
+                // Ignore drop errors
             }
         }
+
+        // Export classes (foreign key checks still disabled for MySQL)
         $this->conn->export->exportClasses($this->tables);
+
+        if ($isMysql) {
+            $this->conn->exec('SET FOREIGN_KEY_CHECKS = 1');
+        }
+
         $this->objTable = $this->connection->getTable('User');
     }
     public function prepareData() 
@@ -275,8 +363,22 @@ class Doctrine_UnitTestCase extends UnitTestCase
     {
         return $this->dataDict->getPortableDeclaration(array('type' => $type, 'name' => 'colname', 'length' => 1, 'fixed' => true));
     }
-    public function setUp()
+    public function setUp(): void
     {
+        // Reset key manager attributes BEFORE init() to prevent validation during prepareData
+        $manager = Doctrine_Manager::getInstance();
+        $manager->setAttribute(Doctrine_Core::ATTR_VALIDATE, Doctrine_Core::VALIDATE_NONE);
+        $manager->setAttribute(Doctrine_Core::ATTR_QUOTE_IDENTIFIER, false);
+        $manager->setAttribute(Doctrine_Core::ATTR_EXPORT, Doctrine_Core::EXPORT_ALL);
+
+        // Also reset on current connection if it exists
+        try {
+            $conn = $manager->getCurrentConnection();
+            $conn->setAttribute(Doctrine_Core::ATTR_VALIDATE, Doctrine_Core::VALIDATE_NONE);
+        } catch (Exception $e) {
+            // No connection yet, that's fine
+        }
+
         if ( ! $this->init) {
             $this->init();
         }
@@ -284,9 +386,21 @@ class Doctrine_UnitTestCase extends UnitTestCase
             $this->objTable->clear();
         }
 
+
         $this->init = true;
     }
     
-    public function tearDown() {
+    public function tearDown(): void
+    {
+        // Reset connection listener to default
+        if (isset($this->connection)) {
+            $this->connection->setListener(new Doctrine_EventListener());
+            // Reset identifier quoting to default
+            $this->connection->setAttribute(Doctrine_Core::ATTR_QUOTE_IDENTIFIER, false);
+        }
+
+        // Also reset on manager
+        $manager = Doctrine_Manager::getInstance();
+        $manager->setAttribute(Doctrine_Core::ATTR_QUOTE_IDENTIFIER, false);
     }
 }

@@ -33,11 +33,14 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Task_TestCase extends Doctrine_UnitTestCase 
+class TaskTestCase extends Doctrine_UnitTestCase 
 {
-    public function setUp() {}
+    public function setUp(): void
+    {}
 
-    public function tearDown() {}
+    public function tearDown(): void
+
+    {}
 
     public function testDerivetasknameReturnsTheNameOfATaskFromItsClassName()
     {

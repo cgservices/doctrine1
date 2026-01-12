@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Cli_TestCase extends Doctrine_UnitTestCase 
+class CliTestCase extends Doctrine_UnitTestCase 
 {
     /**
      * @ignore
@@ -63,9 +63,13 @@ class Doctrine_Cli_TestCase extends Doctrine_UnitTestCase
         return $this->fixturesPath;
     }
 
-    public function setUp() {}
+    public function setUp(): void
 
-    public function tearDown() {}
+    {}
+
+    public function tearDown(): void
+
+    {}
 
     public function testTheNameOfTheTaskBaseClassNameIsStoredInAClassConstant()
     {
@@ -411,32 +415,46 @@ class Doctrine_Cli_TestCase extends Doctrine_UnitTestCase
 
 class Doctrine_Cli_TestCase_PassiveCli extends Doctrine_Cli
 {
+    protected $fixturesPath;
+
     protected function includeAndRegisterTaskClasses() {}
 }
 
 class Doctrine_Cli_TestCase_EmptyCli extends Doctrine_Cli
 {
+    protected $fixturesPath;
+
 }
 
 class Doctrine_Cli_TestCase_EmptyTask extends Doctrine_Task
 {
-    public function execute() {}
+    protected $fixturesPath;
+
+    public function execute() {
+    protected $fixturesPath;
+}
 }
 
 class Doctrine_Cli_TestCase_PassiveCli02 extends Doctrine_Cli_TestCase_PassiveCli
 {
     public function _getTaskClassFromArgs(array $args)
     {
+    protected $fixturesPath;
+
         return parent::_getTaskClassFromArgs($args);
     }
 }
 
 class Doctrine_Cli_TestCase_Exception extends Exception
 {
+    protected $fixturesPath;
+
 }
 
 class Doctrine_Cli_TestCase_NoisyCli extends Doctrine_Cli_TestCase_PassiveCli
 {
+    protected $fixturesPath;
+
     protected function _run(array $args)
     {
         throw new Doctrine_Cli_TestCase_Exception('Foo');

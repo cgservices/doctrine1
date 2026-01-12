@@ -33,7 +33,7 @@
  * @version     $Revision$
  */
 
-class Doctrine_Ticket_424C_TestCase extends Doctrine_UnitTestCase
+24CTestCase extends Doctrine_UnitTestCase
 {
     public function prepareData()
     { }

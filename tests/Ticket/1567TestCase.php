@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_1567_TestCase extends Doctrine_UnitTestCase 
+567TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
@@ -58,14 +58,15 @@ class Doctrine_Ticket_1567_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_1567_Project extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string', 255, array('notnull' => true));
         $this->hasColumn('user_id', 'integer');
         $this->hasColumn('deleted', 'boolean', 1, array('notnull' => true, 'default' => 'false'));
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->actAs('SoftDelete');
     }

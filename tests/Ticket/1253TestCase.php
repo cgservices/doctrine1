@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_1253_TestCase extends Doctrine_UnitTestCase 
+253TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
@@ -67,13 +67,14 @@ class Doctrine_Ticket_1253_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_1253_User extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string');
         $this->hasColumn('type_name', 'enum', 9, array('values' => array('one', 'two')));
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasOne('Ticket_1253_UserType as Type', array('local' => 'type_name', 'foreign' => 'name'));
     }
@@ -81,12 +82,13 @@ class Ticket_1253_User extends Doctrine_Record
 
 class Ticket_1253_UserType extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string');
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasMany('Ticket_1253_User as User', array('local' => 'name', 'foreign' => 'type_name', 'owningSide' => true));
     }

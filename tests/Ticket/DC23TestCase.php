@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_DC23_TestCase extends Doctrine_UnitTestCase 
+class DC23TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
@@ -115,13 +115,14 @@ END;
 
 class Ticket_DC23_BlogPost extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('title', 'string', 255);
         $this->hasColumn('body', 'string', 255);
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->actAs('I18n', array('fields' => array('title', 'body')));
     }
@@ -129,13 +130,14 @@ class Ticket_DC23_BlogPost extends Doctrine_Record
 
 class Ticket_DC23_User extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string', 255);
         $this->hasColumn('contact_id', 'integer');
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasOne('Ticket_DC23_Contact as Contact', array(
                 'local' => 'contact_id',
@@ -148,13 +150,14 @@ class Ticket_DC23_User extends Doctrine_Record
 
 class Ticket_DC23_Contact extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string', 255);
         $this->hasColumn('address_id', 'integer');
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasOne('Ticket_DC23_Address as Address', array(
                 'local' => 'address_id',
@@ -173,7 +176,7 @@ class Ticket_DC23_Contact extends Doctrine_Record
 
 class Ticket_DC23_Address extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string', 255);
     }
@@ -181,13 +184,14 @@ class Ticket_DC23_Address extends Doctrine_Record
 
 class Ticket_DC23_Phonenumber extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string', 255);
         $this->hasColumn('contact_id', 'integer');
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasOne('Ticket_DC23_Contact as Contact', array(
                 'local' => 'contact_id',

@@ -1,5 +1,5 @@
 <?php
-class Doctrine_Ticket_1205_TestCase extends Doctrine_UnitTestCase
+205TestCase extends Doctrine_UnitTestCase
 {        
     public function prepareData()
     { 
@@ -48,14 +48,15 @@ class Ticket1205HydrationListener extends Doctrine_Record_Listener
 
 class Ticket1205TestUser extends Doctrine_Record
 {
-  public function setTableDefinition()
+  public function setTableDefinition(): void
   {
     $this->setTableName('ticket1205_user');
     $this->hasColumn('first_name', 'string', 31);
     $this->hasColumn('last_name', 'string', 31);
   }
 
-  public function setUp()
+  public function setUp(): void
+
   {
     $this->addListener(new Ticket1205HydrationListener());
     $this->hasMany('Ticket1205TestAddress as Addresses', array('local'   => 'id',
@@ -65,14 +66,15 @@ class Ticket1205TestUser extends Doctrine_Record
 
 class Ticket1205TestAddress extends Doctrine_Record
 {
-  public function setTableDefinition()
+  public function setTableDefinition(): void
   {
     $this->setTableName('ticket1205_address');
     $this->hasColumn('user_id', 'integer', 4, array('notnull' => true));
     $this->hasColumn('city', 'string', 31);
   }
 
-  public function setUp()
+  public function setUp(): void
+
   {    
     $this->hasOne('Ticket1205TestUser as User', array('local'   => 'user_id',
                                                       'foreign' => 'id'));

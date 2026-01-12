@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_1160_TestCase extends Doctrine_UnitTestCase 
+160TestCase extends Doctrine_UnitTestCase 
 {
     public function testTest()
     {
@@ -44,7 +44,7 @@ class Doctrine_Ticket_1160_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_1160_Test extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string', 255);
         $this->option('type', 'MYISAM');

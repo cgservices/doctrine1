@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Import_Builder_TestCase extends Doctrine_UnitTestCase 
+class Import_BuilderTestCase extends Doctrine_UnitTestCase 
 {
     public function testInheritanceGeneration()
     {

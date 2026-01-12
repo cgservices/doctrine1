@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Query_ComponentAlias_TestCase extends Doctrine_UnitTestCase
+class Query_ComponentAliasTestCase extends Doctrine_UnitTestCase
 {
 
     public function testQueryWithSingleAlias()

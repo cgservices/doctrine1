@@ -31,7 +31,7 @@
  * @version     $Revision: 1181 $
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
  */
-class Doctrine_Tokenizer_TestCase extends Doctrine_UnitTestCase
+class TokenizerTestCase extends Doctrine_UnitTestCase
 {
     public function prepareData()
     { }

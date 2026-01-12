@@ -61,7 +61,7 @@ class Doctrine_Template_Timestampable extends Doctrine_Template
      *
      * @return void
      */
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         if ( ! $this->_options['created']['disabled']) {
             $name = $this->_options['created']['name'];

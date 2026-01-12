@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_1706_TestCase extends Doctrine_UnitTestCase 
+706TestCase extends Doctrine_UnitTestCase 
 {
     public function testCachedResultsAreSpecificToDsn()
     {
@@ -84,7 +84,7 @@ class Doctrine_Ticket_1706_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_1706_User extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string');
         $this->hasColumn('password', 'string');

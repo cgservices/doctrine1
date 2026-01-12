@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_View_TestCase extends Doctrine_UnitTestCase 
+class ViewTestCase extends Doctrine_UnitTestCase 
 {
 
     public function testCreateView()

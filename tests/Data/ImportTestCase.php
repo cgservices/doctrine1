@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Data_Import_TestCase extends Doctrine_UnitTestCase 
+class Data_ImportTestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
@@ -553,12 +553,13 @@ END;
 
 class ImportNestedSet extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string', 255);
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->actAs('NestedSet');
     }
@@ -566,12 +567,13 @@ class ImportNestedSet extends Doctrine_Record
 
 class ImportNestedSetMultipleTree extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string', 255);
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->actAs(
             'NestedSet', array(
@@ -584,14 +586,15 @@ class ImportNestedSetMultipleTree extends Doctrine_Record
 
 class I18nNumberLang extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string', 255);
         $this->hasColumn('title', 'string', 255);
         $this->hasColumn('body', 'clob');
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->actAs('I18n', array('fields' => array('title', 'body'), 'type' => 'integer', 'length' => 4));
     }
@@ -599,13 +602,14 @@ class I18nNumberLang extends Doctrine_Record
 
 class I18nTestImport extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string', 200);
         $this->hasColumn('title', 'string', 200);
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->actAs('I18n', array('fields' => array('name', 'title')));
     }

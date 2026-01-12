@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_832_TestCase extends Doctrine_UnitTestCase 
+32TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
@@ -60,11 +60,11 @@ class Doctrine_Ticket_832_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_832_UserTemplate extends Doctrine_Template
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string');
     }
-    public function setUp()
+    public function setUp(): void
     {
         $this->hasMany('Ticket_832_EmailTemplate as Email', array('local' => 'id', 'foreign' => 'user_id'));
     }
@@ -72,12 +72,12 @@ class Ticket_832_UserTemplate extends Doctrine_Template
 
 class Ticket_832_EmailTemplate extends Doctrine_Template
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('address', 'string');
         $this->hasColumn('user_id', 'integer');
     }
-    public function setUp()
+    public function setUp(): void
     {
         $this->hasOne('Ticket_832_UserTemplate as User', array('local' => 'user_id', 'foreign' => 'id'));
     }
@@ -85,7 +85,7 @@ class Ticket_832_EmailTemplate extends Doctrine_Template
 
 class Ticket_832_User extends Doctrine_Record
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->actAs('Ticket_832_UserTemplate');
     }
@@ -93,7 +93,7 @@ class Ticket_832_User extends Doctrine_Record
 
 class Ticket_832_Email extends Doctrine_Record
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->actAs('Ticket_832_EmailTemplate');
     }

@@ -31,7 +31,7 @@
  * @since       1.1
  * @version     $Revision$
  */
-class Doctrine_Ticket_DC24_TestCase extends Doctrine_UnitTestCase 
+class DC24TestCase extends Doctrine_UnitTestCase 
 {
 	
 	public function prepareTables()
@@ -85,7 +85,7 @@ class Doctrine_Ticket_DC24_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_DC24_Master extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('id', 'integer', 4, array(
              'type' => 'integer',
@@ -105,7 +105,8 @@ class Ticket_DC24_Master extends Doctrine_Record
              ));
     } // end setTableDefinition();
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasOne('Ticket_DC24_Servant', array(
              'local' => 'servant_id',
@@ -115,7 +116,7 @@ class Ticket_DC24_Master extends Doctrine_Record
 
 class Ticket_DC24_Servant extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('id', 'integer', 4, array(
              'type' => 'integer',
@@ -130,7 +131,8 @@ class Ticket_DC24_Servant extends Doctrine_Record
              ));
     } // end setTableDefinition();
 	
-	public function setUp()
+	public function setUp(): void
+	
 	{
 		$this->hasMany('Ticket_DC24_Master as Masters', array(
              'local' => 'id',

@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_TreeStructure_TestCase extends Doctrine_UnitTestCase
+class TreeStructureTestCase extends Doctrine_UnitTestCase
 {
     public function prepareTables() 
     { 

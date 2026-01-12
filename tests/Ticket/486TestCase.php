@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_486_TestCase extends Doctrine_UnitTestCase 
+86TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables() {
         $this->tables = array('Country', 'State', 'Resort');
@@ -127,13 +127,15 @@ class Doctrine_Ticket_486_TestCase extends Doctrine_UnitTestCase
 
 class Country extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string', 255);
     }
 
 
-    public function setUp()
+    public function setUp(): void
+
+
     {
         $this->hasMany('State', array('local' => 'id', 'foreign' => 'country_id'));
     }
@@ -142,14 +144,16 @@ class Country extends Doctrine_Record
 
 class State extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('country_id', 'integer', 4);
         $this->hasColumn('name', 'string', 255);
     }
 
 
-    public function setUp()
+    public function setUp(): void
+
+
     {
         $this->hasOne('Country', array('local' => 'country_id', 'foreign' => 'id'));
         $this->hasMany('Resort', array('local' => 'id', 'foreign' => 'state_id'));
@@ -159,14 +163,16 @@ class State extends Doctrine_Record
 
 class Resort extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('state_id', 'integer', 4);
         $this->hasColumn('name', 'string', 255);
     }
 
 
-    public function setUp()
+    public function setUp(): void
+
+
     {
         $this->hasOne('State', array('local' => 'state_id', 'foreign' => 'id'));
     }

@@ -3,7 +3,7 @@
 /**
  * @author Donald Ball
  */
-class Doctrine_Ticket_941_TestCase extends Doctrine_UnitTestCase
+41TestCase extends Doctrine_UnitTestCase
 {
 
   public function prepareTables()
@@ -125,14 +125,16 @@ class Doctrine_Ticket_941_TestCase extends Doctrine_UnitTestCase
 abstract class BaseSite extends Doctrine_Record
 {
 
-  public function setTableDefinition()
+  public function setTableDefinition(): void
+
   {
     $this->setTableName('_site');
     $this->hasColumn('site_id', 'integer', 4, array('notnull' => true, 'primary' => true, 'autoincrement' => true));
     $this->hasColumn('site_domain', 'string', 255, array('notnull' => true));
   }
 
-  public function setUp()
+  public function setUp(): void
+
   {
     parent::setUp();
     $this->hasMany('Variable as Variables', array('refClass' => 'SiteVarvalue',
@@ -144,14 +146,16 @@ abstract class BaseSite extends Doctrine_Record
 abstract class BaseVariable extends Doctrine_Record
 {
 
-  public function setTableDefinition()
+  public function setTableDefinition(): void
+
   {
     $this->setTableName('_variable');
     $this->hasColumn('variable_id', 'integer', 4, array('notnull' => true, 'primary' => true, 'autoincrement' => true));
     $this->hasColumn('variable_name', 'string', 100, array('notnull' => true));
   }
 
-  public function setUp()
+  public function setUp(): void
+
   {
     parent::setUp();
     $this->hasMany('Site as Sites', array('refClass' => 'SiteVarvalue',
@@ -166,7 +170,8 @@ abstract class BaseVariable extends Doctrine_Record
 abstract class BaseSiteVarvalue extends Doctrine_Record
 {
 
-  public function setTableDefinition()
+  public function setTableDefinition(): void
+
   {
     $this->setTableName('_site_varvalue');
     $this->hasColumn('varvalue_id', 'integer', 4, array('notnull' => true, 'primary' => true, 'autoincrement' => true));
@@ -175,7 +180,8 @@ abstract class BaseSiteVarvalue extends Doctrine_Record
     $this->hasColumn('varvalue_value', 'string', null, array('notnull' => true));
   }
 
-  public function setUp()
+  public function setUp(): void
+
   {
     parent::setUp();
     $this->hasOne('Variable as Variables', array('local' => 'variable_id',

@@ -1,10 +1,13 @@
 <?php
-class Error extends Doctrine_Record {
-    public function setUp() {
+class TestError extends Doctrine_Record {
+    public function setUp(): void
+    {
         $this->hasMany('Description', array('local'   => 'file_md5',
                                             'foreign' => 'file_md5'));
     }
-    public function setTableDefinition() {
+    public function setTableDefinition(): void
+    {
+        $this->setTableName('error');
         $this->hasColumn('message', 'string',200);
         $this->hasColumn('code', 'integer',11);
         $this->hasColumn('file_md5', 'string',32, 'primary');

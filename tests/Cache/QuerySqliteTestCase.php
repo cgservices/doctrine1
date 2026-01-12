@@ -1,8 +1,10 @@
 <?php
 
-class Doctrine_Cache_Query_SqliteTestCase extends Doctrine_UnitTestCase
+class Cache_QuerySqliteTestCase extends Doctrine_UnitTestCase
 {
-    public function setUp()
+    protected $cache;
+
+    public function setUp(): void
     {
         parent::setUp();
 

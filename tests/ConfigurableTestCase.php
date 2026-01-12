@@ -1,5 +1,5 @@
 <?php
-class Doctrine_Configurable_TestCase extends Doctrine_UnitTestCase
+class ConfigurableTestCase extends Doctrine_UnitTestCase
 {
     public function prepareTables()
     {

@@ -30,7 +30,7 @@
  * @link        www.doctrine-project.org
  * @since       1.0
  */
-class Doctrine_Query_Having_TestCase extends Doctrine_UnitTestCase 
+class Query_HavingTestCase extends Doctrine_UnitTestCase 
 {
     public function testAggregateFunctionsInHavingReturnValidSql() 
     {

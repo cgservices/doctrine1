@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_DC112_TestCase extends Doctrine_UnitTestCase
+class DC112TestCase extends Doctrine_UnitTestCase
 {
     public function testResultCacheSetHash()
     {

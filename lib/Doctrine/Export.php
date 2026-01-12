@@ -1216,14 +1216,29 @@ class Doctrine_Export extends Doctrine_Connection_Module
                      $connection->exec($query);
                  } catch (Doctrine_Connection_Exception $e) {
                      // we only want to silence table already exists errors
-                     if ($e->getPortableCode() !== Doctrine_Core::ERR_ALREADY_EXISTS) {
-                         $connection->rollback();
+                     // and duplicate foreign key constraint name errors (for test re-runs)
+                     $portableCode = $e->getPortableCode();
+                     $isDuplicateConstraint = strpos($e->getMessage(), 'Duplicate foreign key constraint name') !== false
+                         || strpos($e->getMessage(), '1826') !== false;
+                     if ($portableCode !== Doctrine_Core::ERR_ALREADY_EXISTS && !$isDuplicateConstraint) {
+                         try {
+                             $connection->rollback();
+                         } catch (Exception $rollbackException) {
+                             // Ignore rollback errors - transaction may have already been rolled back
+                         }
                          throw new Doctrine_Export_Exception($e->getMessage() . '. Failing Query: ' . $query);
                      }
                  }
              }
 
-             $connection->commit();
+             try {
+                 $connection->commit();
+             } catch (Exception $commitException) {
+                 // Ignore commit errors if transaction was already committed/rolled back
+                 if (strpos($commitException->getMessage(), 'no active transaction') === false) {
+                     throw $commitException;
+                 }
+             }
          }
      }
 

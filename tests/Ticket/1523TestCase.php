@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_1523_TestCase extends Doctrine_UnitTestCase
+523TestCase extends Doctrine_UnitTestCase
 {
     public function prepareTables()
     {
@@ -55,12 +55,12 @@ class Doctrine_Ticket_1523_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_1523_User extends Doctrine_Record
 {
-	public function setTableDefinition()
+	public function setTableDefinition(): void
 	{
     	$this->hasColumn('id', 'integer', 4, array('type' => 'integer', 'length' => 4, 'primary' => true));
     	$this->hasColumn('code', 'string', 64, array('type' => 'string', 'length' => '64', 'notnull' => true));
 	}
-	public function setUp()
+	public function setUp(): void
 	{
 		$this->hasMany('Ticket_1523_Group', array(
 			'local' => 'id',
@@ -71,7 +71,7 @@ class Ticket_1523_User extends Doctrine_Record
 
 class Ticket_1523_Group extends Doctrine_Record
 {
-	public function setTableDefinition()
+	public function setTableDefinition(): void
 	{
 		$this->hasColumn('id', 'integer', 4, array('type' => 'integer', 'length' => 4, 'primary' => true, ));
 		$this->hasColumn('tmp_id', 'integer', 4, array('type' => 'integer', 'length' => 4, 'notnull' => true));

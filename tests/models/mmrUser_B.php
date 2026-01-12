@@ -1,7 +1,7 @@
 <?php
 class mmrUser_B extends Doctrine_Record 
 {
-    public function setUp() 
+    public function setUp(): void
     {
         $this->hasMany('mmrGroup_B as Group', array('local' => 'user_id', 
                                       'foreign' => 'group_id',
@@ -9,7 +9,8 @@ class mmrUser_B extends Doctrine_Record
 
     }
 
-    public function setTableDefinition() 
+    public function setTableDefinition(): void
+
     {
       // Works when 
         $this->hasColumn('id', 'string', 30, array (  'primary' => true));

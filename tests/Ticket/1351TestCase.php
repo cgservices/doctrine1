@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_1351_TestCase extends Doctrine_UnitTestCase 
+351TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
@@ -63,13 +63,14 @@ END;
 
 class Ticket_1351_Article extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('title', 'string', 255);
         $this->hasColumn('body', 'clob');
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $i18n0 = new Doctrine_Template_I18n(array('fields' => array(0 => 'title', 1 => 'body')));
         $searchable1 = new Doctrine_Template_Searchable(array('fields' => array(0 => 'title')));

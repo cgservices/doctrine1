@@ -30,9 +30,12 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Migration_Base_TestCase extends Doctrine_UnitTestCase 
+class Migration_BaseTestCase extends Doctrine_UnitTestCase 
 {
-    public function setUp() {}
+    protected $mergedOptions;
+
+    public function setUp(): void
+    {}
 
     public function testIsAbstract()
     {
@@ -59,7 +62,8 @@ class Doctrine_Migration_Base_TestCase extends Doctrine_UnitTestCase
         }
     }
 
-    public function tearDown()
+    public function tearDown(): void
+
     {
         Doctrine_Migration_Base::setDefaultTableOptions(array());
     }

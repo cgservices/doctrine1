@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Relation_ManyToMany2_TestCase extends Doctrine_UnitTestCase 
+class Relation_ManyToMany2TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareData() 
     {

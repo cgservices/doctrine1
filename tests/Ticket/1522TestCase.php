@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_1522_TestCase extends Doctrine_UnitTestCase 
+522TestCase extends Doctrine_UnitTestCase 
 {
     public function testTest()
     {
@@ -42,7 +42,9 @@ class Doctrine_Ticket_1522_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_1522_User extends Doctrine_Record
 {
-    public function setTableDefinition()
+    protected $use_encrypted_password;
+
+    public function setTableDefinition(): void
     {
         $this->hasColumn('username', 'string', 255);
         $this->hasColumn('password', 'string', 255);

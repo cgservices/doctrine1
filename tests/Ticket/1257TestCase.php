@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_1257_TestCase extends Doctrine_UnitTestCase 
+257TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
@@ -60,14 +60,15 @@ class Doctrine_Ticket_1257_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_1257_User extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('username', 'string', 255);
         $this->hasColumn('password', 'string', 255);
         $this->hasColumn('role_id', 'integer');
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasOne('Ticket_1257_Role as Role', array('local' => 'role_id', 'foreign' => 'id'));
     }
@@ -75,13 +76,14 @@ class Ticket_1257_User extends Doctrine_Record
 
 class Ticket_1257_Role extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string', 255);
         $this->hasColumn('description', 'string');
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasMany('Ticket_1257_User as Users', array('local' => 'id', 'foreign' => 'role_id'));
     }

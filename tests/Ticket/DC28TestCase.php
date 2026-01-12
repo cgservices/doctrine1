@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_DC28_TestCase extends Doctrine_UnitTestCase 
+class DC28TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
@@ -80,12 +80,13 @@ class Doctrine_Ticket_DC28_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_DC28_Tree extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string', 255);
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $i18n = new Doctrine_Template_I18n(array('fields' => array(0 => 'name')));
         $this->actAs($i18n);

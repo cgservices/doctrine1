@@ -5,7 +5,7 @@
  * by Stefan Klug ( stefan.klug (at) gmail.com )
  */
 
-class Doctrine_Ticket_1195_TestCase extends Doctrine_UnitTestCase
+195TestCase extends Doctrine_UnitTestCase
 {
 	public function prepareTables()
     {
@@ -102,7 +102,7 @@ class Doctrine_Ticket_1195_TestCase extends Doctrine_UnitTestCase
 
 class T1195_Item extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
        	$this->setTableName('items');
         $this->hasColumn('id', 'integer', null, array('autoincrement' => true, 'primary' => true, 'notnull' => true));
@@ -113,14 +113,15 @@ class T1195_Item extends Doctrine_Record
 
 class T1195_Ref extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
        	$this->setTableName('ref');
         $this->hasColumn('id', 'integer', null, array('autoincrement' => true, 'primary' => true, 'notnull' => true));
         $this->hasColumn('item_id', 'integer', null);
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
     	$this->hasOne('T1195_Item as Item', array('local' => 'item_id', 'foreign' => 'id'));
     }

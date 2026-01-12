@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_DC101_TestCase extends Doctrine_UnitTestCase 
+class DC101TestCase extends Doctrine_UnitTestCase 
 {
     public function testTest()
     {
@@ -45,12 +45,13 @@ class Doctrine_Ticket_DC101_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_DC101_User extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('username', 'string', 255);
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasOne('Ticket_DC101_Profile as Profile', array(
             'local' => 'id',
@@ -61,13 +62,14 @@ class Ticket_DC101_User extends Doctrine_Record
 
 class Ticket_DC101_Profile extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string', 255);
         $this->hasColumn('user_id', 'integer');
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasOne('Ticket_DC101_User as User', array(
             'local' => 'user_id',

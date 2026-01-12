@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_1520_TestCase extends Doctrine_UnitTestCase 
+520TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
@@ -58,7 +58,7 @@ class Doctrine_Ticket_1520_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_1520_Product extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('title', 'string', 255);
         $this->hasColumn('price', 'decimal');

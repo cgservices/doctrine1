@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_952_TestCase extends Doctrine_UnitTestCase 
+52TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
@@ -62,12 +62,13 @@ class Doctrine_Ticket_952_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_952_Parent extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string', 255);
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasMany('Ticket_952_Child as Children', array('local' => 'id', 'foreign' => 'parent_id'));
     }
@@ -75,13 +76,14 @@ class Ticket_952_Parent extends Doctrine_Record
 
 class Ticket_952_Child extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string', 255);
         $this->hasColumn('parent_id', 'integer');
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasOne('Ticket_952_Parent as Parent', array('local' => 'parent_id', 'foreign' => 'id'));
     }

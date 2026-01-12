@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_DC840_TestCase extends Doctrine_UnitTestCase 
+class DC840TestCase extends Doctrine_UnitTestCase 
 {
     private $sqlStackCounter = 0;
   
@@ -69,7 +69,7 @@ class Doctrine_Ticket_DC840_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_DC840_Model extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('id', 'integer', null, array(
             'type' => 'integer',

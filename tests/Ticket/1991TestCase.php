@@ -29,7 +29,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_1991_TestCase extends Doctrine_UnitTestCase {
+991TestCase extends Doctrine_UnitTestCase {
 
     public function prepareTables() {
         $this->tables = array();
@@ -65,7 +65,7 @@ class Doctrine_Ticket_1991_TestCase extends Doctrine_UnitTestCase {
 
 class NewTag extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->setTableName('tag');
         $this->hasColumn('name', 'string', 100, array('type' => 'string', 'length' => '100'));

@@ -1,7 +1,7 @@
 <?php
 abstract class BaseAggressiveModelLoadingUser extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         
     }
@@ -9,7 +9,7 @@ abstract class BaseAggressiveModelLoadingUser extends Doctrine_Record
 
 class AggressiveModelLoadingUser extends BaseAggressiveModelLoadingUser
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         
     }

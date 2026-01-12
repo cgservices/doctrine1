@@ -1,6 +1,6 @@
 <?php
 
-class Doctrine_Ticket_1935_TestCase extends Doctrine_UnitTestCase
+935TestCase extends Doctrine_UnitTestCase
 {
     public function init()
     {
@@ -52,7 +52,7 @@ class Doctrine_Ticket_1935_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_1935_Article extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->setTableName('ticket_1935_article');
         $this->hasColumn('title', 'string', 255, array('type' => 'string', 'length' => '255'));

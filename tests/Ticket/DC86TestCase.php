@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_DC86_TestCase extends Doctrine_UnitTestCase 
+class DC86TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
@@ -71,7 +71,7 @@ class Doctrine_Ticket_DC86_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_DC86_Test extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
 		$this->hasColumn('id', 'integer', 4, array('primary', 'notnull'));
         $this->hasColumn('date', 'timestamp');

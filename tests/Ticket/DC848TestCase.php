@@ -30,7 +30,7 @@
  * @since       1.2.4
  * @version     $Revision$
  */
-class Doctrine_Ticket_DC848_TestCase extends Doctrine_UnitTestCase
+class DC848TestCase extends Doctrine_UnitTestCase
 {
     public function testIso8601Timestamp()
     {

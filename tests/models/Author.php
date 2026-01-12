@@ -1,15 +1,15 @@
 <?php
 class Author extends Doctrine_Record
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->hasOne('Book', array('local' => 'book_id',
                                     'foreign' => 'id',
                                     'onDelete' => 'CASCADE'));
     }
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
-        $this->hasColumn('book_id', 'integer');
+        $this->hasColumn('book_id', 'integer', 8);
         $this->hasColumn('name', 'string',20);
     }
 }

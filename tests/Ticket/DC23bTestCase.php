@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_DC23b_TestCase extends Doctrine_UnitTestCase 
+class DC23bTestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
@@ -166,13 +166,14 @@ END;
 
 class Ticket_Product extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('site_id', 'integer', null, array('type' => 'integer'));
         $this->hasColumn('name', 'string', 255, array('type' => 'string', 'notnull' => true, 'length' => '255'));
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasOne('Ticket_Site as Site', array('local' => 'site_id',
                                     'foreign' => 'id'));
@@ -182,12 +183,13 @@ class Ticket_Product extends Doctrine_Record
 }
 class Ticket_Site extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string', 255, array('type' => 'string', 'length' => '255'));
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasMany('Ticket_Product as Products', array('local' => 'id',
                                         'foreign' => 'site_id'));
@@ -195,12 +197,13 @@ class Ticket_Site extends Doctrine_Record
 }
 class Ticket_Multiple extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string', 255, array('type' => 'string', 'notnull' => true, 'length' => '255'));
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasMany('Ticket_MultipleValue as MultipleValues', array('local' => 'id',
                                                  'foreign' => 'multiple_id'));
@@ -208,14 +211,15 @@ class Ticket_Multiple extends Doctrine_Record
 }
 class Ticket_MultipleValue extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('product_id', 'integer', null, array('type' => 'integer', 'primary' => true));
         $this->hasColumn('multiple_id', 'integer', null, array('type' => 'integer', 'primary' => true));
         $this->hasColumn('value', 'clob', null, array('type' => 'clob'));
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasOne('Ticket_Multiple as Multiple', array('local' => 'multiple_id',
                                                        'foreign' => 'id'));

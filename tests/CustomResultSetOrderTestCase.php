@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_CustomResultSetOrder_TestCase extends Doctrine_UnitTestCase {
+class CustomResultSetOrderTestCase extends Doctrine_UnitTestCase {
     
     /**
      * Prepares the data under test.

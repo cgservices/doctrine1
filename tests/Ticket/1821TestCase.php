@@ -30,7 +30,7 @@
  * @version     $Revision$
  * @author      Andrea Baron <andrea@bhweb.it>
  */
-class Doctrine_Ticket_1821_TestCase extends Doctrine_UnitTestCase
+821TestCase extends Doctrine_UnitTestCase
 {
     public function prepareTables()
     {
@@ -92,7 +92,8 @@ class Doctrine_Ticket_1821_TestCase extends Doctrine_UnitTestCase
 }
         
 class Doctrine_Ticket_1821_Record_Full_Aliased extends Doctrine_Record {
-    public function setTableDefinition() {
+    public function setTableDefinition(): void
+    {
         $this->hasColumn('user_id as id', 'integer', 4, array(
                 'autoincrement' => true,
                 'notnull' => true,
@@ -106,7 +107,8 @@ class Doctrine_Ticket_1821_Record_Full_Aliased extends Doctrine_Record {
 }
 
 class Doctrine_Ticket_1821_Record_ID_Aliased extends Doctrine_Record {
-    public function setTableDefinition() {
+    public function setTableDefinition(): void
+    {
         $this->hasColumn('user_id as id', 'integer', 4, array(
                 'autoincrement' => true,
                 'notnull' => true,
@@ -120,7 +122,8 @@ class Doctrine_Ticket_1821_Record_ID_Aliased extends Doctrine_Record {
 }
 
 class Doctrine_Ticket_1821_Record_Column_Aliased extends Doctrine_Record {
-    public function setTableDefinition() {
+    public function setTableDefinition(): void
+    {
         $this->hasColumn('id', 'integer', 4, array(
                 'autoincrement' => true,
                 'notnull' => true,
@@ -134,7 +137,8 @@ class Doctrine_Ticket_1821_Record_Column_Aliased extends Doctrine_Record {
 }
 
 class Doctrine_Ticket_1821_Record extends Doctrine_Record {
-    public function setTableDefinition() {
+    public function setTableDefinition(): void
+    {
         $this->hasColumn('id', 'integer', 4, array(
                 'autoincrement' => true,
                 'notnull' => true,

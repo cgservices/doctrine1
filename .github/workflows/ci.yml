@@ -1,0 +1,148 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master, 'php8*' ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  tests-sqlite:
+    name: PHP ${{ matrix.php-version }} SQLite - ${{ matrix.testsuite }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version: ['8.4']
+        testsuite: ['Smoke Tests', 'Core Tests']
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          extensions: pdo, pdo_sqlite, pdo_mysql, pdo_pgsql
+          coverage: xdebug
+          tools: composer:v2
+
+      - name: Validate composer.json
+        run: composer validate --strict
+
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v4
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ matrix.php-version }}-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-${{ matrix.php-version }}-
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress
+
+      - name: Run tests
+        run: ./vendor/bin/phpunit --testsuite "${{ matrix.testsuite }}"
+        env:
+          DOCTRINE_DIR: ${{ github.workspace }}
+
+  tests-mysql:
+    name: PHP ${{ matrix.php-version }} MySQL - ${{ matrix.testsuite }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version: ['8.4']
+        testsuite: ['Core Tests']
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: doctrine
+          MYSQL_DATABASE: doctrine_tests
+          MYSQL_USER: doctrine
+          MYSQL_PASSWORD: doctrine
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h localhost -u root -pdoctrine"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          extensions: pdo, pdo_sqlite, pdo_mysql, pdo_pgsql
+          coverage: xdebug
+          tools: composer:v2
+
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v4
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ matrix.php-version }}-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-${{ matrix.php-version }}-
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress
+
+      - name: Wait for MySQL
+        run: |
+          for i in {1..30}; do
+            if mysqladmin ping -h 127.0.0.1 -u root -pdoctrine --silent; then
+              echo "MySQL is ready!"
+              break
+            fi
+            echo "Waiting for MySQL... ($i/30)"
+            sleep 2
+          done
+
+      - name: Run tests with MySQL
+        run: ./vendor/bin/phpunit --testsuite "${{ matrix.testsuite }}"
+        env:
+          DOCTRINE_DIR: ${{ github.workspace }}
+          DOCTRINE_TEST_DSN: "mysql://doctrine:doctrine@127.0.0.1:3306/doctrine_tests"
+          DOCTRINE_TEST_DRIVER: mysql
+
+  syntax-check:
+    name: PHP Syntax Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          tools: composer:v2
+
+      - name: Check PHP syntax
+        run: find lib -name "*.php" -print0 | xargs -0 -n1 php -l
+
+  docker-build:
+    name: Docker Build Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t doctrine1-test .
+
+      - name: Run smoke tests in Docker
+        run: docker run --rm doctrine1-test --testsuite "Smoke Tests"
+

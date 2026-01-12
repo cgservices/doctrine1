@@ -49,6 +49,11 @@ class Doctrine_Validator_Past extends Doctrine_Validator_Driver
             return false;
         }
         
+        // Convert date parts to integers for proper comparison
+        $year = (int) $e[0];
+        $month = (int) $e[1];
+        $day = (int) $e[2];
+
         if (is_array($this->args) && isset($this->args['timezone'])) {
             switch (strtolower($this->args['timezone'])) {
                 case 'gmt':
@@ -62,13 +67,14 @@ class Doctrine_Validator_Past extends Doctrine_Validator_Driver
             $now = getdate();
         }
         
-        if ($now['year'] < $e[0]) {
+        if ($now['year'] < $year) {
             return false;
-        } else if ($now['year'] == $e[0]) {
-            if ($now['mon'] < $e[1]) {
+        } else if ($now['year'] == $year) {
+            if ($now['mon'] < $month) {
                 return false;
-            } else if ($now['mon'] == $e[1]) {
-                return $now['mday'] > $e[2];
+            } else if ($now['mon'] == $month) {
+                // Date must be strictly in the past (less than today)
+                return $now['mday'] > $day;
             } else {
                 return true;
             }

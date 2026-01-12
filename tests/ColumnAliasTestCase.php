@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_ColumnAlias_TestCase extends Doctrine_UnitTestCase 
+class ColumnAliasTestCase extends Doctrine_UnitTestCase 
 {
     public function prepareData() 
     {

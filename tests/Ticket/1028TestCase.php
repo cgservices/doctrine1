@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_1028_TestCase extends Doctrine_UnitTestCase
+028TestCase extends Doctrine_UnitTestCase
 {
 
     public function prepareData()

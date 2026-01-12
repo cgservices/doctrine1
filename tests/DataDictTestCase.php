@@ -30,5 +30,13 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_DataDict_TestCase extends Doctrine_UnitTestCase {
+class DataDictTestCase extends Doctrine_UnitTestCase {
+
+    /**
+     * Placeholder test - this class is a stub for future tests
+     */
+    public function testPlaceholder(): void
+    {
+        $this->assertTrue(true);
+    }
 }

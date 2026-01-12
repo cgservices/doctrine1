@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_DC825_TestCase extends Doctrine_UnitTestCase 
+class DC825TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
@@ -64,7 +64,7 @@ class Doctrine_Ticket_DC825_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_DC825_Model extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('model_id as id', 'integer', null, array(
             'type' => 'integer',
@@ -76,7 +76,8 @@ class Ticket_DC825_Model extends Doctrine_Record
         $this->hasColumn('password', 'string', 255);
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->actAs('Timestampable');
         $this->actAs('SoftDelete');

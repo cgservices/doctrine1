@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_NestedSet_MultiRoot_TestCase extends Doctrine_UnitTestCase
+class NestedSet_MultiRootTestCase extends Doctrine_UnitTestCase
 {
     public function prepareTables()
     {

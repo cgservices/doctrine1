@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_1793_TestCase extends Doctrine_UnitTestCase
+793TestCase extends Doctrine_UnitTestCase
 {
     public function prepareData()
     {
@@ -116,7 +116,7 @@ class Doctrine_Ticket_1793_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_1793_Order extends Doctrine_Record
 {
-  public function setTableDefinition()
+  public function setTableDefinition(): void
   {
     $this->setTableName('ticket_1793_orders');
     $this->hasColumn('id', 'integer', 4, array('type' => 'integer', 'unsigned' => '1', 'primary' => true, 'autoincrement' => true, 'length' => '4'));

@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_1381_TestCase extends Doctrine_UnitTestCase
+381TestCase extends Doctrine_UnitTestCase
 {
     public function prepareTables()
     {
@@ -113,7 +113,7 @@ class Doctrine_Ticket_1381_TestCase extends Doctrine_UnitTestCase
             
             // Assert that our existent component still has the column, even after new hydration on same object
             $this->assertTrue(array_key_exists('ArticleTitle', $comment));
-            $this->assertTrue($comment, 'When cleanData worked as expected!');
+            $this->assertEqual($comment, 'When cleanData worked as expected!');
         } catch (Doctrine_Exception $e) {
             $this->fail($e->getMessage());
         }
@@ -123,12 +123,15 @@ class Doctrine_Ticket_1381_TestCase extends Doctrine_UnitTestCase
 
 class T1381_Article extends Doctrine_Record
 {
-    public function setTableDefinition() {
+    public function setTableDefinition(): void
+    {
         $this->hasColumn('id', 'integer', null, array('primary' => true, 'autoincrement' => true));
         $this->hasColumn('title', 'string', 255, array('notnull' => true));
     }
     
-    public function setUp() {
+    public function setUp(): void
+    
+    {
         $this->hasMany(
             'T1381_Comment',
             array(
@@ -142,13 +145,16 @@ class T1381_Article extends Doctrine_Record
 
 class T1381_Comment extends Doctrine_Record
 {
-    public function setTableDefinition() {
+    public function setTableDefinition(): void
+    {
         $this->hasColumn('id', 'integer', null, array('primary' => true, 'autoincrement' => true));
         $this->hasColumn('body', 'string', null, array('notnull' => true));
         $this->hasColumn('article_id', 'integer', null, array('notnull' => true));
     }
 
-    public function setUp() {
+    public function setUp(): void
+
+    {
         $this->hasOne(
             'T1381_Article',
             array(

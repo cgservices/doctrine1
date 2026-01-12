@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_1507_TestCase extends Doctrine_UnitTestCase 
+507TestCase extends Doctrine_UnitTestCase 
 {
 	public function testInitiallyEmpty()
 	{

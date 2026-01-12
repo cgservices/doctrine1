@@ -1,6 +1,6 @@
 <?php
 /**
-class Doctrine_DataDict_Sqlite_TestCase extends Doctrine_UnitTestCase {
+class DataDictSqliteTestCase extends Doctrine_UnitTestCase {
     private $dict;
     
     private $columns;

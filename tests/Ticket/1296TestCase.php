@@ -29,7 +29,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_1296_TestCase extends Doctrine_UnitTestCase
+296TestCase extends Doctrine_UnitTestCase
 {
     public function prepareData() {
         $org = new NewTicket_Organization();
@@ -125,7 +125,8 @@ class Doctrine_Ticket_1296_TestCase extends Doctrine_UnitTestCase
 }
         
 class NewTicket_Organization extends Doctrine_Record {
-    public function setTableDefinition() {
+    public function setTableDefinition(): void
+    {
         $this->hasColumn('id', 'integer', 4, array(
                 'autoincrement' => true,
                 'notnull' => true,
@@ -139,7 +140,8 @@ class NewTicket_Organization extends Doctrine_Record {
 }
 
 class NewTicket_Role extends Doctrine_Record {
-    public function setTableDefinition() {
+    public function setTableDefinition(): void
+    {
         $this->hasColumn('id', 'integer', 4, array(
                 'autoincrement' => true,
                 'notnull' => true,

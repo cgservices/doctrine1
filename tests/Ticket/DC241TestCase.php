@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_DC241_TestCase extends Doctrine_UnitTestCase 
+class DC241TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
@@ -65,13 +65,14 @@ class Doctrine_Ticket_DC241_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_DC241_Poll extends Doctrine_Record
 {
-	public function setTableDefinition()
+	public function setTableDefinition(): void
 	{
 		$this->hasColumn('id_category', 'integer', null, array('notnull' => true));
 		$this->hasColumn('question', 'string', 256);
 	}
 	
-	public function setUp()
+	public function setUp(): void
+	
 	{
 		$this->hasMany('Ticket_DC241_PollAnswer as Answers', array('local' => 'id', 'foreign' => 'id_poll', 'orderBy' => 'position'));
 	}
@@ -79,7 +80,7 @@ class Ticket_DC241_Poll extends Doctrine_Record
 
 class Ticket_DC241_PollAnswer extends Doctrine_Record
 {
-	public function setTableDefinition()
+	public function setTableDefinition(): void
 	{
 		$this->setTableName('module_polls_answers');
 		
@@ -89,7 +90,8 @@ class Ticket_DC241_PollAnswer extends Doctrine_Record
 		$this->hasColumn('position', 'integer');
 	}
 	
-	public function setUp()
+	public function setUp(): void
+	
 	{
 		$this->hasOne('Ticket_DC241_Poll as Poll', array('local' => 'id_poll', 'foreign' => 'id', 'onDelete' => 'CASCADE'));
 	}

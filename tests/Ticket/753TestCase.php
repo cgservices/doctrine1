@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_753_TestCase extends Doctrine_UnitTestCase 
+53TestCase extends Doctrine_UnitTestCase 
 {
     public function testTest()
     {
@@ -55,7 +55,7 @@ class Doctrine_Ticket_753_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_753_User extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('username');
         $this->hasColumn('password');

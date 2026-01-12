@@ -1,9 +1,11 @@
 <?php
 class ValidatorTest_AddressModel extends Doctrine_Record {
-	public function setTableDefinition() {
+	public function setTableDefinition(): void
+	{
 
-		$this->hasColumn("id", "integer", 11, array('autoincrement' => true,
-													'primary'       => true
+		$this->hasColumn("id", "integer", 8, array('autoincrement' => true,
+													'primary'       => true,
+													'unsigned'      => true
 													));
 		$this->hasColumn('address1', 'string', 255, array('notnull' => true, 'notblank'));
 		$this->hasColumn('address2', 'string', 255, array('notnull' => true));
@@ -12,7 +14,9 @@ class ValidatorTest_AddressModel extends Doctrine_Record {
 		$this->hasColumn('zip', 'string', 15, array('notnull' => true, 'notblank', 'regexp' => '/^[0-9-]*$/'));
 	}
 
-	public function setUp() {
+	public function setUp(): void
+
+	{
 		$this->hasMany('ValidatorTest_ClientModel', array('local' => 'address_id', 'foreign' => 'client_id', 'refClass' => 'ValidatorTest_ClientToAddressModel'));
 	}
 }

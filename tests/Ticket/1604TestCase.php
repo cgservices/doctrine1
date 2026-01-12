@@ -29,7 +29,7 @@
  * @since       1.0
  * @version     $Revision$ 
  */
-class Doctrine_Ticket_1604_TestCase extends Doctrine_UnitTestCase 
+604TestCase extends Doctrine_UnitTestCase 
 {
     public function testExport()
     {
@@ -48,7 +48,7 @@ class Doctrine_Ticket_1604_TestCase extends Doctrine_UnitTestCase
     
 class Ticket_1604_User extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string', 30);
         
@@ -57,7 +57,8 @@ class Ticket_1604_User extends Doctrine_Record
         $this->option('charset', 'utf8');
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasMany('Ticket_1604_EmailAdresses as emailAdresses', array('local' => 'id', 'foreign' => 'userId', "onDelete" => "CASCADE")); 
     }
@@ -65,7 +66,7 @@ class Ticket_1604_User extends Doctrine_Record
 
 class Ticket_1604_EmailAdresses extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('user_id as userId', 'integer');
         $this->hasColumn('address', 'string', 30);
@@ -75,7 +76,8 @@ class Ticket_1604_EmailAdresses extends Doctrine_Record
         $this->option('charset', 'utf8');
     }
     
-    public function setUp()
+    public function setUp(): void
+    
     {
         $this->hasOne('Ticket_1604_User as user', array('local' => 'userId', 'foreign' => 'id')); 
     }

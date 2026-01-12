@@ -30,8 +30,14 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Record_CascadingDelete_TestCase extends Doctrine_UnitTestCase 
+class Record_CascadingDeleteTestCase extends Doctrine_UnitTestCase 
 {
+    protected $_test;
+    protected $preDeleteInvoked;
+    protected $postDeleteInvoked;
+    protected $preDeleteInvocationCount;
+    protected $postDeleteInvocationCount;
+
     public function prepareData()
     { }
     public function prepareTables()
@@ -225,11 +231,14 @@ class CascadeDeleteListener extends Doctrine_Record_Listener {
    is bidirectional, as is the cascade. */
 
 class CascadeDelete_HouseOwner extends Doctrine_Record {
-    public function setTableDefinition() {
+    public function setTableDefinition(): void
+    {
         $this->hasColumn('id', 'integer', 4, array('primary' => true, 'autoincrement' => true));
         $this->hasColumn('name', 'string', 50);
     }
-    public function setUp() {
+    public function setUp(): void
+    {
+
         $this->hasOne('CascadeDelete_House as house', array(
                 'local' => 'id', 'foreign' => 'owner_id',
                 'cascade' => array('delete')));
@@ -237,12 +246,15 @@ class CascadeDelete_HouseOwner extends Doctrine_Record {
 }
 
 class CascadeDelete_House extends Doctrine_Record {
-    public function setTableDefinition() {
+    public function setTableDefinition(): void
+    {
         $this->hasColumn('id', 'integer', 4, array('primary' => true, 'autoincrement' => true));
         $this->hasColumn('bathrooms', 'integer', 1);
         $this->hasColumn('owner_id', 'integer', 4);
     }
-    public function setUp() {
+    public function setUp(): void
+    {
+
         $this->hasOne('CascadeDelete_HouseOwner as owner', array(
                 'local' => 'owner_id', 'foreign' => 'id',
                 'cascade' => array('delete')));
@@ -255,7 +267,9 @@ class CascadeDelete_House extends Doctrine_Record {
    supported, so we can't test this class in a cascade => delete scenario. */
 
 class CascadeDelete_CompositeKeyItem extends Doctrine_Record {
-    public function setTableDefinition() {
+
+    public function setTableDefinition(): void
+    {
         $this->hasColumn('id1', 'integer', 4, array('primary' => true));
         $this->hasColumn('id2', 'integer', 4, array('primary' => true));
     }
@@ -267,11 +281,14 @@ class CascadeDelete_CompositeKeyItem extends Doctrine_Record {
    slow. */
 
 class CascadeDelete_ManyManySideA extends Doctrine_Record {
-    public function setTableDefinition() {
+
+    public function setTableDefinition(): void
+    {
         $this->hasColumn('id', 'integer', 4, array('primary' => true, 'autoincrement' => true));
-        $this->hasColumn('name', 'string', 4);
+        $this->hasColumn('name', 'string', 10);
     }
-    public function setUp() {
+    public function setUp(): void
+    {
         $this->hasMany('CascadeDelete_ManyManySideB as Bs', array(
                 'local' => 'a_id', 'foreign' => 'b_id',
                 'refClass' => 'CascadeDelete_ManyManyAToB',
@@ -286,11 +303,14 @@ class CascadeDelete_ManyManySideA extends Doctrine_Record {
 }
 
 class CascadeDelete_ManyManySideB extends Doctrine_Record {
-    public function setTableDefinition() {
+
+    public function setTableDefinition(): void
+    {
         $this->hasColumn('id', 'integer', 4, array('primary' => true, 'autoincrement' => true));
-        $this->hasColumn('name', 'string', 4);
+        $this->hasColumn('name', 'string', 10);
     }
-    public function setUp() {
+    public function setUp(): void
+    {
         $this->hasMany('CascadeDelete_ManyManySideA as As', array(
                 'local' => 'b_id', 'foreign' => 'a_id',
                 'refClass' => 'CascadeDelete_ManyManyAToB',
@@ -305,7 +325,8 @@ class CascadeDelete_ManyManySideB extends Doctrine_Record {
 }
 
 class CascadeDelete_ManyManyAToB extends Doctrine_Record {
-    public function setTableDefinition() {
+    public function setTableDefinition(): void
+    {
         $this->hasColumn('a_id', 'integer', 4, array('primary' => true));
         $this->hasColumn('b_id', 'integer', 4, array('primary' => true));
     }

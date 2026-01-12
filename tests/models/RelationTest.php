@@ -1,16 +1,16 @@
 <?php
 class RelationTest extends Doctrine_Record 
 {
-    public function setTableDefinition() 
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string', 200);
-        $this->hasColumn('parent_id', 'integer');
+        $this->hasColumn('parent_id', 'integer', 8);
     }
 }
 
 class RelationTestChild extends RelationTest 
 {
-    public function setUp() 
+    public function setUp(): void
     {
         $this->hasOne('RelationTest as Parent', array(
             'local' => 'parent_id',

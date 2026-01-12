@@ -1,16 +1,27 @@
 <?php
-class UnitTestCase
+/**
+ * UnitTestCase - PHPUnit 11 compatible base class
+ *
+ * This class bridges the old Doctrine test framework with PHPUnit 11.
+ * It extends PHPUnit\Framework\TestCase and provides compatibility methods
+ * for the old assertion API.
+ */
+
+use PHPUnit\Framework\TestCase;
+
+class UnitTestCase extends TestCase
 {
     protected $_passed = 0;
-    
     protected $_failed = 0;
-    
     protected $_messages = array();
+    protected $_testCases = array();
 
     protected static $_passesAndFails = array('passes' => array(), 'fails' => array());
-
     protected static $_lastRunsPassesAndFails = array('passes' => array(), 'fails' => array());
 
+    /**
+     * Initialize the test case
+     */
     public function init()
     {
         $tmpFileName = $this->getPassesAndFailsCachePath();
@@ -30,116 +41,65 @@ class UnitTestCase
         $this->_messages[] = $msg;
     }
 
-    public function assertEqual($value, $value2)
+    /**
+     * Compatibility method: assertEqual maps to assertEquals
+     */
+    public function assertEqual($expected, $actual, string $message = ''): void
     {
-        if ($value == $value2) {
-            $this->pass();
-        } else {
-            $seperator = "<br>";
-            if (PHP_SAPI === "cli") {
-                $seperator = "\n";
-            }
-
-            if (is_array($value)) {
-                $value = var_export($value, true);
-            }
-
-            if (is_array($value2)) {
-                $value2 = var_export($value2, true);
-            }
-
-            $message = "$seperator Value1: $value $seperator != $seperator Value2: $value2 $seperator";
-            $this->_fail($message);
-        }
+        $this->assertEquals($expected, $actual, $message);
     }
 
-    public function assertIdentical($value, $value2)
+    /**
+     * Compatibility method: assertIdentical maps to assertSame
+     */
+    public function assertIdentical($expected, $actual, string $message = ''): void
     {
-        if ($value === $value2) {
-            $this->pass();
-        } else {
-            $this->_fail();
-        }
+        $this->assertSame($expected, $actual, $message);
     }
 
-    public function assertNotEqual($value, $value2)
+    /**
+     * Compatibility method: assertNotEqual maps to assertNotEquals
+     */
+    public function assertNotEqual($expected, $actual, string $message = ''): void
     {
-        if ($value != $value2) {
-            $this->pass();
-        } else {
-            $this->_fail();
-        }
+        $this->assertNotEquals($expected, $actual, $message);
     }
 
-    public function assertTrue($expr)
-    {
-        if ($expr) {
-            $this->pass();
-        } else {
-            $this->_fail();
-        }
-    }
-
-    public function assertFalse($expr)
-    {
-        if ( ! $expr) {
-            $this->pass();
-        } else {
-            $this->_fail();
-        }
-    }
-
-    public function assertNull($expr)
-    {
-        if (is_null($expr)) {
-            $this->pass();
-        } else {
-            $this->fail();
-        }
-    }
-
-    public function assertNotNull($expr)
-    {
-        if (is_null($expr)) {
-            $this->fail();
-        } else {
-            $this->pass();
-        }
-    }
-
-    public function pass() 
+    /**
+     * Pass tracking (for compatibility)
+     */
+    public function pass()
     {
         $class = get_class($this);
-        if ( ! isset(self::$_passesAndFails['fails'][$class])) {
+        if (!isset(self::$_passesAndFails['fails'][$class])) {
             self::$_passesAndFails['passes'][$class] = $class;
         }
         $this->_passed++;
+        // In PHPUnit, a test that doesn't fail is considered passed
+        $this->assertTrue(true);
     }
 
-    public function fail($message = "")
-    {
-        $this->_fail($message);    
-    }
-
+    /**
+     * Internal fail method for compatibility
+     */
     public function _fail($message = "")
     {
         $trace = debug_backtrace();
         array_shift($trace);
 
-
         foreach ($trace as $stack) {
-            if (substr($stack['function'], 0, 4) === 'test') {
+            if (substr($stack['function'] ?? '', 0, 4) === 'test') {
                 $class = new ReflectionClass($stack['class']);
 
-                if ( ! isset($line)) {
-                    $line = $stack['line'];
+                if (!isset($line)) {
+                    $line = $stack['line'] ?? 0;
                 }
 
                 $errorMessage = $class->getName() . ' : method ' . $stack['function'] . ' failed on line ' . $line;
-                $this->_messages[] =  $errorMessage . " " . $message;
+                $this->_messages[] = $errorMessage . " " . $message;
                 break;
             }
-            $line = $stack['line'];
+            $line = $stack['line'] ?? 0;
         }
         $this->_failed++;
         $class = get_class($this);
@@ -149,20 +109,7 @@ class UnitTestCase
         self::$_passesAndFails['fails'][$class] = $class;
     }
 
-    public function run(DoctrineTest_Reporter $reporter = null, $filter = null) 
-    {
-        foreach (get_class_methods($this) as $method) {
-            if (substr($method, 0, 4) === 'test') {
-                $this->setUp();
-
-                $this->$method();
-                
-                $this->tearDown();
-            }
-        }
-    }
-
-    public function getMessages() 
+    public function getMessages()
     {
         return $this->_messages;
     }
@@ -180,7 +127,7 @@ class UnitTestCase
     public function getPassesAndFailsCachePath()
     {
         $dir = dirname(__FILE__) . '/doctrine_tests';
-        if ( ! is_dir($dir)) {
+        if (!is_dir($dir)) {
             mkdir($dir, 0777, true);
         }
 
@@ -219,25 +166,23 @@ class UnitTestCase
         $newFails = array();
         $fails = self::$_passesAndFails['fails'];
         foreach ($fails as $fail) {
-            // If it passed before then it is a new fail
             if (isset(self::$_lastRunsPassesAndFails['passes'][$fail])) {
                 $newFails[$fail] = $fail;
             }
         }
-        return $newFails;;
+        return $newFails;
     }
 
     public function getFixedFails()
     {
         $fixed = array();
-        $fails = self::$_lastRunsPassesAndFails['fails'];
+        $fails = self::$_lastRunsPassesAndFails['fails'] ?? [];
         foreach ($fails as $fail) {
-            // If the fail passes this time then it is fixed
             if (isset(self::$_passesAndFails['passes'][$fail])) {
                 $fixed[$fail] = $fail;
             }
         }
-        return $fixed;;
+        return $fixed;
     }
 
     public function getNumNewFails()
@@ -250,3 +195,4 @@ class UnitTestCase
         return count($this->getFixedFails());
     }
 }
+

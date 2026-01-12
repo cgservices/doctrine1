@@ -1,7 +1,7 @@
 <?php
 
 
-class Doctrine_Ticket_1830_TestCase extends Doctrine_UnitTestCase
+830TestCase extends Doctrine_UnitTestCase
 {
     public function init()
     {
@@ -77,7 +77,7 @@ class Doctrine_Ticket_1830_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_1830_Article extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->setTableName('ticket_1830_article');
         $this->hasColumn('title', 'string', 255, array('type' => 'string', 'length' => '255'));
@@ -87,7 +87,8 @@ class Ticket_1830_Article extends Doctrine_Record
         $this->option('charset', 'utf8');
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $i18n0 = new Doctrine_Template_I18n(array('fields' => array(0 => 'title')));
         $this->actAs($i18n0);

@@ -30,7 +30,9 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_EventListener_TestCase extends Doctrine_UnitTestCase {
+class EventListenerTestCase extends Doctrine_UnitTestCase {
+    protected $messages;
+
     private $logger;
 
 
@@ -177,6 +179,8 @@ class Doctrine_EventListener_TestCase extends Doctrine_UnitTestCase {
 }
 
 class Doctrine_EventListener_TestLogger implements Doctrine_Overloadable, Countable {
+    protected $logger;
+
     private $messages = array();
 
     public function __call($m, $a) {
@@ -192,7 +196,7 @@ class Doctrine_EventListener_TestLogger implements Doctrine_Overloadable, Counta
     public function getAll() {
         return $this->messages;
     }
-    public function count() {
+    public function count(): int {
         return count($this->messages);
     }
 }

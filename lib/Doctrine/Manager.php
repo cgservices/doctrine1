@@ -406,6 +406,11 @@ class Doctrine_Manager extends Doctrine_Configurable implements Countable, Itera
         // silence any warnings
         $parts = @parse_url($dsn);
 
+        // parse_url returns false on failure - convert to empty array
+        if ($parts === false) {
+            $parts = [];
+        }
+
         $names = ['dsn', 'scheme', 'host', 'port', 'user', 'pass', 'path', 'query', 'fragment'];
 
         foreach ($names as $name) {
@@ -414,7 +419,7 @@ class Doctrine_Manager extends Doctrine_Configurable implements Countable, Itera
             }
         }
 
-        if ((is_array($parts) || $parts instanceof \Countable ? count($parts) : 0) == 0 || ! isset($parts['scheme'])) {
+        if (count($parts) == 0 || ! isset($parts['scheme'])) {
             throw new Doctrine_Manager_Exception('Could not parse dsn');
         }
 
@@ -633,7 +638,7 @@ class Doctrine_Manager extends Doctrine_Configurable implements Countable, Itera
      *
      * @return integer
      */
-    public function count()
+    public function count(): int
     {
         return count($this->_connections);
     }
@@ -643,7 +648,7 @@ class Doctrine_Manager extends Doctrine_Configurable implements Countable, Itera
      *
      * @return ArrayIterator
      */
-    public function getIterator()
+    public function getIterator(): \Traversable
     {
         return new ArrayIterator($this->_connections);
     }
@@ -712,7 +717,7 @@ class Doctrine_Manager extends Doctrine_Configurable implements Countable, Itera
      *
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         $r = [];
         $r[] = "<pre>";

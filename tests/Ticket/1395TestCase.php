@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_1395_TestCase extends Doctrine_UnitTestCase
+395TestCase extends Doctrine_UnitTestCase
 {    
     public function prepareTables()
     {
@@ -62,13 +62,14 @@ class Doctrine_Ticket_1395_TestCase extends Doctrine_UnitTestCase
 
 class T1395_MyModel extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('id', 'integer', 4, array('primary' => true, 'notnull' => true));
         $this->hasColumn('dt_created', 'date');
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->addListener(new T1395_Listener());
     }

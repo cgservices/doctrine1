@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_969_TestCase extends Doctrine_UnitTestCase {
+69TestCase extends Doctrine_UnitTestCase {
 
     public function prepareData()
     {
@@ -92,14 +92,15 @@ class Doctrine_Ticket_969_TestCase extends Doctrine_UnitTestCase {
 
 class T1 extends Doctrine_Record
 {
-  public function setTableDefinition()
+  public function setTableDefinition(): void
   {
     $this->setTableName('t1');
     $this->hasColumn('t1_id', 'integer', 3, array('autoincrement' => true, 'unsigned' => true, 'primary' => true, 'notnull' => true));
     $this->hasColumn('t2_id', 'integer', 3);
   }
 
-  public function setUp()
+  public function setUp(): void
+
   {
     parent :: setUp();
     $this->hasOne('T2', array('local' => 't2_id', 'foreign' => 't2_id'));
@@ -108,14 +109,15 @@ class T1 extends Doctrine_Record
 
 class T2 extends Doctrine_Record
 {
-  public function setTableDefinition()
+  public function setTableDefinition(): void
   {
     $this->setTableName('t2');
     $this->hasColumn('t2_id', 'integer', 3, array('autoincrement' => true, 'unsigned' => true, 'primary' => true, 'notnull' => true));
     $this->hasColumn('hello_id', 'integer', 3);
   }
 
-  public function setUp()
+  public function setUp(): void
+
   {
     parent :: setUp();
     $this->hasMany('T3', array('local' => 'hello_id', 'foreign' => 'hello_id'));
@@ -124,14 +126,15 @@ class T2 extends Doctrine_Record
 
 class T3 extends Doctrine_Record
 {
-  public function setTableDefinition()
+  public function setTableDefinition(): void
   {
     $this->setTableName('t3');
     $this->hasColumn('t3_id', 'integer', 3, array('autoincrement' => true, 'unsigned' => true, 'primary' => true, 'notnull' => true));
     $this->hasColumn('hello_id', 'integer', 3);
   }
 
-  public function setUp()
+  public function setUp(): void
+
   {
     parent :: setUp();
   }

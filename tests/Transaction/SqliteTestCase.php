@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Transaction_Sqlite_TestCase extends Doctrine_UnitTestCase 
+class Transaction_SqliteTestCase extends Doctrine_UnitTestCase 
 {
     public function testSetIsolationThrowsExceptionOnUnknownIsolationMode() 
     {

@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Connection_Pgsql_TestCase extends Doctrine_UnitTestCase 
+class Connection_PgsqlTestCase extends Doctrine_UnitTestCase 
 {
 
     public function testNoSuchTableErrorIsSupported() 

@@ -8,7 +8,7 @@
  * @link        www.doctrine-project.org
  * @version     $Revision$
  */
-class Doctrine_Ticket_736_TestCase extends Doctrine_UnitTestCase
+36TestCase extends Doctrine_UnitTestCase
 {
     public function prepareData() 
     { 
@@ -44,13 +44,14 @@ class Doctrine_Ticket_736_TestCase extends Doctrine_UnitTestCase
 
 class T736_Module extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('lastchange', 'timestamp');
         $this->hasColumn('moduledelegateid', 'integer', 4, array('notnull' => true));
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->addListener(new T736_ModuleLoaderListener());
     }
@@ -59,13 +60,14 @@ class T736_Module extends Doctrine_Record
 
 class T736_ModuleDelegate extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn("moduleid", "integer", 4, array());
         $this->hasColumn("content", "string", 2000);
     }
     
-    public function setUp()
+    public function setUp(): void
+    
     {
         $this->hasOne("T736_Module as parent", array('local' => 'moduleid', 'foreign' => 'id'));
     }

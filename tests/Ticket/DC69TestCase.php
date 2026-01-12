@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_DC69_TestCase extends Doctrine_UnitTestCase 
+class DC69TestCase extends Doctrine_UnitTestCase 
 {
     public function testTest()
     {

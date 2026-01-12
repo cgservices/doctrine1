@@ -30,6 +30,14 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Cache_Query_Sqlite_TestCase extends Doctrine_UnitTestCase 
+class Cache_Query_SqliteTestCase extends Doctrine_UnitTestCase 
 {
+
+    /**
+     * Placeholder test - this class is a stub for future tests
+     */
+    public function testPlaceholder(): void
+    {
+        $this->assertTrue(true);
+    }
 }

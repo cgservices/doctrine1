@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Export_TestCase extends Doctrine_UnitTestCase 
+class ExportTestCase extends Doctrine_UnitTestCase 
 {
     public function testCreateTableThrowsExceptionWithoutValidTableName() 
     {

@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Collection_TestCase extends Doctrine_UnitTestCase 
+class CollectionTestCase extends Doctrine_UnitTestCase 
 {
     public function testLoadRelatedForAssociation() 
     {
@@ -136,13 +136,13 @@ class Doctrine_Collection_TestCase extends Doctrine_UnitTestCase
         $coll->add(new User());
         $this->assertEqual($coll->count(),1);
         $coll->add(new User());
-        $this->assertTrue($coll->count(),2);
+        $this->assertEqual($coll->count(),2);
 
         $this->assertEqual($coll->getKeys(), array(0,1));
 
         $coll[2] = new User();
 
-        $this->assertTrue($coll->count(),3);
+        $this->assertEqual($coll->count(),3);
         $this->assertEqual($coll->getKeys(), array(0,1,2));
     }
 
@@ -248,7 +248,7 @@ class Doctrine_Collection_TestCase extends Doctrine_UnitTestCase
         $this->connection->getTable("email")->setAttribute(Doctrine_Core::ATTR_COLL_KEY,"address");
         $emails = $this->connection->getTable("email")->findAll();
         foreach($emails as $k => $v) {
-            $this->assertTrue(gettype($k), "string");
+            $this->assertEqual(gettype($k), "string");
         }
 
     }

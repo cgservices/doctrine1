@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_2229_TestCase extends Doctrine_UnitTestCase 
+229TestCase extends Doctrine_UnitTestCase 
 {
   public function prepareTables()
   {
@@ -60,14 +60,15 @@ class Doctrine_Ticket_2229_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_2229_SlugBug extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->setTableName('SlugBug');
         $this->hasColumn('id', 'integer', 11, array('primary' => true, 'notnull' => true, 'autoincrement' => true));
         $this->hasColumn('name', 'string');
     }
     
-    public function setUp()
+    public function setUp(): void
+    
     {
       parent::setUp();
       $this->actAs('Sluggable', array('unique' => true,

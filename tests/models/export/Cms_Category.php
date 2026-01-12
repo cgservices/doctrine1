@@ -2,13 +2,15 @@
 class Cms_Category extends Doctrine_Record 
 {
  
-	public function setUp() 
-    {
+	public function setUp(): void
+ 
+	{
 		$this->hasMany('Cms_CategoryLanguages as langs', array('local' => 'id', 'foreign' => 'category_id'));
 	}
  
-	public function setTableDefinition() 
-    {
+	public function setTableDefinition(): void
+ 
+	{
 		$this->hasColumn('created', 'timestamp');
 		$this->hasColumn('parent', 'integer', 11);
 		$this->hasColumn('position', 'integer', 3);

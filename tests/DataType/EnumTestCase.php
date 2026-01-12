@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_DataType_Enum_TestCase extends Doctrine_UnitTestCase 
+class DataType_EnumTestCase extends Doctrine_UnitTestCase 
 {
     public function prepareData() 
     { }

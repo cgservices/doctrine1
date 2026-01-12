@@ -33,7 +33,7 @@
  
 class stComment extends Doctrine_Record
 {
-	public function setTableDefinition()
+	public function setTableDefinition(): void
 	{
 		$this->setTableName('st_comment');
 		$this->hasColumn('title', 'string', 100, array());
@@ -42,7 +42,7 @@ class stComment extends Doctrine_Record
 	}
 }
 
-class Doctrine_Ticket_480_TestCase extends Doctrine_UnitTestCase 
+80TestCase extends Doctrine_UnitTestCase 
 {
 	
 	public function testInit()

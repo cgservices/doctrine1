@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Migration_TestCase extends Doctrine_UnitTestCase
+class MigrationTestCase extends Doctrine_UnitTestCase
 {
     public function prepareTables()
     {
@@ -131,16 +131,16 @@ class Doctrine_Migration_TestCase extends Doctrine_UnitTestCase
 
 class MigrationPhonenumber extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
-        $this->hasColumn('user_id', 'integer');
+        $this->hasColumn('user_id', 'integer', 8);
         $this->hasColumn('phonenumber', 'string', 255);
     }
 }
 
 class MigrationUser extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('username', 'string', 255);
         $this->hasColumn('password', 'string', 255);
@@ -149,7 +149,7 @@ class MigrationUser extends Doctrine_Record
 
 class MigrationProfile extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string', 255);
     }

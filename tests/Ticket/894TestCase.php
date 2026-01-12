@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_894_TestCase extends Doctrine_UnitTestCase {
+94TestCase extends Doctrine_UnitTestCase {
 
     public function prepareTables() {
       $this->tables = array();
@@ -57,7 +57,7 @@ class Doctrine_Ticket_894_TestCase extends Doctrine_UnitTestCase {
 
 class T894_Day extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->setTableName('t894_days');
         $this->hasColumn('id', 'integer', 3, array('autoincrement' => true, 'unsigned' => true, 'primary' => true, 'notnull' => true));

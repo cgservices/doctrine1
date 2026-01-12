@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_1480_TestCase extends Doctrine_UnitTestCase 
+480TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
@@ -53,7 +53,7 @@ class Doctrine_Ticket_1480_TestCase extends Doctrine_UnitTestCase
 
 class Foo extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->setTableName('foo');
         $this->hasColumn('id', 'integer');
@@ -61,7 +61,8 @@ class Foo extends Doctrine_Record
         $this->hasColumn('password', 'string');
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->actAs('SoftDelete');
     }
@@ -69,7 +70,7 @@ class Foo extends Doctrine_Record
 
 class Bar extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->setTableName('bar');
         $this->hasColumn('user_id', 'integer');

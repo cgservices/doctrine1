@@ -12,7 +12,7 @@
  * @version     $Revision$
  */
 
-class Doctrine_Ticket_673_TestCase extends Doctrine_UnitTestCase
+73TestCase extends Doctrine_UnitTestCase
 {
     public function prepareData() 
     { }
@@ -60,7 +60,7 @@ class Doctrine_Ticket_673_TestCase extends Doctrine_UnitTestCase
 
 class T673_Student extends Doctrine_Record
 {
-  public function setTableDefinition()
+  public function setTableDefinition(): void
   {
     $this->setTableName('T673_Student_record');
 

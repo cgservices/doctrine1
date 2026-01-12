@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_1325_TestCase extends Doctrine_UnitTestCase 
+325TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
@@ -72,12 +72,13 @@ class Doctrine_Ticket_1325_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_1325_TableName_NoAlias extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('id', 'integer', 4, array('primary' => true, 'autoincrement' => true));
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->actAs(new Doctrine_Template_Timestampable(array('created' => array('name' => 'event_date', 'type' => 'timestamp'), 'updated' => array('disabled' => true))));
     }
@@ -85,12 +86,13 @@ class Ticket_1325_TableName_NoAlias extends Doctrine_Record
 
 class Ticket_1325_TableName_Aliased extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('id', 'integer', 4, array('primary' => true, 'autoincrement' => true));
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->actAs(new Doctrine_Template_Timestampable(array('created' => array('name' => 'event_date', 'alias' => 'eventDate', 'type' => 'timestamp'), 'updated' => array('disabled' => true))));
     }

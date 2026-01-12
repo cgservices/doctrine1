@@ -1,5 +1,5 @@
 <?php
-class Doctrine_Composite_PrimaryKey_TestCase extends Doctrine_UnitTestCase {
+class CompositePrimaryKeyTestCase extends Doctrine_UnitTestCase {
     public function prepareData() { }
 
     public function prepareTables() { 
@@ -9,5 +9,13 @@ class Doctrine_Composite_PrimaryKey_TestCase extends Doctrine_UnitTestCase {
         $this->tables[] = "CPK_Association";
         
         parent::prepareTables();
+    }
+
+    /**
+     * Placeholder test - this class is a stub for future tests
+     */
+    public function testPlaceholder(): void
+    {
+        $this->assertTrue(true);
     }
 }

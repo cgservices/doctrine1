@@ -29,7 +29,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_929_TestCase extends Doctrine_UnitTestCase 
+29TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareData()
     {	   
@@ -75,14 +75,15 @@ class Doctrine_Ticket_929_TestCase extends Doctrine_UnitTestCase
 
 class T929_Person extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->setTableName('T929_person');
         $this->hasColumn('country_id', 'integer');
         $this->hasColumn('name', 'string', 200);
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         parent::setUp();
 
@@ -102,14 +103,15 @@ class T929_Person extends Doctrine_Record
 
 class T929_Country extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->setTableName('T929_country');
         $this->hasColumn('name', 'string', 200);
         $this->hasColumn('code', 'string', 200);
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         parent::setUp();
 
@@ -125,7 +127,7 @@ class T929_Country extends Doctrine_Record
 
 class T929_JobPosition extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->setTableName('T929_address');
         $this->hasColumn('name', 'string', 200);
@@ -133,7 +135,8 @@ class T929_JobPosition extends Doctrine_Record
         $this->hasColumn('job_category_id', 'integer');
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         parent::setUp();
 
@@ -153,14 +156,15 @@ class T929_JobPosition extends Doctrine_Record
 
 class T929_JobCategory extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->setTableName('job_category');
         $this->hasColumn('code', 'integer', 4);
         $this->hasColumn('name', 'string', 200);
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         parent::setUp();
 

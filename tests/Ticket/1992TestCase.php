@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_1992_TestCase extends Doctrine_UnitTestCase 
+992TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
@@ -101,12 +101,17 @@ class Doctrine_Ticket_1992_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_1992_Person extends Doctrine_Record
 {
-    public function setTableDefinition()
+    protected $person;
+    protected $profile1;
+    protected $profile2;
+
+    public function setTableDefinition(): void
     {
         $this->hasColumn('nummer', 'string', 16, array('type' => 'string', 'length' => 16, 'primary' => true));        
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasMany('Ticket_1992_Profile as Profile', array('local' => 'person_nummer', 'foreign' => 'profile_id', 'refClass' => 'Ticket_1992_PersonProfile'));
         $this->actAs('SoftDelete');
@@ -115,13 +120,18 @@ class Ticket_1992_Person extends Doctrine_Record
 
 class Ticket_1992_Profile extends Doctrine_Record
 {
-    public function setTableDefinition()
+    protected $person;
+    protected $profile1;
+    protected $profile2;
+
+    public function setTableDefinition(): void
     {
         $this->hasColumn('id', 'integer', 4, array('type' => 'integer', 'length' => 4, 'unsigned' => 1, 'primary' => true, 'autoincrement' => true));        
         $this->hasColumn('name', 'string');
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasMany('Ticket_1992_Person as Person', array('local' => 'profile_id', 'foreign' => 'person_nummer', 'refClass' => 'Ticket_1992_PersonProfile'));
         $this->actAs('SoftDelete');
@@ -130,13 +140,18 @@ class Ticket_1992_Profile extends Doctrine_Record
 
 class Ticket_1992_PersonProfile extends Doctrine_Record
 {
-    public function setTableDefinition()
+    protected $person;
+    protected $profile1;
+    protected $profile2;
+
+    public function setTableDefinition(): void
     {
         $this->hasColumn('person_nummer', 'string', 16, array('type' => 'string', 'length' => 16, 'notnull' => true));
         $this->hasColumn('profile_id', 'integer', 4, array('type' => 'integer', 'length' => 4, 'unsigned' => 1, 'notnull' => true));        
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->actAs('SoftDelete');
     }

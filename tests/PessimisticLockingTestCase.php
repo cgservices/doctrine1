@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_PessimisticLocking_TestCase extends Doctrine_UnitTestCase
+class PessimisticLockingTestCase extends Doctrine_UnitTestCase
 {
     private $lockingManager;
 

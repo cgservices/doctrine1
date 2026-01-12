@@ -29,7 +29,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_1250_TestCase extends Doctrine_UnitTestCase {
+250TestCase extends Doctrine_UnitTestCase {
   public function prepareTables() {
     $this->tables[] = 'Doctrine_Ticket_1250_i18n';
     parent::prepareTables();
@@ -57,14 +57,15 @@ class Doctrine_Ticket_1250_TestCase extends Doctrine_UnitTestCase {
 
 class Doctrine_Ticket_1250_i18n extends Doctrine_Record
 {
-  public function setTableDefinition()
+  public function setTableDefinition(): void
   {
     $this->setTableName('Doctrine_Ticket_1250_i18n');
     $this->hasColumn('title', 'string', 255);
     $this->hasColumn('content', 'string', null);
   }
 
-  public function setUp()
+  public function setUp(): void
+
   {
     parent::setUp();
     $i18n0 = new Doctrine_Template_I18n(array('length' => 5, 'fields' => array(0 => 'title', 1 => 'content')));

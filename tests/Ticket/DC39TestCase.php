@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_DC39_TestCase extends Doctrine_UnitTestCase
+class DC39TestCase extends Doctrine_UnitTestCase
 {
     public function prepareData()
     {
@@ -82,12 +82,13 @@ class Doctrine_Ticket_DC39_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_DC39_Group extends Doctrine_Record
 {
-	public function setTableDefinition()
+	public function setTableDefinition(): void
 	{
 		$this->hasColumn('name', 'string', 255);
 	}
 	
-	public function setUp()
+	public function setUp(): void
+	
 	{
 		$this->hasMany('Ticket_DC39_User as Users', array(
 			'local' => 'id',
@@ -98,13 +99,14 @@ class Ticket_DC39_Group extends Doctrine_Record
 
 class Ticket_DC39_User extends Doctrine_Record
 {
-	public function setTableDefinition()
+	public function setTableDefinition(): void
 	{
 		$this->hasColumn('group_id', 'integer');
 		$this->hasColumn('name', 'string', 255);
 	}
 
-	public function setUp()
+	public function setUp(): void
+
 	{
 		$this->hasOne('Ticket_DC39_Group as Group', array(
 			'local' => 'group_id',

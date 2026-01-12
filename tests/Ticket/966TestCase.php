@@ -3,7 +3,7 @@
 /**
  * @author Donald Ball
  */
-class Doctrine_Ticket_966_TestCase extends Doctrine_UnitTestCase
+class Ticket_966TestCase extends Doctrine_UnitTestCase
 {
 
   public function prepareTables()
@@ -114,14 +114,16 @@ class Doctrine_Ticket_966_TestCase extends Doctrine_UnitTestCase
 class Semester extends Doctrine_Record
 {
 
-  public function setTableDefinition()
+  public function setTableDefinition(): void
+
   {
     $this->setTableName('semester');
     $this->hasColumn('id', 'integer', 4, array('primary'=>'true', 'autoincrement'=>'true'));
     $this->hasColumn('name', 'string', 255, array('notnull' => true));
   }
 
-  public function setUp()
+  public function setUp(): void
+
   {
     parent::setUp();
     $this->hasMany('Course as Courses', array('local'=>'id', 'foreign'=>'semester_id'));
@@ -132,14 +134,16 @@ class Semester extends Doctrine_Record
 class Weekday extends Doctrine_Record
 {
 
-  public function setTableDefinition()
+  public function setTableDefinition(): void
+
   {
     $this->setTableName('weekday');
     $this->hasColumn('id', 'integer', 4, array('primary' => true, 'autoincrement' => true));
     $this->hasColumn('name', 'string', 9, array('notnull' => true, 'unique' => true));
   }
 
-  public function setUp()
+  public function setUp(): void
+
   {
       // need to make the many-many bidirectional in order for the lazy-loading test to work.
       // lazy-loading the weekdays ($course['Weekdays']) doesnt work when the relation is
@@ -152,7 +156,8 @@ class Weekday extends Doctrine_Record
 class Course extends Doctrine_Record
 {
 
-  public function setTableDefinition()
+  public function setTableDefinition(): void
+
   {
     $this->setTableName('course');
     $this->hasColumn('id', 'integer', 4, array('primary'=>'true', 'autoincrement'=>'true'));
@@ -160,7 +165,8 @@ class Course extends Doctrine_Record
     $this->hasColumn('name', 'string', 255, array('notnull' => true));
   }
 
-  public function setUp()
+  public function setUp(): void
+
   {
     parent::setUp();
     $this->hasOne('Semester', array('local' => 'semester_id',
@@ -175,7 +181,8 @@ class Course extends Doctrine_Record
 class CourseWeekday extends Doctrine_Record
 {
 
-  public function setTableDefinition()
+  public function setTableDefinition(): void
+
   {
     $this->setTableName('course_weekday');
     # Poor form to have an id on a join table, but that's what we were doing
@@ -184,7 +191,8 @@ class CourseWeekday extends Doctrine_Record
     $this->hasColumn('weekday_id', 'integer', 4, array('notnull' => true));
   }
 
-  public function setUp()
+  public function setUp(): void
+
   {
     parent::setUp();
     $this->hasOne('Course', array('local'=>'course_id', 'foreign'=>'id', 'onDelete'=>'CASCADE'));

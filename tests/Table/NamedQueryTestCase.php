@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Table_NamedQuery_TestCase extends Doctrine_UnitTestCase
+class Table_NamedQueryTestCase extends Doctrine_UnitTestCase
 {
     public function prepareTables()
     {
@@ -82,7 +82,7 @@ class Doctrine_Table_NamedQuery_TestCase extends Doctrine_UnitTestCase
 
 class MyFoo extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string', 255);
         $this->hasColumn('value0', 'integer', 4);
@@ -92,7 +92,7 @@ class MyFoo extends Doctrine_Record
 
 class MyFooTable extends Doctrine_Table
 {
-    public function construct()
+    public function construct(): void
     {
         $this->addNamedQuery('get.by.id', 'SELECT f.* FROM MyFoo f WHERE f.id = ?');
         $this->addNamedQuery(

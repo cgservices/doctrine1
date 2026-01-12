@@ -30,8 +30,10 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Hydrate_TestCase extends Doctrine_UnitTestCase
+class HydrateTestCase extends Doctrine_UnitTestCase
 {
+    protected $data;
+
     protected $testData1 = array(
                               array(
                                   'e' => array('id' => 1, 'name' => 'zYne'),
@@ -76,6 +78,8 @@ class Doctrine_Hydrate_TestCase extends Doctrine_UnitTestCase
 
 class HydrationListener extends Doctrine_Record_Listener
 {
+    protected $data;
+
     public function preHydrate(Doctrine_Event $event) 
     {
         $data = $event->data;
@@ -86,7 +90,7 @@ class HydrationListener extends Doctrine_Record_Listener
     public function postHydrate(Doctrine_Event $event)
     {
     	foreach ($event->data as $key => $value) {
-            $event->data[$key] = strtoupper($value);
+            $event->data[$key] = $value !== null ? strtoupper($value) : null;
         }
     }
 }

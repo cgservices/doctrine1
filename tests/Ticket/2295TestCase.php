@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_2295_TestCase extends Doctrine_UnitTestCase
+295TestCase extends Doctrine_UnitTestCase
 {
     public function testMappedValueFromArray()
     {
@@ -49,7 +49,7 @@ class Doctrine_Ticket_2295_TestCase extends Doctrine_UnitTestCase
 
 class Doctrine_Ticket_2295_Record extends Doctrine_Record
 {
-    public function construct()
+    public function construct(): void
     {
         $this->mapValue('test');
     }

@@ -30,9 +30,16 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Sequence_Pgsql_TestCase extends Doctrine_UnitTestCase 
+class Sequence_PgsqlTestCase extends Doctrine_UnitTestCase 
 {
-     public function testCurrIdExecutesSql() 
+    public function setUp(): void
+    {
+        parent::setUp();
+        // Ensure quote identifier is disabled for these tests
+        $this->conn->setAttribute(Doctrine_Core::ATTR_QUOTE_IDENTIFIER, false);
+    }
+
+     public function testCurrIdExecutesSql()
      {
         $this->sequence->currId('user');
         $q = "SELECT last_value FROM user_seq";

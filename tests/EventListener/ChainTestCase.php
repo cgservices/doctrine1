@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_EventListener_Chain_TestCase extends Doctrine_UnitTestCase 
+class EventListener_ChainTestCase extends Doctrine_UnitTestCase 
 {
     public function prepareData() 
     { }

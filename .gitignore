@@ -1,1 +1,34 @@
+# Test artifacts
 tests/DoctrineTest/doctrine_tests/*
+tests/tmp/
+
+# IDE files
+.idea/
+*.iml
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# OS generated files
+.DS_Store
+**/.DS_Store
+
+# Composer
+/vendor/
+composer.lock
+
+# PHPUnit
+.phpunit.cache/
+.phpunit.result.cache
+phpunit.xml
+
+# Coverage reports
+coverage/
+.coverage/
+*.coverage
+
+# Build artifacts
+build/
+dist/
+
+tools/fix*.php

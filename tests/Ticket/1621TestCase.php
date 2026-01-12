@@ -30,7 +30,7 @@
  * @since       1.1
  * @version     $Revision$ 
  */
-class Doctrine_Ticket_1621_TestCase extends Doctrine_UnitTestCase 
+621TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
@@ -112,13 +112,14 @@ class Doctrine_Ticket_1621_TestCase extends Doctrine_UnitTestCase
     
 class Ticket_1621_User extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('id', 'integer', null, array('primary' => true, 'autoincrement' => true));
         $this->hasColumn('name', 'string', 30);
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasMany('Ticket_1621_User as parents', 
                                                 array('local'    => 'parentId',
@@ -152,7 +153,7 @@ class Ticket_1621_User extends Doctrine_Record
 
 class Ticket_1621_UserReference extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('parent_id as parentId', 'integer', null, array('primary' => true));
         $this->hasColumn('child_id as childId', 'integer', null, array('primary' => true));
@@ -161,7 +162,7 @@ class Ticket_1621_UserReference extends Doctrine_Record
 
 class Ticket_1621_UserReferenceFriends extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('left_id as leftId', 'integer', null, array('primary' => true));
         $this->hasColumn('right_id as rightId', 'integer', null, array('primary' => true));
@@ -170,7 +171,7 @@ class Ticket_1621_UserReferenceFriends extends Doctrine_Record
 
 class Ticket_1621_EmailAdresses extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('user_id as userId', 'integer', null);
         $this->hasColumn('address', 'string', 30);
@@ -180,7 +181,8 @@ class Ticket_1621_EmailAdresses extends Doctrine_Record
         $this->option('charset', 'utf8');
     }
     
-    public function setUp()
+    public function setUp(): void
+    
     {
         $this->hasOne('Ticket_1621_User as user', array('local' => 'userId', 'foreign' => 'id')); 
     }
@@ -188,12 +190,13 @@ class Ticket_1621_EmailAdresses extends Doctrine_Record
 
 class Ticket_1621_Group extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string', 30);
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasMany('Ticket_1621_User as users', array('local' => 'groupId',    
                                      'foreign' => 'userId',     
@@ -205,7 +208,7 @@ class Ticket_1621_Group extends Doctrine_Record
 
 class Ticket_1621_GroupUser extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('user_id as userId', 'integer', null, array('primary' => true));
         $this->hasColumn('group_id as groupId', 'integer', null, array('primary' => true));

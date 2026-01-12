@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Hook_TestCase extends Doctrine_UnitTestCase 
+class HookTestCase extends Doctrine_UnitTestCase 
 {
 
     public function testWordLikeParserSupportsHyphens() 

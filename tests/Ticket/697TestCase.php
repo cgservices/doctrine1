@@ -10,7 +10,7 @@
  * @version     $Revision$
  */
 
-class Doctrine_Ticket_697_TestCase extends Doctrine_UnitTestCase
+97TestCase extends Doctrine_UnitTestCase
 {
     public function prepareData() 
     { }
@@ -38,7 +38,7 @@ class Doctrine_Ticket_697_TestCase extends Doctrine_UnitTestCase
 
 class T697_Person extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string', 30);
     }
@@ -46,7 +46,7 @@ class T697_Person extends Doctrine_Record
 
 //Class table inheritance
 class T697_User extends T697_Person {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('password', 'string', 30);
     }

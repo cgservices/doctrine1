@@ -15,7 +15,7 @@
  */
 abstract class BaseTicket_1527_User extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->setTableName('ticket_1527__user');
         $this->hasColumn('username', 'string', 255, array(
@@ -32,7 +32,8 @@ abstract class BaseTicket_1527_User extends Doctrine_Record
              ));
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         parent::setUp();
         

@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_574_TestCase extends Doctrine_UnitTestCase 
+74TestCase extends Doctrine_UnitTestCase 
 {
   /**
    * prepareData

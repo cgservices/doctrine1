@@ -1,5 +1,5 @@
 <?php
-class Doctrine_Relation_Access_TestCase extends Doctrine_UnitTestCase {
+class Relation_AccessTestCase extends Doctrine_UnitTestCase {
     public function prepareData() {
         $this->conn->clear();
         $o1 = new File_Owner();

@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_1213_TestCase extends Doctrine_UnitTestCase 
+213TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
@@ -55,7 +55,7 @@ class Doctrine_Ticket_1213_TestCase extends Doctrine_UnitTestCase
 
 class Doctrine_Ticket_1213_Birthday extends Doctrine_Record
 {
-	public function setTableDefinition()
+	public function setTableDefinition(): void
 	{
 		$this->hasColumn('person_guid', 'string', 32, array('primary' => true));
 		$this->hasColumn('Bday', 'timestamp');
@@ -66,7 +66,7 @@ class Doctrine_Ticket_1213_Birthday extends Doctrine_Record
 
 class Doctrine_Ticket_1213_Person extends Doctrine_Record
 {
-	public function setTableDefinition()
+	public function setTableDefinition(): void
 	{
 		$this->hasColumn('guid', 'string', 32, array('primary' => true));
 		$this->hasColumn('Name', 'string', 100);
@@ -74,7 +74,8 @@ class Doctrine_Ticket_1213_Person extends Doctrine_Record
 		$this->index('guid', array('fields' => array('guid')));
 	}
 
-	public function setUp()
+	public function setUp(): void
+
 	{
 		$this->hasOne('Doctrine_Ticket_1213_Birthday as Birthday', array('local'    => 'guid',
 		                                                                 'foreign'  => 'person_guid',

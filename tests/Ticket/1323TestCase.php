@@ -1,6 +1,6 @@
 <?php
 
-class Doctrine_Ticket_1323_TestCase extends Doctrine_UnitTestCase {
+323TestCase extends Doctrine_UnitTestCase {
     public function prepareTables() {
         $this->tables = array();
         $this->tables[] = "T1323User";
@@ -151,12 +151,13 @@ class Doctrine_Ticket_1323_TestCase extends Doctrine_UnitTestCase {
   
 class T1323User extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string', 30);
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasMany('T1323User as Parents', array('local' => 'child_id',
                                                 'foreign'  => 'parent_id',
@@ -212,7 +213,7 @@ class T1323User extends Doctrine_Record
 
 class T1323UserReference extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         //$this->hasColumn('id', 'integer', null, array('primary' => true, 'autoincrement' => true));
         $this->hasColumn('parent_id', 'integer', null, array('primary' => true));

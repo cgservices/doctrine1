@@ -29,7 +29,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_NewTicket_TestCase extends Doctrine_UnitTestCase
+class NewTicketTestCase extends Doctrine_UnitTestCase
 {
     private $p1;
     private $p2;
@@ -107,22 +107,28 @@ class Doctrine_Ticket_NewTicket_TestCase extends Doctrine_UnitTestCase
 
 class Testing_AttributeDefinition extends Doctrine_Record
 {
-        public function setTableDefinition()
-    {
+    protected $p1;
+    protected $p2;
+
+        public function setTableDefinition(): void
+        {
         $this->setTableName('testing__attribute_definitions');
                 $this->hasColumn('id', 'integer', 4,
                     array('primary'=>true,'autoincrement'=>true));
                 $this->hasColumn('name', 'string', 64, array('notnull'=>true));
     }
-    public function setUp()
+    public function setUp(): void
     {
     }
 }
 
 class Testing_Attribute extends Doctrine_Record
 {
-        public function setTableDefinition()
-    {
+    protected $p1;
+    protected $p2;
+
+        public function setTableDefinition(): void
+        {
         $this->setTableName('testing__attributes');
 
                 $this->hasColumn('id', 'integer', 4,
@@ -131,7 +137,7 @@ class Testing_Attribute extends Doctrine_Record
                     array('notnull'=>true));
                 $this->hasColumn('value', 'string', 255, array('notnull'=>false));
     }
-    public function setUp()
+    public function setUp(): void
     {
         $this->hasOne(
                 'Testing_AttributeDefinition as Definition',
@@ -146,7 +152,10 @@ class Testing_Attribute extends Doctrine_Record
 
 class Testing_Product extends Doctrine_Record
 {
-    public function setTableDefinition()
+    protected $p1;
+    protected $p2;
+
+    public function setTableDefinition(): void
     {
         $this->setTableName('testing__products');
                 $this->hasColumn('id', 'integer', 4,
@@ -154,7 +163,7 @@ class Testing_Product extends Doctrine_Record
         $this->hasColumn('name', 'string', 40,
             array('notnull'=>true));
     }
-    public function setUp()
+    public function setUp(): void
     {
 
                 $this->hasMany(
@@ -171,7 +180,10 @@ class Testing_Product extends Doctrine_Record
 
 class Testing_ProductAttribute extends Doctrine_Record
 {
-    public function setTableDefinition()
+    protected $p1;
+    protected $p2;
+
+    public function setTableDefinition(): void
     {
         $this->setTableName('testing__products_attributes');
 
@@ -180,7 +192,7 @@ class Testing_ProductAttribute extends Doctrine_Record
         $this->hasColumn('attribute_id', 'integer', 4,
             array('primary'=>true, 'notnull'=>true));
     }
-    public function setUp()
+    public function setUp(): void
     {
         $this->hasOne(
                 'Testing_Product as Product',
