@@ -140,10 +140,8 @@ class Doctrine_Node_NestedSet_PreOrderIterator implements Iterator
                 continue;
             }
 
-            return $current;
+            return;
         }
-
-        return false;
     }
 
     /**

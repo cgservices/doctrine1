@@ -31,4 +31,13 @@ coverage/
 build/
 dist/
 
+# Tool scripts (generated/temporary)
 tools/fix*.php
+
+# Test database files
+sqlite.db
+*.sqlite
+
+# Misplaced Cache folder (should not exist at root)
+/Cache/
+
