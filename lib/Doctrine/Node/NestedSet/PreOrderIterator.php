@@ -67,6 +67,26 @@ class Doctrine_Node_NestedSet_PreOrderIterator implements Iterator
      */
     protected $count;
 
+    /**
+     * @var integer $maxLevel
+     */
+    protected $maxLevel;
+
+    /**
+     * @var array $options
+     */
+    protected $options;
+
+    /**
+     * @var integer $level
+     */
+    protected $level;
+
+    /**
+     * @var integer $prevLeft
+     */
+    protected $prevLeft;
+
     public function __construct($record, $opts)
     {
         $componentName = $record->getTable()->getComponentName();
