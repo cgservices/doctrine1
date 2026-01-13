@@ -99,8 +99,9 @@ class TransactionTestCase extends Doctrine_UnitTestCase
     public function testCommitSavepointListenersGetInvoked()
     {
         // Skip on MySQL - savepoint listener behavior differs
-        $driverName = $this->conn->getDriverName();
-        if (stripos($driverName, 'mysql') !== false) {
+        $isMysql = (getenv('DOCTRINE_TEST_DRIVER') === 'mysql')
+            || (isset($this->conn) && stripos($this->conn->getDriverName(), 'mysql') !== false);
+        if ($isMysql) {
             $this->markTestSkipped('MySQL has different savepoint listener behavior');
             return;
         }
@@ -152,8 +153,9 @@ class TransactionTestCase extends Doctrine_UnitTestCase
     public function testRollbackSavepointListenersGetInvoked()
     {
         // Skip on MySQL - savepoint listener behavior differs
-        $driverName = $this->conn->getDriverName();
-        if (stripos($driverName, 'mysql') !== false) {
+        $isMysql = (getenv('DOCTRINE_TEST_DRIVER') === 'mysql')
+            || (isset($this->conn) && stripos($this->conn->getDriverName(), 'mysql') !== false);
+        if ($isMysql) {
             $this->markTestSkipped('MySQL has different savepoint listener behavior');
             return;
         }
@@ -343,8 +345,9 @@ class TransactionTestCase extends Doctrine_UnitTestCase
     public function testNestedTransaction()
     {
         // Skip on MySQL - nested transaction behavior may differ
-        $driverName = $this->conn->getDriverName();
-        if (stripos($driverName, 'mysql') !== false) {
+        $isMysql = (getenv('DOCTRINE_TEST_DRIVER') === 'mysql')
+            || (isset($this->conn) && stripos($this->conn->getDriverName(), 'mysql') !== false);
+        if ($isMysql) {
             $this->markTestSkipped('MySQL has different nested transaction behavior');
             return;
         }
