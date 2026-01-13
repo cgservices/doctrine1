@@ -34,6 +34,8 @@
 
 class DoctrineTest_Coverage
 {
+    protected $sortBy;
+
 
     const COVERED = 1;
     const MAYBE = -2;

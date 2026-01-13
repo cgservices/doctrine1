@@ -29,7 +29,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_1304_TestCase extends Doctrine_UnitTestCase {
+304TestCase extends Doctrine_UnitTestCase {
   public function prepareTables() {
     $this->tables[] = 'Doctrine_Ticket_1304_Slug';
     parent::prepareTables();
@@ -74,13 +74,14 @@ class Doctrine_Ticket_1304_TestCase extends Doctrine_UnitTestCase {
 
 class Doctrine_Ticket_1304_Slug extends Doctrine_Record
 {
-  public function setTableDefinition()
+  public function setTableDefinition(): void
   {
     $this->hasColumn('title', 'string', 255, array('type' => 'string', 'length' => '255'));
     $this->hasColumn('content', 'string', null, array('type' => 'string'));
   }
 
-  public function setUp()
+  public function setUp(): void
+
   {
     $i18n0 = new Doctrine_Template_I18n(array('fields' => array(0 => 'title', 1 => 'content')));
     $sluggable1 = new Doctrine_Template_Sluggable(array('fields' => array(0 => 'title'), 'indexName' => 'i18n_sluggable_test'));

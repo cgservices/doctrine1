@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_Ayoub_TestCase extends Doctrine_UnitTestCase
+class AyoubTestCase extends Doctrine_UnitTestCase
 {
     public function prepareTables()
     {
@@ -64,7 +64,7 @@ class Doctrine_Ticket_Ayoub_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_Ayoub_Sura extends Doctrine_Record
 {
-  public function setTableDefinition()
+  public function setTableDefinition(): void
   {
     $this->setTableName('Ticket_Ayoub_Sura');
     $this->hasColumn('id', 'integer', null, array('type' => 'integer', 'primary' => true, 'autoincrement' => true));
@@ -78,7 +78,8 @@ class Ticket_Ayoub_Sura extends Doctrine_Record
     $this->option('charset', 'utf8');
   }
 
-  public function setUp()
+  public function setUp(): void
+
   {
     $this->hasOne('Ticket_Ayoub_Place', array('local' => 'place_id',
                                  'foreign' => 'id'));
@@ -90,7 +91,7 @@ class Ticket_Ayoub_Sura extends Doctrine_Record
 
 class Ticket_Ayoub_Place extends Doctrine_Record
 {
-  public function setTableDefinition()
+  public function setTableDefinition(): void
   {
     $this->setTableName('Ticket_Ayoub_Place');
     $this->hasColumn('id', 'integer', null, array('type' => 'integer', 'primary' => true, 'autoincrement' => true));
@@ -100,7 +101,8 @@ class Ticket_Ayoub_Place extends Doctrine_Record
     $this->option('charset', 'utf8');
   }
 
-  public function setUp()
+  public function setUp(): void
+
   {
     $this->hasMany('Ticket_Ayoub_Sura', array('local' => 'id',
                                  'foreign' => 'place_id'));

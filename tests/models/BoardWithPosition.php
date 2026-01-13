@@ -1,10 +1,12 @@
 <?php
 class BoardWithPosition extends Doctrine_Record {
-    public function setTableDefinition() {
-        $this->hasColumn('position', 'integer');
-        $this->hasColumn('category_id', 'integer');
+    public function setTableDefinition(): void
+    {
+        $this->hasColumn('position', 'integer', 8);
+        $this->hasColumn('category_id', 'integer', 8);
     }
-    public function setUp() {
+    public function setUp(): void
+    {
         $this->hasOne('CategoryWithPosition as Category', array('local' => 'category_id', 'foreign' => 'id', 'onDelete' => 'CASCADE'));
     }
 }

@@ -259,6 +259,36 @@ class Doctrine_Expression_Driver extends Doctrine_Connection_Module
     }
 
     /**
+     * Returns the current date (without time component).
+     *
+     * @return string
+     */
+    public function current_date()
+    {
+        return 'CURRENT_DATE()';
+    }
+
+    /**
+     * Returns the current time.
+     *
+     * @return string
+     */
+    public function current_time()
+    {
+        return 'CURRENT_TIME()';
+    }
+
+    /**
+     * Returns the current timestamp.
+     *
+     * @return string
+     */
+    public function current_timestamp()
+    {
+        return 'CURRENT_TIMESTAMP()';
+    }
+
+    /**
      * soundex
      * Returns a string to call a function to compute the
      * soundex encoding of a string

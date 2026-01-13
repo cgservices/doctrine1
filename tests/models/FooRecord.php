@@ -1,15 +1,15 @@
 <?php
 class FooRecord extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->setTableName('foo');
         
         $this->hasColumn('name', 'string', 200, array('notnull' => true));
-        $this->hasColumn('parent_id', 'integer');
-        $this->hasColumn('local_foo', 'integer');
+        $this->hasColumn('parent_id', 'integer', 8);
+        $this->hasColumn('local_foo', 'integer', 8);
     }
-    public function setUp()
+    public function setUp(): void
     {
         $this->hasMany('FooRecord as FooFriend', array('local'    => 'foo1',
                                                        'foreign'  => 'foo2',

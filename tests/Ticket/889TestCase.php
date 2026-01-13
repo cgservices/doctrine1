@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_889_TestCase extends Doctrine_UnitTestCase 
+89TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
@@ -98,7 +98,7 @@ class Doctrine_Ticket_889_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_889 extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         // set Table Name
         $this->setTableName('Ticket_889');
@@ -133,7 +133,8 @@ class Ticket_889 extends Doctrine_Record
 
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         // Ticket_889_Relationship child_id
        	$this->hasMany(
@@ -158,7 +159,7 @@ class Ticket_889 extends Doctrine_Record
 
 class Ticket_889_Relationship extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         // set Table Name
         $this->setTableName('Ticket_889_Relationship');
@@ -190,7 +191,8 @@ class Ticket_889_Relationship extends Doctrine_Record
     	);
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasOne('Ticket_889 as Parent', array('local'     => 'parent_id',
                                                     'foreign'   => 'id',

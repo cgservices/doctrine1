@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_632_TestCase extends Doctrine_UnitTestCase 
+32TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
@@ -71,13 +71,14 @@ class Doctrine_Ticket_632_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_632_User extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('username', 'string', 255);
         $this->hasColumn('password', 'string', 255);
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasMany('Ticket_632_Group as Groups', array('local'   => 'user_id',
                                                            'foreign' => 'group_id',
@@ -87,12 +88,13 @@ class Ticket_632_User extends Doctrine_Record
 
 class Ticket_632_Group extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string', 255);
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasMany('Ticket_632_User as Users', array('local'   => 'group_id',
                                                          'foreign' => 'user_id',
@@ -102,13 +104,14 @@ class Ticket_632_Group extends Doctrine_Record
 
 class Ticket_632_UserGroup extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('user_id', 'integer', 4, array('primary' => true));
         $this->hasColumn('group_id', 'integer', 4, array('primary' => true));
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasOne('Ticket_632_User as User', array('local'   => 'user_id',
                                                        'foreign' => 'id'));

@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_1818_TestCase extends Doctrine_UnitTestCase 
+818TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
@@ -59,12 +59,13 @@ class Doctrine_Ticket_1818_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_1818_Foo extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('bar_id', 'integer', null, array('type' => 'integer'));
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasOne('Ticket_1818_Bar as Bar', array('local' => 'bar_id',
                                    'foreign' => 'id'));
@@ -83,14 +84,15 @@ class Ticket_1818_BarA extends Ticket_1818_Bar
 
 class Ticket_1818_Bar extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('type', 'string', null, array('type' => 'string'));
 
         $this->setSubClasses(array('Ticket_1818_BarA' => array('type' => 'A'), 'Ticket_1818_BarB' => array('type' => 'B')));
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasMany('Ticket_1818_Foo as Foos', array('local' => 'id',
                                             'foreign' => 'bar_id'));

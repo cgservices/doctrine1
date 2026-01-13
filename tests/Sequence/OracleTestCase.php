@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Sequence_Oracle_TestCase extends Doctrine_UnitTestCase 
+class Sequence_OracleTestCase extends Doctrine_UnitTestCase 
 {
      public function testCurrIdExecutesSql() 
      {

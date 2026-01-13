@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_935_TestCase extends Doctrine_UnitTestCase {
+35TestCase extends Doctrine_UnitTestCase {
 
     public function prepareData()
     {
@@ -69,7 +69,7 @@ class Doctrine_Ticket_935_TestCase extends Doctrine_UnitTestCase {
 
 class EnumUpdateBug extends Doctrine_Record
 {
-  public function setTableDefinition()
+  public function setTableDefinition(): void
   {
       $this->setTableName('enumupdatebug');
       $this->hasColumn('id', 'integer', 3, array('autoincrement' => true, 'unsigned' => true, 'primary' => true, 'notnull' => true));
@@ -77,7 +77,8 @@ class EnumUpdateBug extends Doctrine_Record
       $this->hasColumn('separator', 'enum', 1, array('values' =>  array(  0 => 'comma',   1 => 'pipe', )));
   }
 
-  public function setUp()
+  public function setUp(): void
+
   {
   }
 }

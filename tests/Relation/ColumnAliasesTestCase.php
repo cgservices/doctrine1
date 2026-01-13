@@ -1,5 +1,5 @@
 <?php
-class Doctrine_Relation_ColumnAliases_TestCase extends Doctrine_UnitTestCase 
+class Relation_ColumnAliasesTestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables() 
     {
@@ -36,31 +36,33 @@ class Doctrine_Relation_ColumnAliases_TestCase extends Doctrine_UnitTestCase
 
 class ColumnAliasTest2 extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
-        $this->hasColumn('column_alias_test2_id as id', 'integer', null, array('autoincrement' => true, 'primary' => true));
+        $this->hasColumn('column_alias_test2_id as id', 'integer', 8, array('autoincrement' => true, 'primary' => true));
         $this->hasColumn('column1 as alias1', 'string', 200);
-        $this->hasColumn('column2 as alias2', 'integer', 4);
-        $this->hasColumn('relation_id as column_alias_test3_id', 'integer', 4, array('notnull' => true));
+        $this->hasColumn('column2 as alias2', 'integer', 8);
+        $this->hasColumn('relation_id as column_alias_test3_id', 'integer', 8, array('notnull' => true));
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
-        $this->hasOne('ColumnAliasTest3', array('local' => 'column_alias_test3_id', 'foreign' => 'id'));
+        $this->hasOne('ColumnAliasTest3', array('local' => 'relation_id', 'foreign' => 'column_alias_test3_id'));
     }
 }
 
 class ColumnAliasTest3 extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
-        $this->hasColumn('column_alias_test3_id as id', 'integer', null, array('autoincrement' => true, 'primary' => true));
+        $this->hasColumn('column_alias_test3_id as id', 'integer', 8, array('autoincrement' => true, 'primary' => true));
         $this->hasColumn('column1 as alias1', 'string', 200);
-        $this->hasColumn('column2 as alias2', 'integer', 4);
+        $this->hasColumn('column2 as alias2', 'integer', 8);
     }
 	   
-    public function setUp()
+    public function setUp(): void
+	   
     {
-        $this->hasOne('ColumnAliasTest2', array('local' => 'id', 'foreign' => 'column_alias_test3_id'));
+        $this->hasOne('ColumnAliasTest2', array('local' => 'column_alias_test3_id', 'foreign' => 'relation_id'));
     }
 }

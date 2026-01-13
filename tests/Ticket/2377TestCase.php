@@ -30,7 +30,7 @@
  * @since       1.1
  * @version     $Revision$
  */
-class Doctrine_Ticket_2377_TestCase extends Doctrine_UnitTestCase 
+377TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
@@ -62,7 +62,7 @@ class Doctrine_Ticket_2377_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_2377_Author extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->setTableName('author');
         $this->hasColumn('id', 'integer', 2,
@@ -71,7 +71,8 @@ class Ticket_2377_Author extends Doctrine_Record
           array('type' => 'string', 'length' => '100'));
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasMany('Ticket_2377_Article as Article', array('local' => 'id', 'foreign' => 'author_id'));
     }
@@ -79,7 +80,7 @@ class Ticket_2377_Author extends Doctrine_Record
 
 class Ticket_2377_Article extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->setTableName('article');
         $this->hasColumn('id', 'integer', 2,
@@ -90,7 +91,8 @@ class Ticket_2377_Article extends Doctrine_Record
           array('type' => 'string', 'length' => '100'));
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasOne('Ticket_2377_Author as Author', array('local' => 'author_id', 'foreign' => 'id'));
     }

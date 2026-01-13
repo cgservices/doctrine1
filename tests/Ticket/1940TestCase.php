@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_1940_TestCase extends Doctrine_UnitTestCase 
+940TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
@@ -56,7 +56,7 @@ class Doctrine_Ticket_1940_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_1940_User extends Doctrine_Record
 {
-	public function setTableDefinition()
+	public function setTableDefinition(): void
 	{
 		$this->hasColumn('username', 'string', 255);
 		$this->hasColumn('password', 'string', 255);

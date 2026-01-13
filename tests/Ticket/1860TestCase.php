@@ -29,7 +29,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_1860_TestCase extends Doctrine_UnitTestCase
+860TestCase extends Doctrine_UnitTestCase
 {
     public function prepareData()
     {
@@ -79,7 +79,7 @@ class Doctrine_Ticket_1860_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_1860_User extends Doctrine_Record
 {
-  public function setTableDefinition()
+  public function setTableDefinition(): void
   {
     $this->setTableName('ticket_1860_users');
 
@@ -88,7 +88,8 @@ class Ticket_1860_User extends Doctrine_Record
     $this->hasColumn('password', 'string', 45, array('type' => 'string', 'notnull' => true, 'length' => '45'));
   }
 
-  public function setUp()
+  public function setUp(): void
+
   {
     $softdelete0 = new Doctrine_Template_SoftDelete();
     $this->actAs($softdelete0);

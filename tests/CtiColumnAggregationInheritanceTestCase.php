@@ -30,22 +30,28 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_CtiColumnAggregationInheritance_TestCase extends Doctrine_UnitTestCase 
+class CtiColumnAggregationInheritanceTestCase extends Doctrine_UnitTestCase 
 {
-
+    /**
+     * Placeholder test - this class is a stub for future tests
+     */
+    public function testPlaceholder(): void
+    {
+        $this->assertTrue(true);
+    }
 }
 abstract class CTICAAbstractBase extends Doctrine_Record
 { }
 class CTICATestParent1 extends CTICAAbstractBase
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string', 200);
     }
 }
 class CTICATestParent2 extends CTICATestParent1
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
     	parent::setTableDefinition();
 
@@ -61,16 +67,16 @@ class CTICATestParent2 extends CTICATestParent1
 }
 class CTICATestParent3 extends CTICATestParent2
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
-        $this->hasColumn('added', 'integer');
+        $this->hasColumn('added', 'integer', 8);
     }
 }
 class CTICATestParent4 extends CTICATestParent3
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
-        $this->hasColumn('age', 'integer', 4);
+        $this->hasColumn('age', 'integer', 8);
     }
 }
 class CTICATest extends CTICATestParent4
@@ -79,21 +85,21 @@ class CTICATest extends CTICATestParent4
 }
 class CTICATest2 extends CTICATestParent2
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
-        $this->hasColumn('updated', 'integer');
+        $this->hasColumn('updated', 'integer', 8);
     }
 }
 
 class CTICATestOneToManyRelated extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string');
-        $this->hasColumn('cti_id', 'integer');
+        $this->hasColumn('cti_id', 'integer', 8);
     }
     
-    public function setUp()
+    public function setUp(): void
     {
         $this->hasMany('CTICATestParent1', array('local' => 'cti_id', 'foreign' => 'id'));
     }

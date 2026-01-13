@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Relation_Nest_TestCase extends Doctrine_UnitTestCase
+class Relation_NestTestCase extends Doctrine_UnitTestCase
 {
     public function prepareData() 
     { }

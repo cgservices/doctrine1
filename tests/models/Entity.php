@@ -1,7 +1,7 @@
 <?php
 class Entity extends Doctrine_Record 
 {
-    public function setUp() 
+    public function setUp(): void
     {
         $this->hasOne('Email', array('local' => 'email_id', 'onDelete' => 'CASCADE'));
         $this->hasMany('Phonenumber', array('local' => 'id', 'foreign' => 'entity_id'));
@@ -11,7 +11,7 @@ class Entity extends Doctrine_Record
             'foreign' => 'entity2',
             'equal'    => true));
     }
-    public function setTableDefinition() 
+    public function setTableDefinition(): void
     {
         $this->hasColumn('id', 'integer',20, array('autoincrement', 'primary'));
         $this->hasColumn('name', 'string',50);
@@ -20,7 +20,7 @@ class Entity extends Doctrine_Record
         $this->hasColumn('type', 'integer',1);
         $this->hasColumn('created', 'integer',11);
         $this->hasColumn('updated', 'integer',11);
-        $this->hasColumn('email_id', 'integer');
+        $this->hasColumn('email_id', 'integer', 8);
         $this->setSubclasses(array("User" => array("type" => 0), "Group" => array("type" => 1)));
     }
 }

@@ -1,13 +1,14 @@
 <?php
 class PolicyAsset extends Doctrine_Record 
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('policy_number', 'integer', 11);
         $this->hasColumn('value', 'float', 10, array ('notblank' => true,));
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasOne('Policy', array('foreign' => 'policy_number', 
                                       'local' => 'policy_number'));

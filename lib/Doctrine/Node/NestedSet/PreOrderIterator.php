@@ -67,6 +67,26 @@ class Doctrine_Node_NestedSet_PreOrderIterator implements Iterator
      */
     protected $count;
 
+    /**
+     * @var integer $maxLevel
+     */
+    protected $maxLevel;
+
+    /**
+     * @var array $options
+     */
+    protected $options;
+
+    /**
+     * @var integer $level
+     */
+    protected $level;
+
+    /**
+     * @var integer $prevLeft
+     */
+    protected $prevLeft;
+
     public function __construct($record, $opts)
     {
         $componentName = $record->getTable()->getComponentName();
@@ -100,7 +120,7 @@ class Doctrine_Node_NestedSet_PreOrderIterator implements Iterator
      *
      * @return void
      */
-    public function rewind()
+    public function rewind(): void
     {
         $this->index = -1;
         $this->key = null;
@@ -111,7 +131,7 @@ class Doctrine_Node_NestedSet_PreOrderIterator implements Iterator
      *
      * @return integer
      */
-    public function key()
+    public function key(): mixed
     {
         return $this->key;
     }
@@ -121,7 +141,7 @@ class Doctrine_Node_NestedSet_PreOrderIterator implements Iterator
      *
      * @return Doctrine_Record
      */
-    public function current()
+    public function current(): mixed
     {
         $record = $this->collection->get($this->key);
         $record->getNode()->setLevel($this->level);
@@ -133,28 +153,26 @@ class Doctrine_Node_NestedSet_PreOrderIterator implements Iterator
      *
      * @return void
      */
-    public function next()
+    public function next(): void
     {
         while ($current = $this->advanceIndex()) {
             if ($this->maxLevel && ($this->level > $this->maxLevel)) {
                 continue;
             }
 
-            return $current;
+            return;
         }
-
-        return false;
     }
 
     /**
      * @return boolean                          whether or not the iteration will continue
      */
-    public function valid()
+    public function valid(): bool
     {
         return ($this->index < $this->count);
     }
 
-    public function count()
+    public function count(): int
     {
         return $this->count;
     }

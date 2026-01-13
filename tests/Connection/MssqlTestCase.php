@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Connection_Mssql_TestCase extends Doctrine_UnitTestCase
+class Connection_MssqlTestCase extends Doctrine_UnitTestCase
 {
     public function testAlreadyExistsErrorIsSupported() {
         $this->assertTrue($this->exc->processErrorInfo(array(0, 2714, '')));

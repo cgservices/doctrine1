@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_DC755_TestCase extends Doctrine_UnitTestCase 
+class DC755TestCase extends Doctrine_UnitTestCase 
 {
 	protected $driverName = 'Mysql';
 		

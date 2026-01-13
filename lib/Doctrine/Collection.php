@@ -31,7 +31,7 @@
  * @version     $Revision: 7686 $
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
  */
-class Doctrine_Collection extends Doctrine_Access implements Countable, IteratorAggregate, Serializable
+class Doctrine_Collection extends Doctrine_Access implements Countable, IteratorAggregate
 {
     /**
      * @var array $data                     an array containing the records of this collection
@@ -147,7 +147,7 @@ class Doctrine_Collection extends Doctrine_Access implements Countable, Iterator
      *
      * @return array
      */
-    public function serialize()
+    public function __serialize(): array
     {
         $vars = get_object_vars($this);
 
@@ -160,28 +160,27 @@ class Doctrine_Collection extends Doctrine_Access implements Countable, Iterator
 
         $vars['_table'] = $vars['_table']->getComponentName();
 
-        return serialize($vars);
+        return $vars;
     }
 
     /**
      * This method is automatically called everytime a Doctrine_Collection object is unserialized
      *
+     * @param array $data
      * @return void
      */
-    public function unserialize($serialized)
+    public function __unserialize(array $data): void
     {
         $manager    = Doctrine_Manager::getInstance();
         $connection    = $manager->getCurrentConnection();
 
-        $array = unserialize($serialized);
-
-        foreach ($array as $name => $values) {
+        foreach ($data as $name => $values) {
             $this->$name = $values;
         }
 
         $this->_table = $connection->getTable($this->_table);
 
-        $keyColumn = $array['keyColumn'] ?? null;
+        $keyColumn = $data['keyColumn'] ?? null;
         if ($keyColumn === null) {
             $keyColumn = $this->_table->getBoundQueryPart('indexBy');
         }
@@ -257,9 +256,9 @@ class Doctrine_Collection extends Doctrine_Access implements Countable, Iterator
     /**
      * Get the current key
      *
-     * @return Doctrine_Record
+     * @return mixed
      */
-    public function key()
+    public function key(): mixed
     {
         return key($this->data);
     }
@@ -420,7 +419,7 @@ class Doctrine_Collection extends Doctrine_Access implements Countable, Iterator
      *
      * @return integer
      */
-    public function count()
+    public function count(): int
     {
         return count($this->data);
     }
@@ -891,7 +890,7 @@ class Doctrine_Collection extends Doctrine_Access implements Countable, Iterator
      * @param Doctrine_Connection $conn     optional connection parameter
      * @return Doctrine_Collection
      */
-    public function save(Doctrine_Connection $conn = null, $processDiff = true)
+    public function save(?Doctrine_Connection $conn = null, $processDiff = true)
     {
         if ($conn == null) {
             $conn = $this->_table->getConnection();
@@ -926,7 +925,7 @@ class Doctrine_Collection extends Doctrine_Access implements Countable, Iterator
      * @param Doctrine_Connection $conn     optional connection parameter
      * @return Doctrine_Collection
      */
-    public function replace(Doctrine_Connection $conn = null, $processDiff = true)
+    public function replace(?Doctrine_Connection $conn = null, $processDiff = true)
     {
         if ($conn == null) {
             $conn = $this->_table->getConnection();
@@ -959,7 +958,7 @@ class Doctrine_Collection extends Doctrine_Access implements Countable, Iterator
      *
      * @return Doctrine_Collection
      */
-    public function delete(Doctrine_Connection $conn = null, $clearColl = true)
+    public function delete(?Doctrine_Connection $conn = null, $clearColl = true)
     {
         if ($conn == null) {
             $conn = $this->_table->getConnection();
@@ -1024,7 +1023,7 @@ class Doctrine_Collection extends Doctrine_Access implements Countable, Iterator
      *
      * @return Iterator
      */
-    public function getIterator()
+    public function getIterator(): \Traversable
     {
         $data = $this->data;
         return new ArrayIterator($data);
@@ -1035,7 +1034,7 @@ class Doctrine_Collection extends Doctrine_Access implements Countable, Iterator
      *
      * @return string $string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return Doctrine_Lib::getCollectionAsString($this);
     }

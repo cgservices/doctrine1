@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Record_Generator_TestCase extends Doctrine_UnitTestCase 
+class Record_GeneratorTestCase extends Doctrine_UnitTestCase 
 {
     public function testGeneratorComponentBinding()
     {
@@ -59,13 +59,14 @@ class Doctrine_Record_Generator_TestCase extends Doctrine_UnitTestCase
 
 class I18nGeneratorComponentBinding extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string');
         $this->hasColumn('title', 'string');
     }
     
-    public function setUp()
+    public function setUp(): void
+    
     {
         $this->actAs('I18n', array('fields' => array('title')));
     }

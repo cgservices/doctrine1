@@ -30,9 +30,12 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Connection_Custom_TestCase extends Doctrine_UnitTestCase 
+class Connection_CustomTestCase extends Doctrine_UnitTestCase 
 {
-    public function setUp()
+    protected $_conn;
+    protected $_dbh;
+
+    public function setUp(): void
     {
         $manager = Doctrine_Manager::getInstance();
         $manager->registerConnectionDriver('test', 'Doctrine_Connection_Test');
@@ -49,11 +52,17 @@ class Doctrine_Connection_Custom_TestCase extends Doctrine_UnitTestCase
 
 class Doctrine_Connection_Test extends Doctrine_Connection_Common
 {
+    protected $_conn;
+    protected $_dbh;
+
     
 }
 
 class Doctrine_Adapter_Test implements Doctrine_Adapter_Interface
 {
+    protected $_conn;
+    protected $_dbh;
+
     public function __construct($dsn, $username, $password, $options)
     {
     }

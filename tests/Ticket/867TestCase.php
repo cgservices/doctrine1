@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_867_TestCase extends Doctrine_UnitTestCase 
+67TestCase extends Doctrine_UnitTestCase 
 {
   public function prepareTables()
   {
@@ -64,7 +64,7 @@ class Doctrine_Ticket_867_TestCase extends Doctrine_UnitTestCase
 
 class T867_Section extends Doctrine_Record
 {
-  public function setTableDefinition()
+  public function setTableDefinition(): void
   {
     $this->setTableName('section');
     $this->hasColumn('id', 'integer', 4, array('primary' => true, 'autoincrement' => true));
@@ -77,7 +77,8 @@ class T867_Section extends Doctrine_Record
     $this->option('charset', 'utf8');
   }
   
-  public function setUp()
+  public function setUp(): void
+  
   {
     parent::setUp();
     $this->actAs('I18n', array('fields' =>  array(  0 => 'title',   1 => 'summary', ), 'className' => '%CLASS%_i18n'));

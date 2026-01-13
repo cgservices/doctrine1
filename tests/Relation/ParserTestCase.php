@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Relation_Parser_TestCase extends Doctrine_UnitTestCase 
+class Relation_ParserTestCase extends Doctrine_UnitTestCase 
 {
     public function testPendingRelations()
     {

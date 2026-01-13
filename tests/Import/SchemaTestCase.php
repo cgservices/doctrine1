@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Import_Schema_TestCase extends Doctrine_UnitTestCase 
+class Import_SchemaTestCase extends Doctrine_UnitTestCase 
 {
     public $buildSchema;
     public $schema;

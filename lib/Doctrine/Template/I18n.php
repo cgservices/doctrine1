@@ -49,7 +49,7 @@ class Doctrine_Template_I18n extends Doctrine_Template
      *
      * @return void
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->_plugin->initialize($this->_table); 
     }

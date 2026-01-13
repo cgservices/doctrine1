@@ -1,33 +1,35 @@
 <?php
 class InheritanceEntityUser extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->setTableName('inheritance_entity_user');
 
-        $this->hasColumn('type', 'integer', 4, array (  'primary' => true,));
-        $this->hasColumn('user_id', 'integer', 4, array (  'primary' => true,));
-        $this->hasColumn('entity_id', 'integer', 4, array (  'primary' => true,));
+        $this->hasColumn('type', 'integer', 8, array (  'primary' => true,));
+        $this->hasColumn('user_id', 'integer', 8, array (  'primary' => true,));
+        $this->hasColumn('entity_id', 'integer', 8, array (  'primary' => true,));
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {  
     }
 }
 
 class InheritanceDealUser extends InheritanceEntityUser
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         parent::setTableDefinition();
 
         $this->setTableName('inheritance_entity_user');
 
-        $this->hasColumn('user_id', 'integer', 4, array (  'primary' => true,));
-        $this->hasColumn('entity_id', 'integer', 4, array (  'primary' => true,));
+        $this->hasColumn('user_id', 'integer', 8, array (  'primary' => true,));
+        $this->hasColumn('entity_id', 'integer', 8, array (  'primary' => true,));
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         parent::setUp();
 

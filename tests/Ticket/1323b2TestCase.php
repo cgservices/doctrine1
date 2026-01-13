@@ -1,6 +1,6 @@
 <?php
 
-class Doctrine_Ticket_1323b2_TestCase extends Doctrine_UnitTestCase {
+323b2TestCase extends Doctrine_UnitTestCase {
     public function prepareTables() {
     	$this->tables = array();
         $this->tables[] = "Concept";
@@ -129,7 +129,7 @@ class Doctrine_Ticket_1323b2_TestCase extends Doctrine_UnitTestCase {
  */
 class BaseConcept extends Doctrine_Record
 {
-  public function setTableDefinition()
+  public function setTableDefinition(): void
   {
     $this->setTableName('concepts');
     $this->hasColumn('id', 'integer', 4, array('primary' => true, 'autoincrement' => true, 'type' => 'integer', 'length' => '4'));
@@ -146,7 +146,8 @@ class BaseConcept extends Doctrine_Record
     $this->option('charset', 'utf8');
   }
 
-  public function setUp()
+  public function setUp(): void
+
   {
     $this->hasMany('Concept as broaderConcepts', array('refClass' => 'ConceptRelation',
                                                        'local' => 'concept_id',
@@ -166,7 +167,7 @@ class BaseConcept extends Doctrine_Record
  */
 class BaseConceptRelation extends Doctrine_Record
 {
-  public function setTableDefinition()
+  public function setTableDefinition(): void
   {
     $this->setTableName('concepts_x_concepts');
     $this->hasColumn('concept_id as conceptId', 'integer', 4, array('type' => 'integer', 'notnull' => true, 'length' => '4', 'primary' => true));
@@ -177,7 +178,8 @@ class BaseConceptRelation extends Doctrine_Record
     $this->option('charset', 'utf8');
   }
 
-  public function setUp()
+  public function setUp(): void
+
   {
     $this->hasOne('Concept as concept', array('local' => 'concept_id',
                                               'foreign' => 'id'));

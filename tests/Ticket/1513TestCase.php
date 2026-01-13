@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_1513_TestCase extends Doctrine_UnitTestCase
+513TestCase extends Doctrine_UnitTestCase
 {
     public function testTest()
     {
@@ -43,13 +43,14 @@ class Doctrine_Ticket_1513_TestCase extends Doctrine_UnitTestCase
 
 class T1513_Class1 extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('min', 'integer');
         $this->hasColumn('max', 'integer');
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasMany('T1513_Class2 as Classes2', array('local'    => 'c1_id',
                                                             'foreign'  => 'c2_id',
@@ -59,12 +60,13 @@ class T1513_Class1 extends Doctrine_Record
 
 class T1513_Class2 extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('value', 'string', 255);
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasMany('T1513_Class1 as Classes1', array('local'    => 'c2_id',
                                                           'foreign'  => 'c1_id',
@@ -75,7 +77,7 @@ class T1513_Class2 extends Doctrine_Record
 
 class T1513_Relation extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('c1_id', 'integer');
         $this->hasColumn('c2_id', 'integer');

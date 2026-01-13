@@ -30,7 +30,7 @@
  * @since           1.0
  * @version         $Revision$
  */
-class Doctrine_Ticket_2334_TestCase extends Doctrine_UnitTestCase
+334TestCase extends Doctrine_UnitTestCase
 {
     public function prepareTables()
     {
@@ -54,13 +54,14 @@ class Doctrine_Ticket_2334_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_2334_TestMSSQLUnsignedInt extends Doctrine_Record
 {
-        public function setTableDefinition()
+        public function setTableDefinition(): void
         {
                 $this->setTableName('test_string_length');
                 $this->hasColumn('test_int', 'int', null, array('unsigned' => true));
         }
 
-        public function setUp()
+        public function setUp(): void
+
         {
             parent::setUp();
         }

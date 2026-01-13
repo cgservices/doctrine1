@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_1305_TestCase extends Doctrine_UnitTestCase
+305TestCase extends Doctrine_UnitTestCase
 {
     public function prepareTables() 
     {
@@ -62,7 +62,7 @@ class Doctrine_Ticket_1305_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_1305_Record extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string', 255, array('notnull' => true, 'default' => 'test'));
     }

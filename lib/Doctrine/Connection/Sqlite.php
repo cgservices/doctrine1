@@ -68,6 +68,9 @@ class Doctrine_Connection_Sqlite extends Doctrine_Connection_Common
          parent::__construct($manager, $adapter);
 
         if ($this->isConnected) {
+            // Enable string fetches for PHP 8.x compatibility (PDO returns integers by default in PHP 8)
+            $this->dbh->setAttribute(PDO::ATTR_STRINGIFY_FETCHES, true);
+
             $this->dbh->sqliteCreateFunction('mod',    array('Doctrine_Expression_Sqlite', 'modImpl'), 2);
             $this->dbh->sqliteCreateFunction('concat', array('Doctrine_Expression_Sqlite', 'concatImpl'));
             $this->dbh->sqliteCreateFunction('md5', 'md5', 1);

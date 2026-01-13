@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_1858_TestCase extends Doctrine_UnitTestCase 
+858TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
@@ -59,7 +59,8 @@ class T1858_Foo extends Doctrine_Record
 {
     public $hooks = array();
 
-    public function setTableDefinition()
+    public function setTableDefinition(): void
+
     {
         $this->hasColumn('quantity', 'integer');
     }

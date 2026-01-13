@@ -2,7 +2,8 @@
 class TestMovie extends Doctrine_Record
 {
 
-    public function setUp() 
+    public function setUp(): void
+
     {
     	$this->hasOne('TestUser as User', 
                         array('local' => 'user_id', 
@@ -19,7 +20,8 @@ class TestMovie extends Doctrine_Record
                               'refClass' => 'TestMovieUserVote'));
     }
 
-    public function setTableDefinition() 
+    public function setTableDefinition(): void
+
     {
     	$this->hasColumn('user_id', 'integer', null);
         $this->hasColumn('name', 'string', 30);

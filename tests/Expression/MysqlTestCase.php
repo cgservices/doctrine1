@@ -30,5 +30,13 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Expression_Mysql_TestCase extends Doctrine_UnitTestCase {
+class Expression_MysqlTestCase extends Doctrine_UnitTestCase {
+
+    /**
+     * Placeholder test - this class is a stub for future tests
+     */
+    public function testPlaceholder(): void
+    {
+        $this->assertTrue(true);
+    }
 }

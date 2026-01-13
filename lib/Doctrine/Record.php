@@ -31,7 +31,7 @@
  * @since       1.0
  * @version     $Revision: 7673 $
  */
-abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Countable, IteratorAggregate, Serializable
+abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Countable, IteratorAggregate
 {
     /**
      * STATE CONSTANTS
@@ -185,7 +185,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
      *
      * @var array
      */
-    protected $_invokedSaveHooks = false;
+    protected $_invokedSaveHooks = [];
 
     /**
      * @var integer $index                  this index is used for creating object identifiers
@@ -301,7 +301,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
      *
      * @return void
      */
-    public function setUp()
+    public function setUp(): void
     { }
     /**
      * construct
@@ -310,7 +310,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
      *
      * @return void
      */
-    public function construct()
+    public function construct(): void
     { }
 
     /**
@@ -794,9 +794,9 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
      * serialize
      * this method is automatically called when an instance of Doctrine_Record is serialized
      *
-     * @return string
+     * @return array
      */
-    public function serialize()
+    public function __serialize(): array
     {
         $event = new Doctrine_Event($this, Doctrine_Event::RECORD_SERIALIZE);
 
@@ -839,22 +839,20 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
             }
         }
 
-        $str = serialize($vars);
-
         $this->postSerialize($event);
         $this->getTable()->getRecordListener()->postSerialize($event);
 
-        return $str;
+        return $vars;
     }
 
     /**
      * this method is automatically called everytime an instance is unserialized
      *
-     * @param string $serialized                Doctrine_Record as serialized string
+     * @param array $data                       Doctrine_Record as serialized array
      * @throws Doctrine_Record_Exception        if the cleanData operation fails somehow
      * @return void
      */
-    public function unserialize($serialized)
+    public function __unserialize(array $data): void
     {
         $event = new Doctrine_Event($this, Doctrine_Event::RECORD_UNSERIALIZE);
         
@@ -866,9 +864,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
         $this->preUnserialize($event);
         $this->getTable()->getRecordListener()->preUnserialize($event);
 
-        $array = unserialize($serialized);
-
-        foreach($array as $k => $v) {
+        foreach($data as $k => $v) {
             $this->$k = $v;
         }
 
@@ -1544,8 +1540,8 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
         } else if (in_array($type, array('integer', 'int')) && is_numeric($old) && is_numeric($new)) {
             return $old != $new;
         } else if ($type == 'timestamp' || $type == 'date') {
-            $oldStrToTime = strtotime($old);
-            $newStrToTime = strtotime($new);
+            $oldStrToTime = ($old !== null) ? strtotime($old) : false;
+            $newStrToTime = ($new !== null) ? strtotime($new) : false;
             if ($oldStrToTime && $newStrToTime) {
                 return $oldStrToTime !== $newStrToTime;
             } else {
@@ -1713,7 +1709,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
      * @throws Exception                    if record is not valid and validation is active
      * @return void
      */
-    public function save(Doctrine_Connection $conn = null)
+    public function save(?Doctrine_Connection $conn = null)
     {
         if ($conn === null) {
             $conn = $this->_table->getConnection();
@@ -1730,7 +1726,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
      * @param Doctrine_Connection $conn                 optional connection parameter
      * @return TRUE if the record was saved sucessfully without errors, FALSE otherwise.
      */
-    public function trySave(Doctrine_Connection $conn = null) {
+    public function trySave(?Doctrine_Connection $conn = null) {
         try {
             $this->save($conn);
             return true;
@@ -1756,7 +1752,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
      * @throws Doctrine_Connection_Exception        if something fails at database level
      * @return integer                              number of rows affected
      */
-    public function replace(Doctrine_Connection $conn = null)
+    public function replace(?Doctrine_Connection $conn = null)
     {
         if ($conn === null) {
             $conn = $this->_table->getConnection();
@@ -1867,7 +1863,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
      *
      * @return integer          the number of columns in this record
      */
-    public function count()
+    public function count(): int
     {
         return count($this->_data);
     }
@@ -2163,7 +2159,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
      * implements IteratorAggregate interface
      * @return Doctrine_Record_Iterator     iterator through data
      */
-    public function getIterator()
+    public function getIterator(): \Traversable
     {
         return new Doctrine_Record_Iterator($this);
     }
@@ -2176,7 +2172,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
      *
      * @return boolean      true if successful
      */
-    public function delete(Doctrine_Connection $conn = null)
+    public function delete(?Doctrine_Connection $conn = null)
     {
         if ($conn == null) {
             $conn = $this->_table->getConnection();
@@ -2713,7 +2709,7 @@ abstract class Doctrine_Record extends Doctrine_Record_Abstract implements Count
      * magic method
      * @return string representation of this object
      */
-    public function __toString()
+    public function __toString(): string
     {
         return (string) $this->_oid;
     }

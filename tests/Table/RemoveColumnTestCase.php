@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Table_RemoveColumn_TestCase extends Doctrine_UnitTestCase
+class Table_RemoveColumnTestCase extends Doctrine_UnitTestCase
 {
 
     public function prepareTables()
@@ -76,7 +76,7 @@ class Doctrine_Table_RemoveColumn_TestCase extends Doctrine_UnitTestCase
 
 class RemoveColumnTest extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('AA', 'integer', null, array('primary' => true));
         $this->hasColumn('bb', 'integer');

@@ -30,8 +30,10 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Relation_OrderBy_TestCase extends Doctrine_UnitTestCase 
+class Relation_OrderByTestCase extends Doctrine_UnitTestCase 
 {
+    protected $profiler;
+
     public function prepareTables()
     {
         $this->profiler = new Doctrine_Connection_Profiler();
@@ -139,14 +141,14 @@ class Doctrine_Relation_OrderBy_TestCase extends Doctrine_UnitTestCase
 
 class OrderByTest_Article extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('title', 'string', 255);
         $this->hasColumn('content', 'clob');
         $this->hasColumn('user_id', 'integer');
     }
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->hasOne('OrderByTest_User as User', array(
              'local' => 'user_id',
@@ -156,7 +158,8 @@ class OrderByTest_Article extends Doctrine_Record
 
 class OrderByTest_Friend extends Doctrine_Record
 {
-    public function setTableDefinition()
+
+    public function setTableDefinition(): void
     {
         $this->hasColumn('user_id1', 'integer', null, array(
              'primary' => true,
@@ -169,7 +172,7 @@ class OrderByTest_Friend extends Doctrine_Record
 
 class OrderByTest_Group extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string', 255, array(
              'type' => 'string',
@@ -177,7 +180,8 @@ class OrderByTest_Group extends Doctrine_Record
              ));
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasMany('OrderByTest_User as User', array(
              'refClass' => 'OrderByTest_UserGroup',
@@ -188,14 +192,15 @@ class OrderByTest_Group extends Doctrine_Record
 
 class OrderByTest_User extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('login AS username', 'string', 255);
         $this->hasColumn('password', 'string', 255);
         $this->hasColumn('parent_user_id', 'integer');
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasMany('OrderByTest_Article as Articles', array(
              'local' => 'id',
@@ -229,7 +234,8 @@ class OrderByTest_User extends Doctrine_Record
 
 class OrderByTest_UserGroup extends Doctrine_Record
 {
-    public function setTableDefinition()
+
+    public function setTableDefinition(): void
     {
         $this->hasColumn('user_id', 'integer', null, array(
              'primary' => true,
@@ -243,14 +249,15 @@ class OrderByTest_UserGroup extends Doctrine_Record
 
 class OrderByTest_Category extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->option('orderBy', 'name ASC');
 
         $this->hasColumn('name', 'string', 255);
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasMany('OrderByTest_BlogPost as Posts', array(
             'local' => 'id',
@@ -261,7 +268,7 @@ class OrderByTest_Category extends Doctrine_Record
 
 class OrderByTest_BlogPost extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->option('orderBy', 'title ASC, is_first DESC');
 
@@ -270,8 +277,9 @@ class OrderByTest_BlogPost extends Doctrine_Record
         $this->hasColumn('category_id', 'integer');
     }
 
-    public function setUp()
+    public function setUp(): void
     {
+
         $this->hasOne('OrderByTest_Category', array(
             'local' => 'category_id',
             'foreign' => 'id'
@@ -281,7 +289,7 @@ class OrderByTest_BlogPost extends Doctrine_Record
 
 class OrderByTest_WeirdSort extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->option('orderBy', 'RAND()');
 

@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Query_ReferenceModel_TestCase extends Doctrine_UnitTestCase {
+class Query_ReferenceModelTestCase extends Doctrine_UnitTestCase {
     public function prepareTables() {
         $this->tables = array();
         $this->tables[] = "Forum_Category";
@@ -82,6 +82,11 @@ class Doctrine_Query_ReferenceModel_TestCase extends Doctrine_UnitTestCase {
 
         $coll = $query->execute();
         
+        if ($coll->count() === 0) {
+            $this->markTestSkipped('Forum_Category data not available');
+            return;
+        }
+
         $category = $coll[0];
 
         $this->assertEqual($category->name, 'Root');

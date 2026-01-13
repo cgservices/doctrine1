@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Connection_Sqlite_TestCase extends Doctrine_UnitTestCase
+class Connection_SqliteTestCase extends Doctrine_UnitTestCase
 {
     public function testNoSuchTableErrorIsSupported()
     {

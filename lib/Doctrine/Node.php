@@ -159,8 +159,9 @@ class Doctrine_Node implements IteratorAggregate
      *
      * @param string $type                      type of iterator (Pre | Post | Level)
      * @param array $options                    options
+     * @return \Traversable
      */
-    public function getIterator($type = null, $options = null)
+    public function getIterator($type = null, $options = null): \Traversable
     {
         if ($type === null) {
             $type = ($this->iteratorType ?? 'Pre');

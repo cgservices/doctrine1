@@ -1,6 +1,7 @@
 <?php
 class ValidatorTest extends Doctrine_Record {
-    public function setTableDefinition() {
+    public function setTableDefinition(): void
+    {
         $this->hasColumn('mymixed', 'string', 100);
         $this->hasColumn('mystring', 'string', 100, array('notnull', 'unique'));
         $this->hasColumn('myarray', 'array', 1000);

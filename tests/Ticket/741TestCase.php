@@ -1,7 +1,7 @@
 <?php
 
 
-class Doctrine_Ticket_741_TestCase extends Doctrine_UnitTestCase
+41TestCase extends Doctrine_UnitTestCase
 {
 
     public function prepareData() 
@@ -29,7 +29,7 @@ class Doctrine_Ticket_741_TestCase extends Doctrine_UnitTestCase
 
 class Parent741 extends Doctrine_Record
 {
-  public function setTableDefinition()
+  public function setTableDefinition(): void
   {
     $this->hasColumn('id', 'integer', 4, array (
       'primary' => true,
@@ -40,7 +40,8 @@ class Parent741 extends Doctrine_Record
     $this->hasColumn('amount', 'integer');
   }
 
-  public function setUp()
+  public function setUp(): void
+
   {
     $this->hasMany('Child741 as Cows', array('local' => 'id', 'foreign' => 'moo_id'));
   }
@@ -48,7 +49,7 @@ class Parent741 extends Doctrine_Record
 
 class Child741 extends Doctrine_Record
 {
-  public function setTableDefinition()
+  public function setTableDefinition(): void
   {
     $this->hasColumn('id', 'integer', 4, array (
       'primary' => true,
@@ -59,7 +60,8 @@ class Child741 extends Doctrine_Record
     $this->hasColumn('moo_id', 'integer');
   }
 
-  public function setUp()
+  public function setUp(): void
+
   {
     $this->hasOne('Parent741 as Moo', array('local' => 'moo_id', 'foreign' => 'id'));
   }

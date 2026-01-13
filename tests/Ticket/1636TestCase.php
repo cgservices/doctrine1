@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_1636_TestCase extends Doctrine_UnitTestCase
+636TestCase extends Doctrine_UnitTestCase
 {
     private $resultCacheLifeSpan = 5;
 
@@ -104,7 +104,8 @@ class Doctrine_Ticket_1636_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_1636_FileType extends Doctrine_Record {
 
-    public function setTableDefinition()
+    public function setTableDefinition(): void
+
     {
         static $columns = array(
             'id' => array(
@@ -126,7 +127,8 @@ class Ticket_1636_FileType extends Doctrine_Record {
         $this->hasColumns($columns);
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasMany('Ticket_1636_File as files', array(
             'local' => 'id',
@@ -138,7 +140,8 @@ class Ticket_1636_FileType extends Doctrine_Record {
 
 class Ticket_1636_File extends Doctrine_Record {
 
-    public function setTableDefinition()
+    public function setTableDefinition(): void
+
     {
         static $columns = array(
             'id' => array(
@@ -165,7 +168,8 @@ class Ticket_1636_File extends Doctrine_Record {
         $this->hasColumns($columns);
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasOne('Ticket_1636_FileType as type', array(
             'local' => 'type_id',

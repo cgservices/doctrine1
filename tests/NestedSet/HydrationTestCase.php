@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_NestedSet_Hydration_TestCase extends Doctrine_UnitTestCase
+class NestedSet_HydrationTestCase extends Doctrine_UnitTestCase
 {
     public function prepareTables()
     {

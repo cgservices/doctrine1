@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_1372_TestCase extends Doctrine_UnitTestCase 
+372TestCase extends Doctrine_UnitTestCase 
 {
     /* Test array of SQL queries to ensure uniqueness of queries */
     public function testExportSql()
@@ -101,7 +101,7 @@ Ticket_1372_Child_2:
 
 class Ticket_1372_ParentClass extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->setTableName('parent_class');
 

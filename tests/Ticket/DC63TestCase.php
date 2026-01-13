@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_DC63_TestCase extends Doctrine_UnitTestCase 
+class DC63TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
@@ -47,7 +47,7 @@ class Doctrine_Ticket_DC63_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_DC63_User extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('id', 'integer', null, array('primary' => true));
         $this->hasColumn('email_address', 'string', 255, array('unique' => false));

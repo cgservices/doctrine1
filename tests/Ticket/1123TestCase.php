@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_1123_TestCase extends Doctrine_UnitTestCase 
+123TestCase extends Doctrine_UnitTestCase 
 {
     public function testInit()
     {
@@ -51,12 +51,13 @@ class Doctrine_Ticket_1123_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_1123_User extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string', 30);
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasMany('Ticket_1123_User as Friend', array('local'    => 'user1',
                                                            'foreign'  => 'user2',
@@ -67,13 +68,14 @@ class Ticket_1123_User extends Doctrine_Record
 
 class Ticket_1123_UserReference extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('user1', 'integer', null, array('primary' => true));
         $this->hasColumn('user2', 'integer', null, array('primary' => true));
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasOne('Ticket_1123_User as User1', array('local' => 'user1', 'foreign' => 'id', 'onDelete' => 'CASCADE'));
         $this->hasOne('Ticket_1123_User as User2', array('local' => 'user2', 'foreign' => 'id', 'onDelete' => 'CASCADE'));

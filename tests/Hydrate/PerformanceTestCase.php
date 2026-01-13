@@ -30,7 +30,7 @@
  * @since       1.1
  * @version     $Revision$
  */
-class Doctrine_Hydrate_Performance_TestCase extends Doctrine_UnitTestCase
+class Hydrate_PerformanceTestCase extends Doctrine_UnitTestCase
 {
     public function prepareData()
     {
@@ -69,7 +69,7 @@ class Doctrine_Hydrate_Performance_TestCase extends Doctrine_UnitTestCase
 
 class HydratePerformance extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('column1', 'string', 255);
         $this->hasColumn('column2', 'string', 255);

@@ -1,12 +1,12 @@
 <?php
 class VersioningTest extends Doctrine_Record 
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string');
-        $this->hasColumn('version', 'integer');
+        $this->hasColumn('version', 'integer', 8);
     }
-    public function setUp()
+    public function setUp(): void
     {
         $this->actAs('Versionable');
     }
@@ -14,12 +14,12 @@ class VersioningTest extends Doctrine_Record
 
 class VersioningTest2 extends Doctrine_Record 
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string');
-        $this->hasColumn('version', 'integer');
+        // version column is added by Versionable behavior
     }
-    public function setUp()
+    public function setUp(): void
     {
         $this->actAs('Versionable', array('auditLog' => false));
     }
@@ -27,12 +27,12 @@ class VersioningTest2 extends Doctrine_Record
 
 class VersioningTest3 extends Doctrine_Record 
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string');
-        $this->hasColumn('version', 'integer');
+        $this->hasColumn('version', 'integer', 8);
     }
-    public function setUp()
+    public function setUp(): void
     {
     	  
         $this->actAs('Versionable', array('tableName' =>  'tbl_prefix_comments_version',

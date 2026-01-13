@@ -1,7 +1,7 @@
 <?php
 class TestUser extends Doctrine_Record 
 {
-    public function setUp() 
+    public function setUp(): void
     {
         $this->hasMany('TestMovie as UserBookmarks', 
                         array('local' => 'user_id',
@@ -14,7 +14,7 @@ class TestUser extends Doctrine_Record
                               'refClass' => 'TestMovieUserVote'));
 
     }
-    public function setTableDefinition() 
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string', 30);
     }

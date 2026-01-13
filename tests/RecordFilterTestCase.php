@@ -1,5 +1,5 @@
 <?php
-class Doctrine_Record_Filter_TestCase extends Doctrine_UnitTestCase {
+class RecordFilterTestCase extends Doctrine_UnitTestCase {
     public function prepareData() { }
     public function prepareTables() { }
 

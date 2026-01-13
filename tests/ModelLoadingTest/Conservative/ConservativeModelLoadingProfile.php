@@ -1,7 +1,7 @@
 <?php
 class ConservativeModelLoadingProfile extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         
     }

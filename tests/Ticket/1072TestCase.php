@@ -13,7 +13,7 @@
  * must be NULL and not an object which is not true after accessing
  * the relation.
  */
-class Doctrine_Ticket_1072_TestCase extends Doctrine_UnitTestCase 
+072TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareData()
     {
@@ -103,7 +103,7 @@ class Doctrine_Ticket_1072_TestCase extends Doctrine_UnitTestCase
 
 class T1072BankTransaction extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->setTableName('t1072_bank_transaction');
         $this->hasColumn('payment_detail_id', 'integer', null);
@@ -111,7 +111,8 @@ class T1072BankTransaction extends Doctrine_Record
         $this->option('charset', 'utf8');
     }
     
-    public function setUp()
+    public function setUp(): void
+    
     {
         parent::setUp();
         $this->hasOne('T1072PaymentDetail', array('local' => 'payment_detail_id',
@@ -121,14 +122,15 @@ class T1072BankTransaction extends Doctrine_Record
 
 class T1072PaymentDetail extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->setTableName('t1072_payment_detail');
         $this->hasColumn('name', 'string', 255, array('notnull' => true));
         $this->option('charset', 'utf8');
     }
     
-    public function setUp()
+    public function setUp(): void
+    
     {
         parent::setUp();
         $this->hasOne('T1072BankTransaction', array('local' => 'id',

@@ -29,7 +29,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_930_TestCase extends Doctrine_UnitTestCase {
+30TestCase extends Doctrine_UnitTestCase {
 
   /**
    * prepareData
@@ -98,13 +98,14 @@ class Doctrine_Ticket_930_TestCase extends Doctrine_UnitTestCase {
 
 class T930_Person extends Doctrine_Record
 {
-  public function setTableDefinition()
+  public function setTableDefinition(): void
   {
     $this->setTableName('T930_person');
     $this->hasColumn('name', 'string', 200);
   }
 
-  public function setUp()
+  public function setUp(): void
+
   {
     parent :: setUp();
 
@@ -119,7 +120,7 @@ class T930_Person extends Doctrine_Record
 
 class T930_JobPosition extends Doctrine_Record
 {
-  public function setTableDefinition()
+  public function setTableDefinition(): void
   {
     $this->setTableName('T930_address');
     $this->hasColumn('name', 'string', 200);
@@ -127,7 +128,8 @@ class T930_JobPosition extends Doctrine_Record
     $this->hasColumn('job_category_id', 'integer');
   }
 
-  public function setUp()
+  public function setUp(): void
+
   {
     parent :: setUp();
     $this->hasOne('T930_Person as Person', array(
@@ -146,14 +148,15 @@ class T930_JobPosition extends Doctrine_Record
 
 class T930_JobCategory extends Doctrine_Record
 {
-  public function setTableDefinition()
+  public function setTableDefinition(): void
   {
     $this->setTableName('job_category');
     $this->hasColumn('code', 'integer', 4);
     $this->hasColumn('name', 'string', 200);
   }
 
-  public function setUp()
+  public function setUp(): void
+
   {
     parent :: setUp();
     $this->hasMany('T930_JobPosition as Positions', array(

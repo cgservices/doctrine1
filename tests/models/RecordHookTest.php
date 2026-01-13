@@ -3,9 +3,10 @@ class RecordHookTest extends Doctrine_Record
 {
     protected $_messages = array();
 
-    public function setTableDefinition()
+    public function setTableDefinition(): void
+
     {
-        $this->hasColumn('name', 'string', null, array('primary' => true));
+        $this->hasColumn('name', 'string', 255, array('primary' => true));
     }
     public function preSave($event)
     {
@@ -42,5 +43,10 @@ class RecordHookTest extends Doctrine_Record
     public function pop()
     {
         return array_pop($this->_messages);
+    }
+
+    public function clearEvents()
+    {
+        $this->_messages = array();
     }
 }

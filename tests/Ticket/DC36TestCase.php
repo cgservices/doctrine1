@@ -30,6 +30,14 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_DC36_TestCase extends Doctrine_UnitTestCase 
+class DC36TestCase extends Doctrine_UnitTestCase 
 {
+
+    /**
+     * Placeholder test - this class is a stub for future tests
+     */
+    public function testPlaceholder(): void
+    {
+        $this->assertTrue(true);
+    }
 }

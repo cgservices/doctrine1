@@ -12,7 +12,7 @@
  * @version     $Revision$
  */
 
-class Doctrine_Ticket_638_TestCase extends Doctrine_UnitTestCase
+38TestCase extends Doctrine_UnitTestCase
 {
     public function prepareData() 
     { }
@@ -107,7 +107,7 @@ class Doctrine_Ticket_638_TestCase extends Doctrine_UnitTestCase
 
 class T638_Student extends Doctrine_Record
 {
-  public function setTableDefinition()
+  public function setTableDefinition(): void
   {
     $this->setTableName('T638_student');
 
@@ -116,14 +116,15 @@ class T638_Student extends Doctrine_Record
     $this->hasColumn('s_name as name', 'varchar', 50, array ('notnull'=>true));
   }
   
-  public function setUp()
+  public function setUp(): void
+  
   {
   }
 }
 
 class T638_Course extends Doctrine_Record
 {
-  public function setTableDefinition()
+  public function setTableDefinition(): void
   {
     $this->setTableName('T638_course');
 
@@ -131,7 +132,8 @@ class T638_Course extends Doctrine_Record
     $this->hasColumn('c_name as name', 'varchar', 50, array ('notnull'=>true));
   }
   
-  public function setUp()
+  public function setUp(): void
+  
   {
   }
 
@@ -143,7 +145,7 @@ class T638_Course extends Doctrine_Record
 
 class T638_StudentCourse extends Doctrine_Record
 {
-  public function setTableDefinition()
+  public function setTableDefinition(): void
   {
     $this->setTableName('T638_Student_course');
 
@@ -152,7 +154,8 @@ class T638_StudentCourse extends Doctrine_Record
     $this->hasColumn('sc_remark  as remark', 'varchar', 500, array ('notnull'=>true));
   }
   
-  public function setUp()
+  public function setUp(): void
+  
   {
     $this->hasOne('T638_Student as Student', array('local' => 'sc_student_id', 'foreign' => 's_id'));
     $this->hasOne('T638_Course as Course', array('local' => 'sc_course_id', 'foreign' => 'c_id'));

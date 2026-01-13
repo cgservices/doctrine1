@@ -1,6 +1,6 @@
 <?php
 
-class Doctrine_Ticket_2158_TestCase extends Doctrine_UnitTestCase
+158TestCase extends Doctrine_UnitTestCase
 {
     public function prepareTables()
     {
@@ -31,7 +31,9 @@ class Doctrine_Ticket_2158_TestCase extends Doctrine_UnitTestCase
 
 class T2158_Model1 extends Doctrine_Record
 {
-    public function setTableDefinition()
+    protected $myModel;
+
+    public function setTableDefinition(): void
     {
         $this->hasColumn('title', 'string');
         $this->hasColumn('m2_id', 'integer');
@@ -40,12 +42,16 @@ class T2158_Model1 extends Doctrine_Record
 
 class T2158_Model2 extends Doctrine_Record
 {
-    public function setTableDefinition()
+    protected $myModel;
+
+    public function setTableDefinition(): void
     {
     }
     
 
-    public function setUp()
+    public function setUp(): void
+    
+
     {
         $this->hasMany('T2158_Model1 as Relation', array(
                 'local' => 'id',

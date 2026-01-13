@@ -22,7 +22,7 @@
  * an issue that keeps arising for me so it seemed worth a test case.
  */
 
-class Doctrine_Ticket_749_TestCase extends Doctrine_UnitTestCase
+49TestCase extends Doctrine_UnitTestCase
 {
     public function prepareTables()
     {
@@ -82,7 +82,7 @@ class Doctrine_Ticket_749_TestCase extends Doctrine_UnitTestCase
 
 class Parent749 extends Doctrine_Record
 {
-  public function setTableDefinition()
+  public function setTableDefinition(): void
   {
     $this->setTableName('mytable');
     $this->hasColumn('id', 'integer', 4, array (
@@ -97,20 +97,22 @@ class Parent749 extends Doctrine_Record
     $this->setSubclasses(array('Record749' => array('type' => 1)));
   }
 
-  public function setUp()
+  public function setUp(): void
+
   {
   }
 }
 
 class Record749 extends Parent749
 {
-  public function setTableDefinition()
+  public function setTableDefinition(): void
   {
     parent::setTableDefinition();
     $this->setTableName('mytable');
   }
 
-  public function setUp()
+  public function setUp(): void
+
   {
     parent::setUp();
     $this->hasOne('RelatedRecord749 as Related', array('local' => 'id',
@@ -120,7 +122,7 @@ class Record749 extends Parent749
 
 class RelatedRecord749 extends Doctrine_Record
 {
-  public function setTableDefinition()
+  public function setTableDefinition(): void
   {
     $this->hasColumn('id', 'integer', 4, array (
       'primary' => true,
@@ -132,7 +134,8 @@ class RelatedRecord749 extends Doctrine_Record
     $this->hasColumn('record_id', 'integer', null, array ('unique' => true,));
   }
 
-  public function setUp()
+  public function setUp(): void
+
   {
     $this->hasOne('Record749 as Record', array('local' => 'record_id',
                                   'foreign' => 'id',

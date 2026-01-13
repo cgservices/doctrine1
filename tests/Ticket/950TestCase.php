@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_950_TestCase extends Doctrine_UnitTestCase 
+50TestCase extends Doctrine_UnitTestCase 
 {
     public function testInit()
     {
@@ -50,7 +50,7 @@ class Doctrine_Ticket_950_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_950_AdresseRecord extends Doctrine_Record
 {
-	public function setTableDefinition()
+	public function setTableDefinition(): void
 	{
 		$this->setTableName('adresse_record');
 		$this->hasColumn('id', 'integer', 20, array('notnull' => true,
@@ -63,7 +63,8 @@ class Ticket_950_AdresseRecord extends Doctrine_Record
 		$this->hasColumn('pays', 'string', 2);
 	}
 
-	public function setUp()
+	public function setUp(): void
+
 	{
 		$this->hasOne('Ticket_950_CountryRecord as Country', array('local' => 'pays', 'foreign' => 'iso'));
 	}
@@ -71,7 +72,7 @@ class Ticket_950_AdresseRecord extends Doctrine_Record
 
 class Ticket_950_CountryRecord extends Doctrine_Record
 {
-	public function setTableDefinition()
+	public function setTableDefinition(): void
 	{
 		$this->setTableName('country_record');
 		$this->hasColumn('id', 'integer', 11, array('notnull' => true,

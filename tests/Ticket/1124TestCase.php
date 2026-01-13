@@ -1,6 +1,6 @@
 <?php
 
-class Doctrine_Ticket_1124_TestCase extends Doctrine_UnitTestCase
+124TestCase extends Doctrine_UnitTestCase
 {
 	const NO_ALIAS			= 5;
 	const SOMETHING_ELSE	= 8;
@@ -158,7 +158,7 @@ class Doctrine_Ticket_1124_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_1124_Record extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->setTableName('emb1_record');
         $this->hasColumn('id', 'integer', 15, array('autoincrement' => true, 'unsigned' => true, 'primary' => true, 'notnull' => true));

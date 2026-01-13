@@ -31,8 +31,10 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Connection_Profiler_TestCase extends Doctrine_UnitTestCase 
+class Db_ProfilerTestCase extends Doctrine_UnitTestCase 
 {
+    protected $profiler;
+
     public function prepareTables()
     {}
     public function prepareData() 

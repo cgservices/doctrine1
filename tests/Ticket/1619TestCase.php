@@ -29,7 +29,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_1619_TestCase extends Doctrine_UnitTestCase {
+619TestCase extends Doctrine_UnitTestCase {
 	
 	public function prepareTables()
   {
@@ -57,15 +57,16 @@ class Doctrine_Ticket_1619_TestCase extends Doctrine_UnitTestCase {
 
 class Ticket_1619_Article extends Doctrine_Record
 {
-	public function setTableDefinition()
-  {
+	public function setTableDefinition(): void
+	{
     $this->setTableName('article');
     $this->hasColumn('id', 'integer', 3, array('type' => 'integer', 'primary' => true, 'autoincrement' => true, 'length' => '3'));
     $this->hasColumn('name', 'string', 60, array('type' => 'string', 'length' => '60'));
     $this->hasColumn('description', 'string', 4000, array('type' => 'string', 'length' => '4000'));
   }
 
-  public function setUp()
+  public function setUp(): void
+
   {
     $i18n0 = new Doctrine_Template_I18n(array('fields' => array(0 => 'name', 1 => 'description')));
     $searchable1 = new Doctrine_Template_Searchable(array('fields' => array(0 => 'name')));

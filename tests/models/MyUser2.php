@@ -1,11 +1,11 @@
 <?php
 class MyUser2 extends Doctrine_Record
 {  
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->setTableName('my_user');
 
-        $this->hasColumn('id', 'integer', 4, array (  'primary' => true,  'autoincrement' => true,));
+        $this->hasColumn('id', 'integer', 8, array (  'primary' => true,  'autoincrement' => true,));
         $this->hasColumn('username', 'string', 128, array (  'notnull' => true,));
         $this->hasColumn('algorithm', 'string', 128, array (  'default' => 'sha1',  'notnull' => true,));
         $this->hasColumn('salt', 'string', 128, array (  'notnull' => true,));
@@ -16,7 +16,8 @@ class MyUser2 extends Doctrine_Record
         $this->hasColumn('is_super_admin', 'boolean', null, array (  'default' => 0,  'notnull' => true,));
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasMany('MyGroup as groups', array('refClass' => 'MyUserGroup', 'local' => 'user_id', 'foreign' => 'group_id'));
     }  

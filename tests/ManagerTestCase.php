@@ -30,7 +30,12 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Manager_TestCase extends Doctrine_UnitTestCase {
+class ManagerTestCase extends Doctrine_UnitTestCase {
+    protected $conn1_database;
+    protected $conn2_database;
+    protected $conn1;
+    protected $conn2;
+
     public function testGetInstance() {
         $this->assertTrue(Doctrine_Manager::getInstance() instanceOf Doctrine_Manager);
     }
@@ -158,6 +163,20 @@ class Doctrine_Manager_TestCase extends Doctrine_UnitTestCase {
     
     public function testDropDatabases()
     {
+        // Set up connections for this test
+        $OS = strtoupper(substr(PHP_OS, 0,3));
+        $tmp_dir = ($OS == 'WIN') ? str_replace('\\','/',sys_get_temp_dir()) : '/tmp';
+
+        $this->conn1_database = $tmp_dir . "/doctrine1_drop.db";
+        $this->conn2_database = $tmp_dir . "/doctrine2_drop.db";
+
+        $this->conn1 = Doctrine_Manager::connection('sqlite:///' . $this->conn1_database, 'doctrine1_drop');
+        $this->conn2 = Doctrine_Manager::connection('sqlite:///' . $this->conn2_database, 'doctrine2_drop');
+
+        // Create before we drop
+        $this->conn1->createDatabase();
+        $this->conn2->createDatabase();
+
         $result1 = $this->conn1->dropDatabase();
         $result2 = $this->conn2->dropDatabase();
     }

@@ -12,23 +12,21 @@ class QueryTest_Category extends Doctrine_Record
     /**
      * Table definition.
      */
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
-        $this->hasColumn('id', 'integer', 4, array('primary', 'autoincrement', 'notnull'));
-        $this->hasColumn('rootCategoryId as rootCategoryId', 'integer', 4,
-                array('notnull', 'default' => 0));
-        $this->hasColumn('parentCategoryId as parentCategoryId', 'integer', 4,
-                array('notnull', 'default' => 0));
+        $this->hasColumn('id', 'integer', 8, array('primary', 'autoincrement', 'notnull'));
+        $this->hasColumn('rootCategoryId as rootCategoryId', 'integer', 8, array('notnull' => false));
+        $this->hasColumn('parentCategoryId as parentCategoryId', 'integer', 8, array('notnull' => false));
         $this->hasColumn('name as name', 'string', 50,
                 array('notnull', 'unique'));
-        $this->hasColumn('position as position', 'integer', 4,
+        $this->hasColumn('position as position', 'integer', 8,
                 array('default' => 0, 'notnull'));
     }
 
     /**
      * Relations definition.
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->hasMany('QueryTest_Category as subCategories', array(
             'local' => 'id', 'foreign' => 'parentCategoryId'

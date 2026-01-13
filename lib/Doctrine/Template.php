@@ -188,7 +188,7 @@ abstract class Doctrine_Template extends Doctrine_Record_Abstract
      * 
      * @return void
      */
-    public function setUp()
+    public function setUp(): void
     {
 
     }
@@ -198,7 +198,7 @@ abstract class Doctrine_Template extends Doctrine_Record_Abstract
      * 
      * @return void
      */
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
 
     }

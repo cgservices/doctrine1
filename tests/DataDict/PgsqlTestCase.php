@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_DataDict_Pgsql_TestCase extends Doctrine_UnitTestCase 
+class DataDict_PgsqlTestCase extends Doctrine_UnitTestCase 
 {
     public function getDeclaration($type) 
     {

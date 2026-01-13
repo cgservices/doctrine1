@@ -1,5 +1,5 @@
 <?php
-class Doctrine_Ticket_1225_TestCase extends Doctrine_UnitTestCase
+225TestCase extends Doctrine_UnitTestCase
 {
     public function prepareTables()
     {
@@ -51,7 +51,7 @@ class Doctrine_Ticket_1225_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_1225_Tree extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string');
 

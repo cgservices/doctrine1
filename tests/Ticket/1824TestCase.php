@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_1824_TestCase extends Doctrine_UnitTestCase 
+824TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
@@ -49,13 +49,14 @@ class Doctrine_Ticket_1824_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_1824_Test extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('test1', 'string', 255);
         $this->hasColumn('test2 as test', 'string', 255);
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->actAs('I18n', array('fields' => array('test')));
     }

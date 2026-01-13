@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_1449_TestCase extends Doctrine_UnitTestCase 
+449TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
@@ -67,13 +67,14 @@ class Doctrine_Ticket_1449_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_1449_Document extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string', 255);
         $this->hasColumn('test', 'string', 255);
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasMany('Ticket_1449_Attachment as Attachments', array('local'   => 'id',
                                                                       'foreign' => 'document_id'));
@@ -82,13 +83,14 @@ class Ticket_1449_Document extends Doctrine_Record
 
 class Ticket_1449_Attachment extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('document_id', 'integer');
         $this->hasColumn('name', 'string', 255);
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasOne('Ticket_1449_Document as Document', array('local'   => 'document_id',
                                                                 'foreign' => 'id'));

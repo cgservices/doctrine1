@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_2292_TestCase extends Doctrine_UnitTestCase 
+292TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
@@ -54,7 +54,7 @@ class Doctrine_Ticket_2292_TestCase extends Doctrine_UnitTestCase
 
 class mkArticle extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->setTableName('mk_article');
         $this->hasColumn('id', 'integer', 4, array('type' => 'integer', 'autoincrement' => true, 'primary' => true, 'length' => 4));
@@ -71,7 +71,7 @@ class mkArticle extends Doctrine_Record
 
 class mkContent extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->setTableName('mk_content');
         $this->hasColumn('id', 'integer', 4, array('type' => 'integer', 'autoincrement' => false, 'primary' => true, 'length' => 4));

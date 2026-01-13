@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_DC82_TestCase extends Doctrine_UnitTestCase 
+class DC82TestCase extends Doctrine_UnitTestCase 
 {
     public function testTest()
     {
@@ -47,7 +47,7 @@ class Doctrine_Ticket_DC82_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_DC82_Article extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('title', 'string', 128, array('notnull', 'unique' => array('where' => 'deleted = false')));
         $this->hasColumn('deleted', 'boolean', 1, array('notnull', 'default' => false));

@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_1843_TestCase extends Doctrine_UnitTestCase 
+843TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
@@ -75,7 +75,8 @@ class Ticket_1843_User extends Doctrine_Record
 {
     public $hooks = array();
 
-    public function setTableDefinition()
+    public function setTableDefinition(): void
+
     {
         $this->hasColumn('username', 'string', 255);
         $this->hasColumn('password', 'string', 255);
@@ -122,7 +123,8 @@ class Ticket_1843_User extends Doctrine_Record
         $this->hooks[__FUNCTION__] = $num + 1;
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->actAs('Timestampable');
     }

@@ -5,7 +5,19 @@
  * test file.  If you are unsure where to put a unit test, place them in here
  * and hopefully someone else will move them.
  */
-class Doctrine_UnsortedTestCase extends Doctrine_UnitTestCase {
+class UnsortedTestCase extends Doctrine_UnitTestCase {
+
+  public function prepareTables()
+  {
+      $this->tables = array('Package', 'PackageVersion', 'PackageVersionNotes');
+      parent::prepareTables();
+  }
+
+  public function prepareData()
+  {
+      // No initial data needed
+  }
+
   public function testCascadingInsert()
   {
       $package = new Package();

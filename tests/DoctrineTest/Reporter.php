@@ -2,6 +2,7 @@
 
 class DoctrineTest_Reporter
 {
+
     protected
         $_formatter,
         $_test;

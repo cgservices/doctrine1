@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_DC56_TestCase extends Doctrine_UnitTestCase 
+class DC56TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
@@ -50,12 +50,13 @@ class Doctrine_Ticket_DC56_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_DC56_Location extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('title', 'string', 255);
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->actAs('Geographical', array(
             'latitude' => array(

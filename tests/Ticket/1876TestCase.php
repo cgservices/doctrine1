@@ -30,7 +30,7 @@
  * @version     $Revision$
  * @author      Andrea Baron <andrea@bhweb.it>
  */
-class Doctrine_Ticket_1876_TestCase extends Doctrine_UnitTestCase
+876TestCase extends Doctrine_UnitTestCase
 {
     public function prepareTables()
     {
@@ -95,13 +95,16 @@ class Doctrine_Ticket_1876_TestCase extends Doctrine_UnitTestCase
 }
         
 class T1876_Recipe extends Doctrine_Record {
-    public function setTableDefinition() {
+    public function setTableDefinition(): void
+    {
         $this->hasColumn('id', 'integer', null, array('autoincrement' => true, 'primary' => true));
         $this->hasColumn('company_id', 'integer', null);
         $this->hasColumn('name', 'string', 255);
     }
     
-    public function setUp() {
+    public function setUp(): void
+    
+    {
         $this->hasOne('T1876_Company as Company', array('local' => 'company_id', 'foreign' => 'id'));
         $this->hasMany('T1876_RecipeIngredient as RecipeIngredients', array('local' => 'id', 'foreign' => 'recipe_id'));
         
@@ -110,12 +113,15 @@ class T1876_Recipe extends Doctrine_Record {
 }
 
 class T1876_Company extends Doctrine_Record {
-    public function setTableDefinition() {
+    public function setTableDefinition(): void
+    {
         $this->hasColumn('id', 'integer', null, array('autoincrement' => true, 'primary' => true));
         $this->hasColumn('name', 'string', 255);
     }
     
-    public function setUp() {
+    public function setUp(): void
+    
+    {
         $this->hasMany('T1876_Recipe as Recipes', array('local' => 'id', 'foreign' => 'company_id'));
         
         $this->actAs('SoftDelete');
@@ -123,13 +129,16 @@ class T1876_Company extends Doctrine_Record {
 }
 
 class T1876_RecipeIngredient extends Doctrine_Record {
-    public function setTableDefinition() {
+    public function setTableDefinition(): void
+    {
         $this->hasColumn('id', 'integer', null, array('autoincrement' => true, 'primary' => true));
         $this->hasColumn('recipe_id', 'integer', null);
         $this->hasColumn('name', 'string', 255);
     }
     
-    public function setUp() {
+    public function setUp(): void
+    
+    {
         $this->hasOne('T1876_Recipe as Recipe', array('local' => 'recipe_id', 'foreign' => 'id'));
         
         $this->actAs('SoftDelete');

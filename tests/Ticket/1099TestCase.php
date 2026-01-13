@@ -1,5 +1,5 @@
 <?php
-class Doctrine_Ticket_1099_TestCase extends Doctrine_UnitTestCase
+099TestCase extends Doctrine_UnitTestCase
 {
     public function prepareTables()
     {
@@ -35,14 +35,15 @@ class Doctrine_Ticket_1099_TestCase extends Doctrine_UnitTestCase
 
 class T1099_Page extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->setTableName('pages');
         $this->hasColumn('id', 'integer', 15, array('autoincrement' => true, 'primary' => true, 'notnull' => true));
         $this->hasColumn('type', 'string', 10);
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->actAs('Doctrine_Template_NestedSet');
         $this->setSubclasses(array(

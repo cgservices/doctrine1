@@ -30,7 +30,7 @@
  * @since       1.1
  * @version     $Revision$ 
  */
-class Doctrine_Ticket_1621b_TestCase extends Doctrine_UnitTestCase 
+621bTestCase extends Doctrine_UnitTestCase 
 {
 	const LANG = "deu";
 	
@@ -155,13 +155,14 @@ class Doctrine_Ticket_1621b_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_1621b_Concept extends Doctrine_Record
 {
-  public function setTableDefinition()
+  public function setTableDefinition(): void
   {
     $this->hasColumn('id', 'integer', 4, array('unsigned' => true, 'primary' => true, 'autoincrement' => true, 'type' => 'integer', 'length' => '4'));
     $this->hasColumn('identifier', 'string', 255, array('type' => 'string', 'length' => '255'));
   }
 
-  public function setUp()
+  public function setUp(): void
+
   {
     $this->hasOne('Ticket_1621b_CurrentLanguagePrefTerm as preferedTerm', array('local' => 'id',
                                                                           'foreign' => 'conceptId',
@@ -191,7 +192,7 @@ class Ticket_1621b_Concept extends Doctrine_Record
 
 class Ticket_1621b_Term extends Doctrine_Record
 {
-  public function setTableDefinition()
+  public function setTableDefinition(): void
   {
     $this->hasColumn('id', 'integer', 4, array('unsigned' => true, 'primary' => true, 'autoincrement' => true, 'type' => 'integer', 'length' => '4'));
     $this->hasColumn('concept_id as conceptId', 'integer', 4, array('type' => 'integer', 'unsigned' => true, 'length' => '4'));
@@ -202,7 +203,8 @@ class Ticket_1621b_Term extends Doctrine_Record
     $this->setSubClasses(array('Ticket_1621b_AltTerm' => array('type' => 'alt'), 'Ticket_1621b_PrefTerm' => array('type' => 'pref'), 'Ticket_1621b_CurrentLanguagePrefTerm' => array('langId' => Doctrine_Ticket_1621b_TestCase::LANG)));
   }
 
-  public function setUp()
+  public function setUp(): void
+
   {
   	$this->hasOne('Ticket_1621b_Concept as concept', array('local' => 'conceptId',
                                               'foreign' => 'id'));
@@ -214,7 +216,7 @@ class Ticket_1621b_Term extends Doctrine_Record
 
 class Ticket_1621b_AltTerm extends Ticket_1621b_Term
 {
-  public function setUp()
+  public function setUp(): void
   {
     parent::setUp();
   }
@@ -224,7 +226,7 @@ class Ticket_1621b_AltTerm extends Ticket_1621b_Term
 
 class Ticket_1621b_PrefTerm extends Ticket_1621b_Term
 {
-  public function setUp()
+  public function setUp(): void
   {
     parent::setUp();
   }
@@ -233,7 +235,7 @@ class Ticket_1621b_PrefTerm extends Ticket_1621b_Term
 
 class Ticket_1621b_CurrentLanguagePrefTerm extends Ticket_1621b_PrefTerm
 {
-  public function setUp()
+  public function setUp(): void
   {
     parent::setUp();
   }
@@ -243,14 +245,15 @@ class Ticket_1621b_CurrentLanguagePrefTerm extends Ticket_1621b_PrefTerm
 
 class Ticket_1621b_Language extends Doctrine_Record
 {
-  public function setTableDefinition()
+  public function setTableDefinition(): void
   {
     $this->hasColumn('id', 'string', 3, array('type' => 'string', 'primary' => true, 'length' => '3'));
     $this->hasColumn('display', 'string', 50, array('type' => 'string', 'notnull' => true, 'length' => '50'));
     $this->hasColumn('description', 'string', 50, array('type' => 'string', 'length' => '50'));
   }
 
-  public function setUp()
+  public function setUp(): void
+
   {
     $this->hasMany('Ticket_1621b_Term', array('local' => 'id',
                                         'foreign' => 'langId'));
@@ -262,14 +265,15 @@ class Ticket_1621b_Language extends Doctrine_Record
 
 class Ticket_1621b_ConceptHierarchicalRelation extends Doctrine_Record
 {
-  public function setTableDefinition()
+  public function setTableDefinition(): void
   {
     $this->hasColumn('id', 'integer', 4, array('unsigned' => true, 'primary' => true, 'autoincrement' => true, 'type' => 'integer', 'length' => '4'));
     $this->hasColumn('concept_id_s as conceptIdSource', 'integer', 4, array('type' => 'integer', 'unsigned' => true, 'length' => '4'));
     $this->hasColumn('concept_id_t as conceptIdTarget', 'integer', 4, array('type' => 'integer', 'unsigned' => true, 'length' => '4'));
   }
 
-  public function setUp()
+  public function setUp(): void
+
   {
     $this->hasOne('Ticket_1621b_Concept as hierarchieTarget', array('local' => 'conceptIdTarget',
                                                        'foreign' => 'id'));

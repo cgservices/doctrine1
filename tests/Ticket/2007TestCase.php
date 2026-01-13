@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_2007_TestCase extends Doctrine_UnitTestCase 
+007TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
@@ -47,7 +47,7 @@ class Doctrine_Ticket_2007_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_2007_Faq extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->setTableName('faq');
         $this->hasColumn('id_faq', 'integer', 4, array(
@@ -71,7 +71,8 @@ class Ticket_2007_Faq extends Doctrine_Record
              ));
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $searchable0 = new Doctrine_Template_Searchable(array(
              'fields' => 

@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Data_Export_TestCase extends Doctrine_UnitTestCase 
+class Data_ExportTestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
@@ -82,14 +82,15 @@ class Doctrine_Data_Export_TestCase extends Doctrine_UnitTestCase
 
 class I18nTestExport extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string', 200);
         $this->hasColumn('title', 'string', 200);
         $this->hasColumn('test_object', 'object');
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->actAs('I18n', array('fields' => array('name', 'title')));
     }

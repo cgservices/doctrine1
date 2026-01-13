@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_DC266_TestCase extends Doctrine_UnitTestCase 
+class DC266TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
@@ -46,13 +46,14 @@ class Doctrine_Ticket_DC266_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_DC266_Article extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->setTableName('my_table_name');
         $this->hasColumn('title', 'string', 255);
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->actAs('I18n', array(
             'fields' => array('title')

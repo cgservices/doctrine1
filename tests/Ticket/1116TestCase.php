@@ -31,9 +31,9 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_1116_TestCase extends Doctrine_UnitTestCase 
+116TestCase extends Doctrine_UnitTestCase 
 {
-	public function setUp()
+	public function setUp(): void
 	{
 		//switch to a real db to trigger the Exception
 		$this->dbh = new Doctrine_Adapter_Mock('mysql');
@@ -73,7 +73,7 @@ class Doctrine_Ticket_1116_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_1116_User extends Doctrine_Record
 {
-	public function setTableDefinition()
+	public function setTableDefinition(): void
 	{
 		$this->setTableName('user');
 		$this->hasColumn('id', 'integer', 4, array('primary' => true, 'autoincrement' => true));
@@ -81,7 +81,9 @@ class Ticket_1116_User extends Doctrine_Record
 	}
 
 
-	public function setUp()
+	public function setUp(): void
+
+
 	{
 		parent::setUp();
 		$softdelete0 = new Doctrine_Template_SoftDelete();

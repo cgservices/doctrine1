@@ -17,7 +17,7 @@
  * @version     $Revision$
  */
 
-class Doctrine_Record_Inheritance_TestCase extends Doctrine_UnitTestCase
+class Record_InheritanceTestCase extends Doctrine_UnitTestCase
 {
     public function prepareTables()
     {
@@ -34,13 +34,20 @@ class Doctrine_Record_Inheritance_TestCase extends Doctrine_UnitTestCase
         $record = new SymfonyRecord();
         $record['name'] = 'Test me';
         $record->save();
+
+        $this->assertTrue($record->exists());
     }
 
     public function testInstantiatingRecordWithAbstractParents()
     {
+        // Create our own test data to ensure it exists
+        $testRecord = new SymfonyRecord();
+        $testRecord['name'] = 'Test me inheritance';
+        $testRecord->save();
+
         // load our record
         $record = Doctrine_Query::create()->query(
-            'SELECT * FROM SymfonyRecord r', array())->getFirst();
+            'SELECT * FROM SymfonyRecord r WHERE r.name = ?', array('Test me inheritance'))->getFirst();
 
         // did we get a record object?
         $this->assertTrue($record instanceof SymfonyRecord);
@@ -52,8 +59,8 @@ class Doctrine_Record_Inheritance_TestCase extends Doctrine_UnitTestCase
         $this->assertTrue($record instanceof Doctrine_Record);
 
         // does it have the expected data?
-        $this->assertEqual($record['name'], 'Test me');
-        
+        $this->assertEqual($record['name'], 'Test me inheritance');
+
 
     }
 }

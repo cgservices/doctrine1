@@ -1,7 +1,7 @@
 <?php
 class AggressiveModelLoadingContact extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         
     }
@@ -9,7 +9,7 @@ class AggressiveModelLoadingContact extends Doctrine_Record
 
 class AggressiveModelLoadingProfile extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         
     }

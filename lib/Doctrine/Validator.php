@@ -127,6 +127,9 @@ class Doctrine_Validator extends Doctrine_Locator_Injectable
      */
     public static function getStringLength($string)
     {
+        if ($string === null) {
+            return 0;
+        }
         if (function_exists('mb_strlen')) {
             return mb_strlen($string, 'utf8');
         } else {
@@ -165,8 +168,14 @@ class Doctrine_Validator extends Doctrine_Locator_Injectable
              case 'float':
              case 'double':
              case 'decimal':
+                 if (is_array($var)) {
+                     return false;
+                 }
                  return (string) $var == strval(floatval($var));
              case 'integer':
+                 if (is_array($var)) {
+                     return false;
+                 }
                  return (string) $var == strval(round(floatval($var)));
              case 'string':
                  return is_string($var) || is_numeric($var);

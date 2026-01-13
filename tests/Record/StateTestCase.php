@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Record_State_TestCase extends Doctrine_UnitTestCase 
+class Record_StateTestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables() 
     { 

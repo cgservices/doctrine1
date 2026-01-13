@@ -129,7 +129,14 @@ class Doctrine_Import_Builder extends Doctrine_Builder
      */
     protected $_classPrefix = null;
 
-    /** 
+    /**
+     * Whether to generate accessor methods
+     *
+     * @var bool
+     */
+    protected $_generateAccessors = false;
+
+    /**
      * Whether to use the class prefix for the filenames too 
      * 
      * @var boolean 
@@ -389,7 +396,7 @@ class Doctrine_Import_Builder extends Doctrine_Builder
         $code = implode(PHP_EOL, $ret);
         $code = trim($code);
 
-        return PHP_EOL . "    public function setTableDefinition()" . PHP_EOL . '    {' . PHP_EOL . '        ' . $code . PHP_EOL . '    }';
+        return PHP_EOL . "    public function setTableDefinition(): void" . PHP_EOL . '    {' . PHP_EOL . '        ' . $code . PHP_EOL . '    }';
     }
 
     /**
@@ -498,7 +505,7 @@ class Doctrine_Import_Builder extends Doctrine_Builder
 
         // If we have some code for the function then lets define it and return it
         if ($code) {
-            return '    public function setUp()' . PHP_EOL . '    {' . PHP_EOL . '        ' . $code . PHP_EOL . '    }';
+            return '    public function setUp(): void' . PHP_EOL . '    {' . PHP_EOL . '        ' . $code . PHP_EOL . '    }';
         }
     }
 
@@ -754,7 +761,7 @@ class Doctrine_Import_Builder extends Doctrine_Builder
      * @param array  $emittedActAs contains on output an array of actAs command to be appended to output
      * @return string actAs full definition
      */
-    private function innerBuildActAs($actAs, $level = 0, $parent = null, array &$emittedActAs)
+    private function innerBuildActAs($actAs, $level, $parent, array &$emittedActAs)
     {
         // rewrite special case of actAs: [Behavior] which gave [0] => Behavior
         if (is_array($actAs) && isset($actAs[0]) && !is_array($actAs[0])) {

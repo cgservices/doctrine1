@@ -30,8 +30,10 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Search_File_TestCase extends Doctrine_UnitTestCase
+class Search_FileTestCase extends Doctrine_UnitTestCase
 {
+    protected $_search;
+
     public function prepareData()
     { }
     public function prepareTables()

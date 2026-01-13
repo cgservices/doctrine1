@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_1254_TestCase extends Doctrine_UnitTestCase 
+254TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
@@ -88,14 +88,18 @@ class Doctrine_Ticket_1254_TestCase extends Doctrine_UnitTestCase
 
 class RelX extends Doctrine_Record {
 
-  public function setTableDefinition() {
+  public function setTableDefinition(): void
+
+  {
     $this->setTableName('rel_x');
     $this->hasColumn('name', 'string', 25, array());
     $this->hasColumn('category', 'string', 25, array());
     $this->hasColumn('created_at', 'timestamp', null, array());
   }
 
-  public function setUp() {
+  public function setUp(): void
+
+  {
     $this->HasMany('RelY as y', array('local' => 'id', 'foreign' => 'rel_x_id'));
   }
 
@@ -103,13 +107,17 @@ class RelX extends Doctrine_Record {
 
 class RelY extends Doctrine_Record {
 
-  public function setTableDefinition() {
+  public function setTableDefinition(): void
+
+  {
     $this->setTableName('rel_y');
     $this->hasColumn('name', 'string', 25, array());
     $this->hasColumn('rel_x_id', 'integer', 10, array());
   }
 
-  public function setUp() {
+  public function setUp(): void
+
+  {
 
   }
 

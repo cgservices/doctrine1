@@ -31,7 +31,7 @@
  * @since       1.2
  * @version     $Revision: 7490 $
  */
-class Doctrine_Cache_Array_TestCase extends Doctrine_Cache_Abstract_TestCase
+class Cache_ArrayTestCase extends Doctrine_Cache_Abstract_TestCase
 {
     protected function _clearCache()
     {
@@ -46,5 +46,13 @@ class Doctrine_Cache_Array_TestCase extends Doctrine_Cache_Abstract_TestCase
     protected function _getCacheDriver()
     {
         return new Doctrine_Cache_Array();
+    }
+
+    /**
+     * Placeholder test - this class is a stub for future tests
+     */
+    public function testPlaceholder(): void
+    {
+        $this->assertTrue(true);
     }
 }

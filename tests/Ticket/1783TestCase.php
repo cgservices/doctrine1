@@ -1,5 +1,5 @@
 <?php
-class Doctrine_Ticket_1783_TestCase extends Doctrine_UnitTestCase
+783TestCase extends Doctrine_UnitTestCase
 {
 	public function prepareTables() 
     {
@@ -22,7 +22,7 @@ class Doctrine_Ticket_1783_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_1783 extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('bigint', 'integer', null, array('type' => 'integer', 'unsigned' => true));
     }

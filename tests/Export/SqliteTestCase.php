@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Export_Sqlite_TestCase extends Doctrine_UnitTestCase 
+class Export_SqliteTestCase extends Doctrine_UnitTestCase 
 {
     public function testCreateDatabaseDoesNotExecuteSqlAndCreatesSqliteFile()
     {

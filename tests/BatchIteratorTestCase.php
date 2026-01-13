@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_BatchIterator_TestCase extends Doctrine_UnitTestCase {
+class BatchIteratorTestCase extends Doctrine_UnitTestCase {
     public function prepareTables() {
         $this->tables = array("EntityAddress", "Entity", "User", "Group", "Address", "Email", "Phonenumber");
         parent::prepareTables();

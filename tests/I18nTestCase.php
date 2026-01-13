@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_I18n_TestCase extends Doctrine_UnitTestCase
+class I18nTestCase extends Doctrine_UnitTestCase
 {
 
     public function prepareData()

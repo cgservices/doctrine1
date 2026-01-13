@@ -1403,8 +1403,8 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
             foreach ($this->_sqlParts['orderby'] as $part) {
                 // Remove identifier quoting if it exists
                 $e = $this->_tokenizer->bracketExplode($part, ' ');
-                foreach ($e as $f) {
-                    if ($f == 0 || $f % 2 == 0) {
+                foreach ($e as $idx => $f) {
+                    if ($idx == 0 || $idx % 2 == 0) {
                         $partOriginal = str_replace(',', '', trim($f));
                         $callback = function ($e) {
                             return trim($e, '[]`"');
@@ -2111,7 +2111,7 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
      * @param array $params        an array of prepared statement parameters
      * @return integer             the count of this query
      */
-    public function count($params = array())
+    public function count($params = array()): int
     {
         $q = $this->getCountSqlQuery();
         $params = $this->getCountQueryParams($params);
@@ -2170,7 +2170,7 @@ class Doctrine_Query extends Doctrine_Query_Abstract implements Countable
      *
      * @return Doctrine_Query  Copy of the Doctrine_Query instance.
      */
-    public function copy(Doctrine_Query $query = null)
+    public function copy(?Doctrine_Query $query = null)
     {
         if ( ! $query) {
             $query = $this;

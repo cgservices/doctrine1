@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_1467_TestCase extends Doctrine_UnitTestCase 
+467TestCase extends Doctrine_UnitTestCase 
 {
     public function testTicket()
     {
@@ -49,12 +49,13 @@ class Doctrine_Ticket_1467_TestCase extends Doctrine_UnitTestCase
 
 class T1467_Item extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string', 50);
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasMany('T1467_Picture as Pictures', array(
             'refClass' => 'T1467_ItemPicture',
@@ -73,12 +74,13 @@ class T1467_Item extends Doctrine_Record
 
 class T1467_Picture extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string', 50);
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasMany('T1467_Item as Items', array(
             'refClass' => 'T1467_ItemPicture',
@@ -91,12 +93,13 @@ class T1467_Picture extends Doctrine_Record
 
 class T1467_Puzzle extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string', 50);
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasMany('T1467_Item as Items', array(
             'refClass' => 'T1467_ItemPicture',
@@ -109,7 +112,7 @@ class T1467_Puzzle extends Doctrine_Record
 
 class T1467_ItemPicture extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('item_id', 'integer', null, array('primary' => true));
         $this->hasColumn('picture_id', 'integer', null, array('primary' => true));
@@ -119,7 +122,7 @@ class T1467_ItemPicture extends Doctrine_Record
 
 class T1467_ItemPuzzle extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('item_id', 'integer', null, array('primary' => true));
         $this->hasColumn('puzzle_id', 'integer', null, array('primary' => true));

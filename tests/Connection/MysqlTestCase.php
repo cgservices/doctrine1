@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Connection_Mysql_TestCase extends Doctrine_UnitTestCase
+class Connection_MysqlTestCase extends Doctrine_UnitTestCase
 {
     public function testQuoteIdentifier()
     {

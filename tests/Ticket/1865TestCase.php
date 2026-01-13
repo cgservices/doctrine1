@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_1865_TestCase extends Doctrine_UnitTestCase 
+865TestCase extends Doctrine_UnitTestCase 
 {
 
     public function prepareData() 
@@ -71,11 +71,11 @@ class Doctrine_Ticket_1865_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_1865_Profile extends Doctrine_Record 
 {
-    public function setUp() 
+    public function setUp(): void
     {
         $this->hasOne('Ticket_1865_User as User', array('local' => 'id', 'foreign' => 'id', 'onDelete' => 'CASCADE'));
     }
-    public function setTableDefinition() 
+    public function setTableDefinition(): void
     {
         $this->hasColumn('id', 'integer',20, array('autoincrement', 'primary'));
         $this->hasColumn('user_id', 'integer', 20, array('notnull', 'unique'));
@@ -85,11 +85,11 @@ class Ticket_1865_Profile extends Doctrine_Record
 
 class Ticket_1865_User extends Doctrine_Record 
 {
-    public function setUp() 
+    public function setUp(): void
     {
         $this->hasOne('Ticket_1865_Profile as Profile', array('local' => 'id', 'foreign' => 'user_id'));
     }
-    public function setTableDefinition() 
+    public function setTableDefinition(): void
     {
         $this->hasColumn('id', 'integer',20, array('autoincrement', 'primary'));
         $this->hasColumn('name', 'string',50);

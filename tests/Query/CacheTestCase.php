@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Query_Cache_TestCase extends Doctrine_UnitTestCase
+class Query_CacheTestCase extends Doctrine_UnitTestCase
 {
 
     public function testQueryCacheAddsQueryIntoCache()

@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_DC276_TestCase extends Doctrine_UnitTestCase 
+class DC276TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
@@ -53,7 +53,7 @@ class Doctrine_Ticket_DC276_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_DC276_Post extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('content', 'string', 1000, array(
              'type' => 'string',
@@ -64,7 +64,8 @@ class Ticket_DC276_Post extends Doctrine_Record
              ));
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasOne('Ticket_DC276_Comment as Comments', array(
              'local' => 'id',
@@ -74,7 +75,7 @@ class Ticket_DC276_Post extends Doctrine_Record
 
 class Ticket_DC276_Comment extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('post_id', 'integer', null, array(
              'type' => 'integer',
@@ -85,7 +86,8 @@ class Ticket_DC276_Comment extends Doctrine_Record
              ));
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasMany('Ticket_DC276_Post', array(
              'local' => 'post_id',

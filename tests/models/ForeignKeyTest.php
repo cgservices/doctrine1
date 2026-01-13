@@ -1,12 +1,12 @@
 <?php
 class ForeignKeyTest extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string', null);
-        $this->hasColumn('code', 'integer', 4);
+        $this->hasColumn('code', 'integer', 8);
         $this->hasColumn('content', 'string', 4000);
-        $this->hasColumn('parent_id', 'integer');
+        $this->hasColumn('parent_id', 'integer', 8);
 
         $this->hasOne('ForeignKeyTest as Parent',
                        array('local'    => 'parent_id',

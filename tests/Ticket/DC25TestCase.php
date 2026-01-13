@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_DC25_TestCase extends Doctrine_UnitTestCase 
+class DC25TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
@@ -53,12 +53,13 @@ class Doctrine_Ticket_DC25_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_DC25_Article extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string', 255);
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasMany('Ticket_DC25_Tag as Tags', array(
             'local' => 'article_id',
@@ -70,12 +71,13 @@ class Ticket_DC25_Article extends Doctrine_Record
 
 class Ticket_DC25_Tag extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string', 255);
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasMany('Ticket_DC25_Article as Article', array(
             'local' => 'tag_id',
@@ -87,7 +89,7 @@ class Ticket_DC25_Tag extends Doctrine_Record
 
 class Ticket_DC25_ArticleTag extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('article_id', 'integer');
         $this->hasColumn('tag_id', 'integer');

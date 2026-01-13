@@ -1,10 +1,10 @@
 <?php
 class MysqlIndexTestRecord extends Doctrine_Record
 {
-    public function setTableDefinition() 
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string', null);
-        $this->hasColumn('code', 'integer', 4);
+        $this->hasColumn('code', 'integer', 8);
         $this->hasColumn('content', 'string', 4000);
 
         $this->index('content',  array('fields' => array('content'), 'type' => 'fulltext'));

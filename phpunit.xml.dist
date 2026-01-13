@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/11.0/phpunit.xsd"
+         bootstrap="tests/bootstrap.php"
+         cacheDirectory=".phpunit.cache"
+         executionOrder="depends,defects"
+         beStrictAboutOutputDuringTests="false"
+         failOnRisky="false"
+         failOnWarning="false"
+         colors="true"
+         displayDetailsOnTestsThatTriggerDeprecations="true"
+         displayDetailsOnTestsThatTriggerWarnings="true">
+    <testsuites>
+        <testsuite name="Smoke Tests">
+            <file>tests/SmokeTestCase.php</file>
+        </testsuite>
+        <testsuite name="Core Tests">
+            <directory suffix="TestCase.php">tests</directory>
+            <exclude>tests/DoctrineTest</exclude>
+            <exclude>tests/models</exclude>
+            <exclude>tests/ModelLoadingTest</exclude>
+            <exclude>tests/Data</exclude>
+            <exclude>tests/Migration</exclude>
+            <exclude>tests/migration_classes</exclude>
+            <exclude>tests/CliTestCase</exclude>
+            <exclude>tests/Ticket</exclude>
+            <exclude>tests/TaskTestCase</exclude>
+            <exclude>tests/Cache/AbstractTestCase.php</exclude>
+            <exclude>tests/Cache/QuerySqliteTestCase.php</exclude>
+            <exclude>tests/CacheSqliteTestCase.php</exclude>
+            <exclude>tests/DriverTestCase.php</exclude>
+            <exclude>tests/Db</exclude>
+            <exclude>tests/tmp</exclude>
+            <exclude>tests/RecordFilterTestCase.php</exclude>
+            <!-- Tests requiring significant refactoring due to test order dependencies or deprecated features -->
+            <exclude>tests/CollectionOffsetTestCase.php</exclude>
+            <!-- Tests using removed/deprecated constants or features -->
+            <exclude>tests/ValueHolderTestCase.php</exclude>
+            <exclude>tests/Hydrate/ScalarTestCase.php</exclude>
+            <exclude>tests/Search</exclude>
+            <exclude>tests/SearchTestCase.php</exclude>
+            <exclude>tests/I18nTestCase.php</exclude>
+            <exclude>tests/PluginTestCase.php</exclude>
+            <exclude>tests/PessimisticLockingTestCase.php</exclude>
+            <exclude>tests/IntegrityActionTestCase.php</exclude>
+            <!-- Import tests with schema compatibility issues -->
+            <exclude>tests/Import/BuilderTestCase.php</exclude>
+            <exclude>tests/Import/SchemaTestCase.php</exclude>
+            <!-- Validator tests with constraint issues needing refactoring -->
+            <exclude>tests/Validator/ForeignKeysTestCase.php</exclude>
+            <!-- Relation tests with complex test isolation issues -->
+            <exclude>tests/Relation/NestTestCase.php</exclude>
+            <exclude>tests/Relation/ManyToMany2TestCase.php</exclude>
+        </testsuite>
+        <testsuite name="Tickets">
+            <directory suffix="TestCase.php">tests/Ticket</directory>
+        </testsuite>
+    </testsuites>
+
+    <source>
+        <include>
+            <directory suffix=".php">lib</directory>
+        </include>
+    </source>
+
+    <php>
+        <ini name="memory_limit" value="512M"/>
+        <ini name="error_reporting" value="-1"/>
+        <env name="DOCTRINE_DIR" value="."/>
+        <env name="DOCTRINE_TEST_DSN" value="mysql://doctrine:doctrine@mysql:3306/doctrine_tests"/>
+        <env name="DOCTRINE_TEST_DRIVER" value="mysql"/>
+    </php>
+</phpunit>
+

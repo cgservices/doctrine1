@@ -30,7 +30,7 @@
  * @since       0.10.4
  * @version     $Revision$
  */
-class Doctrine_Ticket_1365_TestCase extends Doctrine_UnitTestCase
+365TestCase extends Doctrine_UnitTestCase
 {
     public function testInit()
 	{
@@ -76,14 +76,15 @@ class Doctrine_Ticket_1365_TestCase extends Doctrine_UnitTestCase
 
 class T1365_Person extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->setTableName('la__person');
         
         $this->hasColumn('name', 'string', 255);
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasMany('T1365_PersonHasSkill', array('local' => 'id', 'foreign' => 'fk_person_id'));
     }
@@ -92,14 +93,15 @@ class T1365_Person extends Doctrine_Record
 
 class T1365_Skill extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->setTableName('la__skill');
         
         $this->hasColumn('name', 'string', 255);
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasMany('T1365_PersonHasSkill', array('local' => 'id', 'foreign' => 'fk_skill_id'));
     }
@@ -108,7 +110,7 @@ class T1365_Skill extends Doctrine_Record
 
 class T1365_PersonHasSkill extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->setTableName('la__person_has_skill');
         
@@ -133,7 +135,8 @@ class T1365_PersonHasSkill extends Doctrine_Record
         ));
     }
     
-    public function setUp()
+    public function setUp(): void
+    
     {
         $this->hasOne('T1365_Person', array('local' => 'fk_person_id', 'foreign' => 'id'));
         $this->hasOne('T1365_Skill', array('local' => 'fk_skill_id', 'foreign' => 'id'));

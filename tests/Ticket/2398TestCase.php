@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_2398_TestCase extends Doctrine_UnitTestCase 
+398TestCase extends Doctrine_UnitTestCase 
 {
     // Since this file is the subject of the test, we need to add some utf-8 chars to mess up
     // the non-binary-safe count.

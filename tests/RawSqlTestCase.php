@@ -31,7 +31,7 @@
  * @version     $Revision: 1181 $
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
  */
-class Doctrine_RawSql_TestCase extends Doctrine_UnitTestCase 
+class RawSqlTestCase extends Doctrine_UnitTestCase 
 {
     public function testQueryParser()
     {

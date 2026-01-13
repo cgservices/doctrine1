@@ -30,7 +30,7 @@
  * @since       1.1
  * @version     $Revision$ 
  */
-class Doctrine_Ticket_1653_TestCase extends Doctrine_UnitTestCase 
+653TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
@@ -83,12 +83,15 @@ class Doctrine_Ticket_1653_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_1653_User extends Doctrine_Record
 {
-    public function setTableDefinition()
+    protected $name;
+
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string', 255);
     }
     
-    public function setUp()
+    public function setUp(): void
+    
     {
         $this->hasMany('Ticket_1653_Email as emails', array('local' => 'id',
                                                   'foreign' => 'user_id',
@@ -106,13 +109,16 @@ class Ticket_1653_User extends Doctrine_Record
 
 class Ticket_1653_Email extends Doctrine_Record
 {
-    public function setTableDefinition()
+    protected $name;
+
+    public function setTableDefinition(): void
     {
         $this->hasColumn('user_id', 'integer');
         $this->hasColumn('address', 'string', 255, array('notnull' => true));
     }
     
-    public function setUp()
+    public function setUp(): void
+    
     {
         $this->hasOne('Ticket_1653_User as user', array('local' => 'user_id',
                                                   'foreign' => 'id',

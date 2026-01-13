@@ -28,7 +28,7 @@
  * @since       1.2
  * @version     $Revision$
  */
-class Doctrine_Ticket_DC399_TestCase extends Doctrine_UnitTestCase 
+class DC399TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {

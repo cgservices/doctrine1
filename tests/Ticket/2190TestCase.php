@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_2190_TestCase extends Doctrine_UnitTestCase 
+190TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
@@ -71,13 +71,14 @@ class Doctrine_Ticket_2190_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_2190_Article extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string');
         $this->hasColumn('body', 'clob');
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->actAs('Sluggable', array('indexName' => 'ticket_2190_slug_idx', 'fields' => array('body')));
     }

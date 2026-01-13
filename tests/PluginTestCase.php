@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Plugin_TestCase extends Doctrine_UnitTestCase 
+class PluginTestCase extends Doctrine_UnitTestCase 
 {
 
     public function prepareData()
@@ -127,13 +127,14 @@ class Doctrine_Plugin_TestCase extends Doctrine_UnitTestCase
 
 class Wiki extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('title', 'string', 255);
         $this->hasColumn('content', 'string');
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $options = array('fields' => array('title', 'content'));
         $auditLog = new Doctrine_Template_Versionable($options);

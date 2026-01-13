@@ -30,9 +30,9 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_1125_TestCase extends Doctrine_UnitTestCase 
+125TestCase extends Doctrine_UnitTestCase 
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->dbh = new Doctrine_Adapter_Mock('mysql');
         $this->conn = Doctrine_Manager::getInstance()->openConnection($this->dbh);

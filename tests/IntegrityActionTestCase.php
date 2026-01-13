@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_IntegrityAction_TestCase extends Doctrine_UnitTestCase 
+class IntegrityActionTestCase extends Doctrine_UnitTestCase 
 {
     public function prepareData()
     { }

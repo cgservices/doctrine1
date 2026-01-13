@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_1986_TestCase extends Doctrine_UnitTestCase 
+986TestCase extends Doctrine_UnitTestCase 
 {
 	public function prepareData()
 	{
@@ -67,12 +67,12 @@ class Doctrine_Ticket_1986_TestCase extends Doctrine_UnitTestCase
 
 class Testing_Ticket_1986_1 extends Doctrine_Record
 {
-	public function setTableDefinition()
+	public function setTableDefinition(): void
 	{
 		$this->setTableName('testing_ticket_1986_1');
 		$this->hasColumn('name', 'string', 64, array());
 	}
-	public function setUp()
+	public function setUp(): void
 	{
 		$this->hasMany('Testing_Ticket_1986_2 as others', array('refClass' => 'Testing_Ticket_1986Link', 'local' => 'id_1', 'foreign' => 'id_2'));
 	}
@@ -80,13 +80,14 @@ class Testing_Ticket_1986_1 extends Doctrine_Record
 
 class Testing_Ticket_1986_2 extends Doctrine_Record
 {
-	public function setTableDefinition()
+	public function setTableDefinition(): void
 	{
 		$this->setTableName('testing_ticket_1986_2');
 		$this->hasColumn('value', 'string', 64, array());
 	}
 
-	public function setUp()
+	public function setUp(): void
+
 	{
 		$this->hasMany('Testing_Ticket_1986_1', array('refClass' => 'Testing_Ticket_1986Link', 'local' => 'id_2', 'foreign' => 'id_1'));
 	}
@@ -94,14 +95,16 @@ class Testing_Ticket_1986_2 extends Doctrine_Record
 
 class Testing_Ticket_1986Link extends Doctrine_Record
 {
-	public function setTableDefinition()
+	public function setTableDefinition(): void
 	{
 		$this->setTableName('testing_ticket_1986_link');
 		$this->hasColumn('id_1', 'integer', null, array());
 		$this->hasColumn('id_2', 'integer', null, array());
 	}
 	
-	public function setUp() {
+	public function setUp(): void
+	
+	{
 		// setup relations
 		$this->hasOne('Testing_Ticket_1986_1 as rel1', array('local' => 'id_1', 'foreign' => 'id', 'onDelete' => 'CASCADE'));
 		$this->hasOne('Testing_Ticket_1986_2 as rel2', array('local' => 'id_2', 'foreign' => 'id', 'onDelete' => 'CASCADE'));

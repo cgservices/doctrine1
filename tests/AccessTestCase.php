@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Access_TestCase extends Doctrine_UnitTestCase 
+class AccessTestCase extends Doctrine_UnitTestCase 
 {
     public function prepareData() 
     {

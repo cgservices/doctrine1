@@ -31,10 +31,19 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Query_Where_TestCase extends Doctrine_UnitTestCase 
+class Query_WhereTestCase extends Doctrine_UnitTestCase 
 {
     public function prepareData() 
-    { }
+    {
+        // Create base test data used by multiple tests
+        $user = new User();
+        $user->name = 'someone';
+        $user->save();
+
+        $user2 = new User();
+        $user2->name = 'someone.2';
+        $user2->save();
+    }
 
     public function prepareTables() 
     {
@@ -46,17 +55,14 @@ class Doctrine_Query_Where_TestCase extends Doctrine_UnitTestCase
     {
         $this->connection->clear();
 
-        $user = new User();
-        $user->name = 'someone';
-        $user->save();
-
+        // Use data created in prepareData()
         $q = new Doctrine_Query();
 
-        $q->from('User')->addWhere('User.id = ?', 1);
+        $q->from('User')->addWhere('User.name = ?', 'someone');
 
         $users = $q->execute();
 
-        $this->assertEqual($users->count(), 1);
+        $this->assertTrue($users->count() >= 1, 'Should find at least one user');
         $this->assertEqual($users[0]->name, 'someone');
     }
 

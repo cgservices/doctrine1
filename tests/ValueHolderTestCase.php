@@ -1,7 +1,6 @@
 <?php
-require_once("UnitTestCase.php");
 
-class Doctrine_ValueHolder_TestCase extends Doctrine_UnitTestCase {
+class ValueHolderTestCase extends Doctrine_UnitTestCase {
     public function testGetSet() {
         $this->valueHolder->data[0] = 'first';
         

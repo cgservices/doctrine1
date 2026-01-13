@@ -11,7 +11,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_428_TestCase extends Doctrine_UnitTestCase
+28TestCase extends Doctrine_UnitTestCase
 {
     private $_albums;
     

@@ -3,7 +3,7 @@
  * Doctrine_Ticket_1713_TestCase
  */
 
-class Doctrine_Ticket_1713_TestCase extends Doctrine_UnitTestCase
+713TestCase extends Doctrine_UnitTestCase
 {
     public function prepareTables()
     {
@@ -30,7 +30,7 @@ class Doctrine_Ticket_1713_TestCase extends Doctrine_UnitTestCase
 
 class Parent1713 extends Doctrine_Record
 {
-  public function setTableDefinition()
+  public function setTableDefinition(): void
   {
     $this->setTableName('mytable');
     $this->hasColumn('id', 'integer', 4, array (
@@ -47,7 +47,8 @@ class Parent1713 extends Doctrine_Record
     );
   }
 
-  public function setUp()
+  public function setUp(): void
+
   {
   
   }

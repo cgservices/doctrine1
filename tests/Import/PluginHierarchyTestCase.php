@@ -31,7 +31,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Import_PluginHierarchy_TestCase extends Doctrine_UnitTestCase
+class Import_PluginHierarchyTestCase extends Doctrine_UnitTestCase
 {
 
     public function testImportOfHieriarchyOfPluginGeneration()

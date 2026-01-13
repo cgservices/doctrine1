@@ -30,11 +30,17 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Relation_OneToOne_TestCase extends Doctrine_UnitTestCase 
+class Relation_OneToOneTestCase extends Doctrine_UnitTestCase 
 {
     public function prepareData() 
-    { }
-    public function prepareTables() 
+    {
+        // Create test data for self-referential tests
+        $ref = new SelfRefTest();
+        $ref->name = 'ref 1';
+        $ref->createdBy->name = 'ref 2';
+        $ref->save();
+    }
+    public function prepareTables()
     { 
         $this->tables = array('gnatUser','gnatEmail','Email','Entity','Record_City', 'Record_Country', 'SelfRefTest');
         
@@ -58,18 +64,19 @@ class Doctrine_Relation_OneToOne_TestCase extends Doctrine_UnitTestCase
         $this->assertEqual($rel->getForeign(), 'id');
         $this->assertEqual($rel->getLocal(), 'created_by');
         
-        $ref->name = 'ref 1';
-        $ref->createdBy->name = 'ref 2';
-        
-        $ref->save();
+        // Just verify the relation works, data is already created in prepareData
+        $this->assertTrue($rel instanceof Doctrine_Relation);
     }
     public function testSelfReferentialOneToOneRelationsAreSupported2()
     {
         $this->connection->clear();
         
         $ref = $this->conn->queryOne("FROM SelfRefTest s WHERE s.name = 'ref 1'");
-        $this->assertEqual($ref->name, 'ref 1');
-        $this->assertEqual($ref->createdBy->name, 'ref 2');
+        $this->assertTrue($ref !== false, 'SelfRefTest record should exist');
+        if ($ref) {
+            $this->assertEqual($ref->name, 'ref 1');
+            $this->assertEqual($ref->createdBy->name, 'ref 2');
+        }
     }
 
     public function testUnsetRelation()

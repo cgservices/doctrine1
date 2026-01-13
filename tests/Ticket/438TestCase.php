@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_438_TestCase extends Doctrine_UnitTestCase
+38TestCase extends Doctrine_UnitTestCase
 {
     public function prepareData() 
     { }
@@ -109,7 +109,7 @@ class Doctrine_Ticket_438_TestCase extends Doctrine_UnitTestCase
 
 class T438_Student extends Doctrine_Record
 {
-  public function setTableDefinition()
+  public function setTableDefinition(): void
   {
     $this->setTableName('t438_student_record');
 
@@ -117,7 +117,8 @@ class T438_Student extends Doctrine_Record
     $this->hasColumn('s_name as name', 'varchar', 50, array ());
   }
   
-  public function setUp()
+  public function setUp(): void
+  
   {
     $this->hasMany('T438_Course as StudyCourses', array('refClass' => 'T438_StudentCourse', 'local' => 'sc_student_id', 'foreign' => 'sc_course_id'));
   }
@@ -126,7 +127,7 @@ class T438_Student extends Doctrine_Record
 
 class T438_Course extends Doctrine_Record
 {
-  public function setTableDefinition()
+  public function setTableDefinition(): void
   {
     $this->setTableName('t438_course');
 
@@ -134,7 +135,8 @@ class T438_Course extends Doctrine_Record
     $this->hasColumn('c_name as name', 'varchar', 50, array ());
   }
   
-  public function setUp()
+  public function setUp(): void
+  
   {
     $this->hasMany('T438_Student as Students', array('refClass' => 'T438_StudentCourse', 'local' => 'sc_course_id', 'foreign' => 'sc_student_id'));
   }
@@ -142,7 +144,7 @@ class T438_Course extends Doctrine_Record
 
 class T438_StudentCourse extends Doctrine_Record
 {
-  public function setTableDefinition()
+  public function setTableDefinition(): void
   {
     $this->setTableName('t438_student_course');
 
@@ -151,7 +153,8 @@ class T438_StudentCourse extends Doctrine_Record
     $this->hasColumn('sc_remark  as remark', 'varchar', 500, array ());
   }
   
-  public function setUp()
+  public function setUp(): void
+  
   {
     $this->hasOne('T438_Student as Student', array('local' => 'sc_student_id', 'foreign' => 's_id'));
     $this->hasOne('T438_Course as Course', array('local' => 'sc_course_id', 'foreign' => 'c_id'));

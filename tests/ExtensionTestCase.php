@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Extension_TestCase extends Doctrine_UnitTestCase 
+class ExtensionTestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
@@ -56,7 +56,8 @@ class Doctrine_Extension_TestCase extends Doctrine_UnitTestCase
         $this->assertTrue($test->hasColumn('test'));
     }
 
-    public function tearDown()
+    public function tearDown(): void
+
     {
         spl_autoload_unregister(array('Doctrine', 'extensionsAutoload'));
     }
@@ -64,12 +65,13 @@ class Doctrine_Extension_TestCase extends Doctrine_UnitTestCase
 
 class ExtensionBehaviorTest extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('testing', 'string', 255);
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->actAs('TestBehavior');
     }

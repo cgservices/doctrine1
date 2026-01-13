@@ -2,7 +2,7 @@
 /*
  * Test to ensure LocalKey Relations allow 0 for id value
  */
-class Doctrine_Ticket_982_TestCase extends Doctrine_UnitTestCase
+82TestCase extends Doctrine_UnitTestCase
 {    
     public function prepareTables()
     {
@@ -65,13 +65,17 @@ class Doctrine_Ticket_982_TestCase extends Doctrine_UnitTestCase
 
 class T982_MyModel extends Doctrine_Record
 {
-    public function setTableDefinition()
+    protected $myModelOne;
+    protected $myModelTwo;
+
+    public function setTableDefinition(): void
     {
         $this->hasColumn('id', 'integer', 4, array('primary' => true, 'notnull' => true));
         $this->hasColumn('parentid', 'integer', 4, array('notnull' => true));
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasOne('T982_MyModel as parent', array('local' => 'parentid', 'foreign' => 'id'));
     }

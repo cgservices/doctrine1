@@ -4,7 +4,7 @@ class QueryTest_Rank extends Doctrine_Record
     /**
      * Initializes the table definition.
      */
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {        
         $this->hasColumn('title as title', 'string', 100,
                 array('notnull'));
@@ -14,7 +14,8 @@ class QueryTest_Rank extends Doctrine_Record
                 array('notnull', 'default' => ' ', 'regexp' => '/^[a-zA-Z0-9_\-]+\.(jpg|gif|png)$/D'));        
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasMany('QueryTest_User as users', array(
             'local' => 'rankId', 'foreign' => 'userId', 'refClass' => 'QueryTest_UserRank'

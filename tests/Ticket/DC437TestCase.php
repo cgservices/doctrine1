@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_DC437_TestCase extends Doctrine_UnitTestCase
+class DC437TestCase extends Doctrine_UnitTestCase
 {
     private function prepareConnections()
     {
@@ -106,7 +106,8 @@ class Doctrine_Ticket_DC437_TestCase extends Doctrine_UnitTestCase
 
 class Doctrine_Ticket_DC437_Record extends Doctrine_Record {
 
-    public function setTableDefinition()
+    public function setTableDefinition(): void
+
     {
         $this->setTableName('dc437records');
 

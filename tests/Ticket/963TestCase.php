@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_963_TestCase extends Doctrine_UnitTestCase 
+63TestCase extends Doctrine_UnitTestCase 
 {
     public function testInit()
     {
@@ -50,13 +50,14 @@ class Doctrine_Ticket_963_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_963_User extends Doctrine_Record
 {
-  public function setTableDefinition()
+  public function setTableDefinition(): void
   {
     $this->hasColumn('username', 'string', 255);
     $this->hasColumn('password', 'string', 255);
   }
 
-  public function setUp()
+  public function setUp(): void
+
   {
     $this->hasOne('Ticket_963_Email as Email', array('local' => 'id',
                                  'foreign' => 'user_id'));
@@ -65,13 +66,14 @@ class Ticket_963_User extends Doctrine_Record
 
 class Ticket_963_Email extends Doctrine_Record
 {
-  public function setTableDefinition()
+  public function setTableDefinition(): void
   {
     $this->hasColumn('user_id', 'integer', 4, array('primary' => true));
     $this->hasColumn('address2', 'string', 255);
   }
 
-  public function setUp()
+  public function setUp(): void
+
   {
     $this->hasOne('Ticket_963_User as User', array(
                                 'local' => 'user_id',

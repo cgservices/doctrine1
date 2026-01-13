@@ -1,5 +1,5 @@
 <?php
-class Doctrine_Ticket_1768_TestCase extends Doctrine_UnitTestCase
+768TestCase extends Doctrine_UnitTestCase
 {
     public function testResultCacheHashShouldProduceDifferentHashesWhenPassingParamsToWhereMethod()
     {

@@ -21,7 +21,7 @@
 
 class DC521TestModel extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->setTableName('dc521_test_model');
         $this->hasColumn('id', 'integer', null, array(
@@ -34,7 +34,8 @@ class DC521TestModel extends Doctrine_Record
              ));
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         parent::setUp();
         
@@ -43,7 +44,7 @@ class DC521TestModel extends Doctrine_Record
 
 class DC521IdOnlyTestModel extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->setTableName('dc521_idonly_test_model');
         $this->hasColumn('id', 'integer', null, array(
@@ -53,7 +54,8 @@ class DC521IdOnlyTestModel extends Doctrine_Record
              ));
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         parent::setUp();
         
@@ -71,7 +73,7 @@ class DC521IdOnlyTestModel extends Doctrine_Record
  * @since       1.2
  * @version     $Revision$
  */
-class Doctrine_Ticket_DC521_TestCase extends Doctrine_UnitTestCase 
+class DC521TestCase extends Doctrine_UnitTestCase 
 {
     public function init()
     {
@@ -81,7 +83,8 @@ class Doctrine_Ticket_DC521_TestCase extends Doctrine_UnitTestCase
         $this->prepareTables();
     }
     
-    public function setUp()
+    public function setUp(): void
+    
     {
     	   $this->driverName = 'Pgsql';
         Doctrine_Manager::connection('pgsql://test:test@localhost/doctrine', 'Pgsql');
@@ -134,7 +137,8 @@ class Doctrine_Ticket_DC521_TestCase extends Doctrine_UnitTestCase
         parent::prepareTables();
     }
     
-    public function tearDown()
+    public function tearDown(): void
+    
     {
         Doctrine_Manager::resetInstance();
     	   $this->driverName = null;

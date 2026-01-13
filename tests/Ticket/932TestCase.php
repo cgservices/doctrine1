@@ -1,6 +1,6 @@
 <?php
 
-class Doctrine_Ticket_932_TestCase extends Doctrine_UnitTestCase
+32TestCase extends Doctrine_UnitTestCase
 {
 	public function prepareTables()
 	{
@@ -32,7 +32,7 @@ class Doctrine_Ticket_932_TestCase extends Doctrine_UnitTestCase
 
 class UserNoAutoIncrement extends Doctrine_Record
 {
-	public function setTableDefinition()
+	public function setTableDefinition(): void
 	{
 		$this->hasColumn('id', 'integer', 4, array('primary' => true, 'autoincrement' => false, 'notnull' => true));
 		$this->hasColumn('display_name', 'string', 255, array('notnull' => true));

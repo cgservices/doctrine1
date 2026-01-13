@@ -31,7 +31,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_ColumnAggregationInheritance_TestCase extends Doctrine_UnitTestCase 
+class ColumnAggregationInheritanceTestCase extends Doctrine_UnitTestCase 
 {
     protected $otherEntity = null;
 

@@ -1,12 +1,12 @@
 <?php
 class SerializeTest extends Doctrine_Record 
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->setTableName('serialize_test');
     
         $this->hasColumn('booltest', 'boolean');
-        $this->hasColumn('integertest', 'integer', 4, array('unsigned' => true));
+        $this->hasColumn('integertest', 'integer', 8, array('unsigned' => true));
         $this->hasColumn('floattest', 'float');
         $this->hasColumn('stringtest', 'string', 200, array('fixed' => true));
         $this->hasColumn('arraytest', 'array', 10000);

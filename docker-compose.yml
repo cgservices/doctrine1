@@ -1,0 +1,57 @@
+
+services:
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: doctrine
+      MYSQL_DATABASE: doctrine_tests
+      MYSQL_USER: doctrine
+      MYSQL_PASSWORD: doctrine
+    ports:
+      - "3306:3306"
+    command: --default-authentication-plugin=mysql_native_password
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pdoctrine"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 30s
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    working_dir: /app
+    environment:
+      DOCTRINE_TEST_DSN: "mysql://doctrine:doctrine@mysql:3306/doctrine_tests"
+      DOCTRINE_TEST_DRIVER: mysql
+    depends_on:
+      mysql:
+        condition: service_healthy
+    entrypoint: [""]
+    command: ["php", "vendor/bin/phpunit", "--testsuite", "Core Tests"]
+
+  shell:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    working_dir: /app
+    environment:
+      DOCTRINE_TEST_DSN: "mysql://doctrine:doctrine@mysql:3306/doctrine_tests"
+      DOCTRINE_TEST_DRIVER: mysql
+    depends_on:
+      mysql:
+        condition: service_healthy
+    entrypoint: ["/bin/bash"]
+    stdin_open: true
+    tty: true
+
+volumes:
+  mysql_data:
+

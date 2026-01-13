@@ -1,6 +1,7 @@
 <?php
 class Forum_Entry extends Doctrine_Record { 
-    public function setTableDefinition() {
+    public function setTableDefinition(): void
+    {
         $this->hasColumn('author', 'string', 50); 
         $this->hasColumn('topic', 'string', 100);
         $this->hasColumn('message', 'string', 99999);
@@ -8,7 +9,8 @@ class Forum_Entry extends Doctrine_Record {
         $this->hasColumn('thread_id', 'integer', 10);
         $this->hasColumn('date', 'integer', 10);
     }
-    public function setUp() {
+    public function setUp(): void
+    {
         $this->hasOne('Forum_Entry as Parent',  array('local' => 'id', 'foreign' => 'parent_entry_id'));
         $this->hasOne('Forum_Thread as Thread', array('local' => 'thread_id', 'foreign' => 'id', 'onDelete' => 'CASCADE'));
     }

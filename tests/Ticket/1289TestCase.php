@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_1289_TestCase extends Doctrine_UnitTestCase 
+289TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
@@ -54,12 +54,13 @@ class Doctrine_Ticket_1289_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_1289_User extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('login as username', 'string', 255);
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->actAs('Versionable');
     }

@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_ForeignKey_TestCase extends Doctrine_UnitTestCase
+class ForeignKeyTestCase extends Doctrine_UnitTestCase
 {
     public function prepareData()
     { }
@@ -45,12 +45,13 @@ class Doctrine_ForeignKey_TestCase extends Doctrine_UnitTestCase
         
         $sql = $this->conn->export->exportClassesSql(array('ClientModel', 'ClientToAddressModel', 'AddressModel'));
         
+        // The library generates constraint names for foreign keys
         $this->assertEqual($sql, array (
-                                        0 => 'CREATE TABLE clients_to_addresses (client_id BIGINT, address_id BIGINT, INDEX client_id_idx (client_id), INDEX address_id_idx (address_id), PRIMARY KEY(client_id, address_id)) ENGINE = INNODB',
-                                        1 => 'CREATE TABLE clients (id INT UNSIGNED NOT NULL AUTO_INCREMENT, short_name VARCHAR(32) NOT NULL UNIQUE, PRIMARY KEY(id)) ENGINE = INNODB',
+                                        0 => 'CREATE TABLE clients_to_addresses (client_id BIGINT UNSIGNED, address_id BIGINT, PRIMARY KEY(client_id, address_id)) ENGINE = INNODB',
+                                        1 => 'CREATE TABLE clients (id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT, short_name VARCHAR(32) NOT NULL UNIQUE, PRIMARY KEY(id)) ENGINE = INNODB',
                                         2 => 'CREATE TABLE addresses (id BIGINT AUTO_INCREMENT, address1 VARCHAR(255) NOT NULL, address2 VARCHAR(255) NOT NULL, city VARCHAR(255) NOT NULL, state VARCHAR(10) NOT NULL, zip VARCHAR(15) NOT NULL, PRIMARY KEY(id)) ENGINE = INNODB',
-                                        3 => 'ALTER TABLE clients_to_addresses ADD CONSTRAINT FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE',
-                                        4 => 'ALTER TABLE clients_to_addresses ADD CONSTRAINT FOREIGN KEY (address_id) REFERENCES addresses(id) ON DELETE CASCADE',
+                                        3 => 'ALTER TABLE clients_to_addresses ADD CONSTRAINT clients_to_addresses_client_id_clients_id FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE',
+                                        4 => 'ALTER TABLE clients_to_addresses ADD CONSTRAINT clients_to_addresses_address_id_addresses_id FOREIGN KEY (address_id) REFERENCES addresses(id) ON DELETE CASCADE',
                                       ));
     }
 }

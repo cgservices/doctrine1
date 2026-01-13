@@ -30,7 +30,7 @@
  * @since       1.1
  * @version     $Revision$
  */
-class Doctrine_Hydrate_Scalar_TestCase extends Doctrine_UnitTestCase
+class Hydrate_ScalarTestCase extends Doctrine_UnitTestCase
 {
     public function prepareData()
     {

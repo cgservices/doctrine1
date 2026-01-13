@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_1703_TestCase extends Doctrine_UnitTestCase 
+703TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
@@ -52,13 +52,14 @@ class Doctrine_Ticket_1703_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_1703_Content extends Doctrine_Record
 {
-  public function setTableDefinition()
+  public function setTableDefinition(): void
   {
     $this->hasColumn('id', 'integer', 4, array('type' => 'integer', 'autoincrement' => true, 'primary' => true, 'length' => '4'));
     $this->hasColumn('content', 'string', null, array('type' => 'string'));
   }
 
-  public function setUp()
+  public function setUp(): void
+
   {
     $this->hasMany('Ticket_1703_Revision as revision', array('local' => 'id',
                                                  'foreign' => 'content_id'));
@@ -67,7 +68,7 @@ class Ticket_1703_Content extends Doctrine_Record
 
 class Ticket_1703_Revision extends Doctrine_Record
 {
-  public function setTableDefinition()
+  public function setTableDefinition(): void
   {
     $this->hasColumn('revision', 'integer', 4, array('type' => 'integer', 'notnull' => true, 'default' => 1, 'length' => '4', 'primary' => true));
     $this->hasColumn('user_name', 'string', 255, array('type' => 'string', 'notnull' => true, 'length' => '255'));
@@ -75,7 +76,8 @@ class Ticket_1703_Revision extends Doctrine_Record
     $this->hasColumn('content_id', 'integer', 4, array('type' => 'integer', 'primary' => true, 'length' => '4'));
   }
 
-  public function setUp()
+  public function setUp(): void
+
   {
     $this->hasOne('Ticket_1703_Content as contentStorage', array('local' => 'content_id',
                                                              'foreign' => 'id',

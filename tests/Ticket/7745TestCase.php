@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_7745_TestCase extends Doctrine_UnitTestCase 
+745TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
@@ -73,13 +73,14 @@ class Doctrine_Ticket_7745_TestCase extends Doctrine_UnitTestCase
 
 class RecordTest1 extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string');
         $this->hasColumn('record_test2_id', 'integer');
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasOne('RecordTest2', array(
             'local' => 'record_test2_id',
@@ -90,12 +91,13 @@ class RecordTest1 extends Doctrine_Record
 
 class RecordTest2 extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string');
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasMany('RecordTest1', array(
             'local' => 'id',

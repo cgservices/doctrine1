@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_1383_TestCase extends Doctrine_UnitTestCase 
+383TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
@@ -61,7 +61,8 @@ class Doctrine_Ticket_1383_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_1383_Image extends Doctrine_Record
 {
-    public function setTableDefinition() {
+    public function setTableDefinition(): void
+    {
         $this->hasColumn('id', 'integer', null, array('primary' => true, 'autoincrement' => true));
         $this->hasColumn('owner_id', 'integer', null, array('notnull' => true));
         $this->hasColumn('owner_type', 'integer', 5, array('notnull' => true));
@@ -79,12 +80,15 @@ class Ticket_1383_Brand_Image extends Ticket_1383_Image
 
 class Ticket_1383_Brand extends Doctrine_Record
 {
-    public function setTableDefinition() {
+    public function setTableDefinition(): void
+    {
         $this->hasColumn('id', 'integer', null, array('primary' => true, 'autoincrement' => true));
         $this->hasColumn('name', 'string', 255, array('notnull' => true));
     }
     
-    public function setUp() {
+    public function setUp(): void
+    
+    {
         $this->hasMany(
             'Ticket_1383_Brand_Image',
             array(

@@ -1,10 +1,12 @@
 <?php
 class NestedSet_Timestampable_MultiRootNode extends Doctrine_Record {
     
-    public function setTableDefinition() {
+    public function setTableDefinition(): void
+    
+    {
         $this->actAs('NestedSet', array('hasManyRoots' => true, 'rootColumnName' => 'root_id'));
         $this->actAs('Timestampable');
         $this->hasColumn('name', 'string', 50, array('notnull'));
-        $this->hasColumn('root_id', 'integer', 4);
+        $this->hasColumn('root_id', 'integer', 8);
     }
 }

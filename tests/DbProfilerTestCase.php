@@ -1,5 +1,5 @@
 <?php
-class Doctrine_Db_Profiler_TestCase extends Doctrine_UnitTestCase {
+class DbProfilerTestCase extends Doctrine_UnitTestCase {
     protected $dbh;
     
     protected $profiler;

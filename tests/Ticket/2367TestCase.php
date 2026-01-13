@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_2367_TestCase extends Doctrine_UnitTestCase 
+367TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
@@ -57,7 +57,7 @@ class Doctrine_Ticket_2367_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_2367_Article extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('id', 'integer', 2, array('type' => 'integer', 'primary' => true,
           'autoincrement' => true, 'unsigned' => true, 'length' => '2'));
@@ -66,7 +66,8 @@ class Ticket_2367_Article extends Doctrine_Record
         $this->option('type', 'MyISAM');
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
       $i18n0 = new Doctrine_Template_I18n(array(
         'appLevelDelete' => true,

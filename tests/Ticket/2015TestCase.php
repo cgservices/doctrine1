@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_2015_TestCase extends Doctrine_UnitTestCase 
+015TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareData()
     {
@@ -66,7 +66,7 @@ class Doctrine_Ticket_2015_TestCase extends Doctrine_UnitTestCase
 
 class mkNode extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->setTableName('mk_node');
         $this->hasColumn('id', 'integer', 4, array('type' => 'integer', 'autoincrement' => true, 'primary' => true, 'length' => 4));

@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_1385_TestCase extends Doctrine_UnitTestCase 
+385TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
@@ -68,7 +68,7 @@ class Doctrine_Ticket_1385_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_1385_User1 extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('username', 'string', 255);
         $this->hasColumn('password', 'string', 255);
@@ -78,7 +78,7 @@ class Ticket_1385_User1 extends Doctrine_Record
 
 class Ticket_1385_User2 extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('username', 'string', 255);
         $this->hasColumn('password', 'string', 255);
@@ -88,7 +88,7 @@ class Ticket_1385_User2 extends Doctrine_Record
 
 class Ticket_1385_User3 extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('username', 'string', 255);
         $this->hasColumn('password', 'string', 255);

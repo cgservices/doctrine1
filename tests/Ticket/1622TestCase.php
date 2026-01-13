@@ -30,7 +30,7 @@
  * @since       1.1
  * @version     $Revision$ 
  */
-class Doctrine_Ticket_1622_TestCase extends Doctrine_UnitTestCase 
+622TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
@@ -72,13 +72,14 @@ class Doctrine_Ticket_1622_TestCase extends Doctrine_UnitTestCase
     
 class Ticket_1622_User extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('id', 'integer', null, array('primary' => true, 'autoincrement' => true));
         $this->hasColumn('name', 'string', 30);
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $this->hasMany('Ticket_1622_User as parents', 
                                                 array('local'    => 'parent_id',
@@ -98,7 +99,7 @@ class Ticket_1622_User extends Doctrine_Record
 
 class Ticket_1622_UserReference extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('parent_id', 'integer', null, array('primary' => true));
         $this->hasColumn('child_id', 'integer', null, array('primary' => true));

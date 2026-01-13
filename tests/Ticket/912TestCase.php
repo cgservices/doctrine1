@@ -29,7 +29,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_912_TestCase extends Doctrine_UnitTestCase {
+12TestCase extends Doctrine_UnitTestCase {
 
   /**
    * prepareData
@@ -102,7 +102,8 @@ class ticket912_Resume extends Doctrine_Record
    * setTableDefinition
    */
 	
-  public function setTableDefinition()
+  public function setTableDefinition(): void
+	
   {
     $this->setTableName('resume');
     $this->hasColumn('id', 'integer', 8, array (
@@ -119,7 +120,8 @@ class ticket912_Resume extends Doctrine_Record
    * setUp
    */
   
-  public function setUp()
+  public function setUp(): void
+  
   {
     $this->hasMany('ticket912_ResumeHasLanguage as KnownLanguages', array('local' => 'id', 'foreign' => 'resume_id'));
     
@@ -141,7 +143,8 @@ class ticket912_Person extends Doctrine_Record
    * setTableDefinition
    */
  
-  public function setTableDefinition()
+  public function setTableDefinition(): void
+ 
   {
     $this->setTableName('person');
     $this->hasColumn('id', 'integer', 8, array (
@@ -165,7 +168,8 @@ class ticket912_ResumeHasLanguage extends Doctrine_Record
    * setTableDefinition
    */
 	
-  public function setTableDefinition()
+  public function setTableDefinition(): void
+	
   {
     $this->setTableName('resume_has_language');
     $this->hasColumn('id', 'integer', 8, array (
@@ -195,7 +199,8 @@ class ticket912_ResumeHasLanguage extends Doctrine_Record
    * setUp
    */  
   
-  public function setUp()
+  public function setUp(): void
+  
   {
     $this->hasOne('ticket912_Resume as Resume', array('local' => 'resume_id',
                                   'foreign' => 'id',
@@ -225,8 +230,9 @@ class ticket912_Language extends Doctrine_Record
    * setTableDefinition
    */  
 	
-	public function setTableDefinition()
-  {
+	public function setTableDefinition(): void
+	
+	{
   	$this->setTableName('language');
     $this->hasColumn('id', 'integer', 2, array(
       'primary' => true,
@@ -241,7 +247,8 @@ class ticket912_Language extends Doctrine_Record
    * setup
    */  
   
-  public function setUp()
+  public function setUp(): void
+  
   {
     $this->hasMany('ticket912_Resume as Resumes', array('local' => 'id', 'foreign' => 'language_id'));
     $this->hasMany('ticket912_ResumeHasLanguage as ResumeKnownLanguages', array('local' => 'id', 'foreign' => 'language_id'));
@@ -258,8 +265,9 @@ class ticket912_LanguageLevel extends Doctrine_Record
    * setTableDefinition
    */  
 	
-	public function setTableDefinition()
-  {
+	public function setTableDefinition(): void
+	
+	{
     $this->setTableName('language_level');
     $this->hasColumn('id', 'integer', 2, array (
 		  'primary' => true,
@@ -274,7 +282,8 @@ class ticket912_LanguageLevel extends Doctrine_Record
    * setUp
    */  
   
-  public function setUp()
+  public function setUp(): void
+  
   {
     $this->hasMany('ticket912_ResumeHasLanguage as ResumeKnownLanguages', array(
       'local'   => 'id',

@@ -30,7 +30,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Ticket_DC317_TestCase extends Doctrine_UnitTestCase 
+class DC317TestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
@@ -57,7 +57,7 @@ class Doctrine_Ticket_DC317_TestCase extends Doctrine_UnitTestCase
 
 class Ticket_DC317_Page extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('topic', 'string', 32, array(
              'type' => 'string',
@@ -75,7 +75,8 @@ class Ticket_DC317_Page extends Doctrine_Record
         $this->option('charset', 'utf8');
     }
 
-    public function setUp()
+    public function setUp(): void
+
     {
         $nestedset0 = new Doctrine_Template_NestedSet(array(
              'hasManyRoots' => true,

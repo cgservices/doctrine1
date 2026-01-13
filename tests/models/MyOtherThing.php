@@ -1,10 +1,12 @@
 <?php
 class MyOtherThing extends Doctrine_Record {
-    public function setTableDefinition() {
+    public function setTableDefinition(): void
+    {
         $this->hasColumn('name', 'string');
-        $this->hasColumn('user_id', 'integer');
+        $this->hasColumn('user_id', 'integer', 8);
     }
-    public function setUp() {
+    public function setUp(): void
+    {
 		$this->hasMany('MyUserOtherThing', array(
             'local' => 'id', 'foreign' => 'other_thing_id'
         ));

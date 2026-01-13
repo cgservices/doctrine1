@@ -30,8 +30,16 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Validator_Past_TestCase extends Doctrine_UnitTestCase
+class Validator_PastTestCase extends Doctrine_UnitTestCase
 {
+    public function setUp(): void
+    {
+        parent::setUp();
+        // Reset validation mode to ensure test isolation
+        $this->manager->setAttribute(Doctrine_Core::ATTR_VALIDATE, Doctrine_Core::VALIDATE_NONE);
+        $this->connection->setAttribute(Doctrine_Core::ATTR_VALIDATE, Doctrine_Core::VALIDATE_NONE);
+    }
+
     public function prepareTables()
     {
         $this->tables[] = 'ValidatorTest_DateModel';
@@ -46,7 +54,8 @@ class Doctrine_Validator_Past_TestCase extends Doctrine_UnitTestCase
     public function testInvalidPastDates()
     {
         $this->manager->setAttribute(Doctrine_Core::ATTR_VALIDATE, Doctrine_Core::VALIDATE_ALL);
-        
+        $this->connection->setAttribute(Doctrine_Core::ATTR_VALIDATE, Doctrine_Core::VALIDATE_ALL);
+
         // one year ahead
         $user1 = new ValidatorTest_DateModel();
         $user1->birthday = date('Y-m-d', time() + 365 * 24 * 60 * 60);
@@ -67,7 +76,8 @@ class Doctrine_Validator_Past_TestCase extends Doctrine_UnitTestCase
     public function testValidPastDates()
     {
         $this->manager->setAttribute(Doctrine_Core::ATTR_VALIDATE, Doctrine_Core::VALIDATE_ALL);
-        
+        $this->connection->setAttribute(Doctrine_Core::ATTR_VALIDATE, Doctrine_Core::VALIDATE_ALL);
+
         $user1 = new ValidatorTest_DateModel();
         $user1->birthday = date('Y-m-d', 42);
         $this->assertTrue($user1->trySave());

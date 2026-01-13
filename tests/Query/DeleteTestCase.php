@@ -31,7 +31,7 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Query_Delete_TestCase extends Doctrine_UnitTestCase 
+class Query_DeleteTestCase extends Doctrine_UnitTestCase 
 {
     public function prepareTables()
     {
@@ -130,7 +130,7 @@ class Doctrine_Query_Delete_TestCase extends Doctrine_UnitTestCase
 
 class DeleteTestModel extends Doctrine_Record
 {
-    public function setTableDefinition()
+    public function setTableDefinition(): void
     {
         $this->hasColumn('name', 'string', 255);
     }

@@ -30,13 +30,20 @@
  * @since       1.0
  * @version     $Revision$
  */
-class Doctrine_Expression_Driver_TestCase extends Doctrine_UnitTestCase {
+class Expression_DriverTestCase extends Doctrine_UnitTestCase {
+
+    protected $expr;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->expr = new Doctrine_Expression_Mock();
+    }
 
     /**
      * AGGREGATE FUNCTIONS
      */
     public function testAvgReturnsValidSql() {
-        $this->expr = new Doctrine_Expression_Mock();
 
         $this->assertEqual($this->expr->avg('id'), 'AVG(id)');
     }
